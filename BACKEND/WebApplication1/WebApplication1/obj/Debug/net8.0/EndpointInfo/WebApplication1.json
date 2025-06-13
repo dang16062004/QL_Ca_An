@@ -5,6 +5,105 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/PhongBan": {
+      "get": {
+        "tags": [
+          "PhongBan"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PhongBan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "PhongBan"
+        ],
+        "parameters": [
+          {
+            "name": "maPhong",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "PhongBan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhongBan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -47,6 +146,20 @@
   },
   "components": {
     "schemas": {
+      "PhongBan": {
+        "type": "object",
+        "properties": {
+          "iD_Phong": {
+            "type": "string",
+            "nullable": true
+          },
+          "tenPhong": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "WeatherForecast": {
         "type": "object",
         "properties": {

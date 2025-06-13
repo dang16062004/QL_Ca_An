@@ -1,5 +1,63 @@
 [
   {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Get",
+    "RelativePath": "api/PhongBan",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Insert",
+    "RelativePath": "api/PhongBan",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "phongBan",
+        "Type": "WebApplication1.Model.PhongBan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Delete",
+    "RelativePath": "api/PhongBan",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maPhong",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Update",
+    "RelativePath": "api/PhongBan",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "phongBan",
+        "Type": "WebApplication1.Model.PhongBan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.WeatherForecastController",
     "Method": "Get",
     "RelativePath": "WeatherForecast",

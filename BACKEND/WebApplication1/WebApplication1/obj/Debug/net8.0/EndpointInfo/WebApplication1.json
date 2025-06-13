@@ -5,7 +5,7 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/PhongBan": {
+    "/PhongBan/GetAll": {
       "get": {
         "tags": [
           "PhongBan"
@@ -15,7 +15,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/PhongBan/Insert": {
       "post": {
         "tags": [
           "PhongBan"
@@ -49,7 +51,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/PhongBan/Delete": {
       "delete": {
         "tags": [
           "PhongBan"
@@ -68,7 +72,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/PhongBan/Update": {
       "put": {
         "tags": [
           "PhongBan"
@@ -104,41 +110,107 @@
         }
       }
     },
-    "/WeatherForecast": {
+    "/TaiKhoan/GetAll": {
       "get": {
         "tags": [
-          "WeatherForecast"
+          "TaiKhoan"
         ],
-        "operationId": "GetWeatherForecast",
         "responses": {
           "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/TaiKhoan/Insert": {
+      "post": {
+        "tags": [
+          "TaiKhoan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/TaiKhoan/Delete": {
+      "delete": {
+        "tags": [
+          "TaiKhoan"
+        ],
+        "parameters": [
+          {
+            "name": "maTaiKhoan",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/TaiKhoan": {
+      "put": {
+        "tags": [
+          "TaiKhoan"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/TaiKhoan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -160,23 +232,14 @@
         },
         "additionalProperties": false
       },
-      "WeatherForecast": {
+      "TaiKhoan": {
         "type": "object",
         "properties": {
-          "date": {
+          "iD_TaiKhoan": {
             "type": "string",
-            "format": "date"
+            "nullable": true
           },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "summary": {
+          "tenDangNhap": {
             "type": "string",
             "nullable": true
           }

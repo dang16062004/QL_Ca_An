@@ -17,8 +17,8 @@ namespace WebApplication1.Controllers
         }
 
 
-
-        [HttpGet]
+		[Route("/PhongBan/GetAll")]
+		[HttpGet]
         public JsonResult Get()
         {
             DataTable dataTable = new DataTable();
@@ -56,7 +56,9 @@ namespace WebApplication1.Controllers
            
 
         }
-        [HttpPost]
+
+		[Route("/PhongBan/Insert")]
+		[HttpPost]
         public JsonResult Insert(PhongBan phongBan)
         {
             //string ssqlConnection = _configuration.GetConnectionString("QLCaAn");
@@ -90,7 +92,9 @@ namespace WebApplication1.Controllers
 
             
         }
-        [HttpDelete]
+
+		[Route("/PhongBan/Delete")]
+		[HttpDelete]
         public JsonResult Delete(string maPhong)
         {
             DataTable dataTable = new DataTable();
@@ -122,7 +126,9 @@ namespace WebApplication1.Controllers
             }
         }
         [HttpPut]
-        public JsonResult Update(PhongBan phongBan)
+
+		[Route("/PhongBan/Update")]
+		public JsonResult Update(PhongBan phongBan)
         {
             DataTable dataTable = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("QLCaAn");

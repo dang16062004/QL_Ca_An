@@ -1,25 +1,15 @@
 [
   {
-    "ContainingType": "WebApplication1.Controllers.PhongBanController",
-    "Method": "Get",
-    "RelativePath": "api/PhongBan",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.PhongBanController",
-    "Method": "Insert",
-    "RelativePath": "api/PhongBan",
-    "HttpMethod": "POST",
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
+    "Method": "Update",
+    "RelativePath": "api/TaiKhoan",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "phongBan",
-        "Type": "WebApplication1.Model.PhongBan",
+        "Name": "taiKhoan",
+        "Type": "WebApplication1.Model.TaiKhoan",
         "IsRequired": true
       }
     ],
@@ -28,7 +18,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Delete",
-    "RelativePath": "api/PhongBan",
+    "RelativePath": "PhongBan/Delete",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -43,8 +33,34 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Get",
+    "RelativePath": "PhongBan/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
+    "Method": "Insert",
+    "RelativePath": "PhongBan/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "phongBan",
+        "Type": "WebApplication1.Model.PhongBan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Update",
-    "RelativePath": "api/PhongBan",
+    "RelativePath": "PhongBan/Update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -58,24 +74,45 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApplication1.Controllers.WeatherForecastController",
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
+    "Method": "Delete",
+    "RelativePath": "TaiKhoan/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "maTaiKhoan",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "RelativePath": "TaiKhoan/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": [
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
+    "Method": "Insert",
+    "RelativePath": "TaiKhoan/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[WebApplication1.WeatherForecast, WebApplication1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
+        "Name": "taiKhoan",
+        "Type": "WebApplication1.Model.TaiKhoan",
+        "IsRequired": true
       }
     ],
-    "EndpointName": "GetWeatherForecast"
+    "ReturnTypes": []
   }
 ]

@@ -179,7 +179,7 @@
         }
       }
     },
-    "/api/TaiKhoan": {
+    "/TaiKhoan/Update": {
       "put": {
         "tags": [
           "TaiKhoan"

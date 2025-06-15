@@ -1,21 +1,5 @@
 [
   {
-    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
-    "Method": "Update",
-    "RelativePath": "api/TaiKhoan",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "taiKhoan",
-        "Type": "WebApplication1.Model.TaiKhoan",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Delete",
     "RelativePath": "PhongBan/Delete",
@@ -104,6 +88,22 @@
     "Method": "Insert",
     "RelativePath": "TaiKhoan/Insert",
     "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taiKhoan",
+        "Type": "WebApplication1.Model.TaiKhoan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
+    "Method": "Update",
+    "RelativePath": "TaiKhoan/Update",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [

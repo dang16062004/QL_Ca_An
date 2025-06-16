@@ -21,4 +21,8 @@ export class SharedService {
   {
     return this.http.post(this.APIUrl+'/PhongBan/Insert',val)
   }
+  themtaiKhoan(val:any)
+  {
+    return this.http.post(this.APIUrl+'/TaiKhoan/Insert',val )
+  }
 }

@@ -11,6 +11,7 @@ import { SharedService } from './shared.service';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 import { DSTaiKhoanComponent } from './tai-khoan/dstai-khoan/dstai-khoan.component';
 import { ThemSuaphongbanComponent } from './phong-ban/them-suaphongban/them-suaphongban.component';
+import { ThemSuaTaikhoanComponent } from './tai-khoan/them-sua-taikhoan/them-sua-taikhoan.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ThemSuaphongbanComponent } from './phong-ban/them-suaphongban/them-suap
     DanhsachphongbanComponent,
     TaiKhoanComponent,
     DSTaiKhoanComponent,
-    ThemSuaphongbanComponent
+    ThemSuaphongbanComponent,
+    ThemSuaTaikhoanComponent
   ],
   imports: [
     BrowserModule,

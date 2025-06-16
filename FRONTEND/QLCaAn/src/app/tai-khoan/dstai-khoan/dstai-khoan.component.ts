@@ -15,14 +15,15 @@ export class DSTaiKhoanComponent {
   ngOnInit():void{
     this.loadDanhsachTaiKhoan();
   };
+
+  // Hàm để nạp danh sách tài khoản
   loadDanhsachTaiKhoan()
   {
     this.service.layDSTaiKhoan().subscribe(data =>
     {
       this.DStaiKhoan =data;
-    }
-    )
-  }
+    });
+  };
 
 
 }

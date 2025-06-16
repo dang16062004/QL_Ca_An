@@ -1,0 +1,34 @@
+<table class="table table-bordered table-striped">
+<thead>
+    <tr>
+        <th>Mã Tài Khoản</th>
+        <th>Tên Đăng Nhập</th>
+        <th>Mật Khẩu</th>
+        <th>Ngày tạo</th>
+        <th>Tùy Chọn</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let TKhoan of DStaiKhoan">
+        <td>
+            {{TKhoan.ID_TaiKhoan}}
+        </td>
+          <td>
+            {{TKhoan.TenDangNhap}}
+        </td>
+          <td>
+            {{TKhoan.MatKhau}}
+        </td>
+          <td>
+            {{TKhoan.NgayTao}} 
+        </td>
+         <button type="button" class="btn btn-primary">Sửa</button>
+        <button type="button" class="btn btn-danger">Xoá</button>
+        
+
+
+    </tr>
+
+</tbody>
+
+</table>

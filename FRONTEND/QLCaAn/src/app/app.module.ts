@@ -8,12 +8,18 @@ import { DanhsachphongbanComponent } from './phong-ban/danhsachphongban/danhsach
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedService } from './shared.service';
+import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
+import { DSTaiKhoanComponent } from './tai-khoan/dstai-khoan/dstai-khoan.component';
+import { ThemSuaphongbanComponent } from './phong-ban/them-suaphongban/them-suaphongban.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PhongBanComponent,
-    DanhsachphongbanComponent
+    DanhsachphongbanComponent,
+    TaiKhoanComponent,
+    DSTaiKhoanComponent,
+    ThemSuaphongbanComponent
   ],
   imports: [
     BrowserModule,

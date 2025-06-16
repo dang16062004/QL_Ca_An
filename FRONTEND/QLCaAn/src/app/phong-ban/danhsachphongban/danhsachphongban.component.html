@@ -1,1 +1,33 @@
-<p>danhsachphongban works!</p>
+<app-them-suaphongban></app-them-suaphongban>
+<table class="table table-striped table-bordered">
+
+    <thead>
+        <tr>
+            <th>Mã Phòng Ban</th>
+            <th>Tên Phòng Ban</th>
+            <th>Tùy chọn</th>
+           
+        </tr>
+    <tbody>
+        <tr *ngFor="let PBan of DSPhongBan ">
+            <td>
+                {{PBan.ID_Phong}}
+            </td>
+            <td>
+                {{PBan.TenPhong}}
+            </td>
+            
+                <button type="button" class="btn btn-primary">
+                    Sửa
+                </button>
+            
+            
+                <button type="button" class="btn btn-danger">
+                    Xóa
+                </button>
+            
+
+        </tr>
+        
+    </tbody>
+</table>

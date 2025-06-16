@@ -11,6 +11,14 @@ export class SharedService {
 
   constructor(private http:HttpClient) { }
   layDSPhongBan():Observable<any[]> {
-    return this.http.get<any[]>(this.APIUrl + '/PhongBan');
+    return this.http.get<any[]>(this.APIUrl + '/PhongBan/GetAll');
+  }
+  layDSTaiKhoan():Observable<any[]>
+  {
+    return this.http.get<any[]>(this.APIUrl+'/TaiKhoan/GetAll')
+  }
+  themPhongBan(val :any)
+  {
+    return this.http.post(this.APIUrl+'/PhongBan/Insert',val)
   }
 }

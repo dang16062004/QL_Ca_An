@@ -25,4 +25,16 @@ export class SharedService {
   {
     return this.http.post(this.APIUrl+'/TaiKhoan/Insert',val )
   }
+  suaPhongBan(val:any)
+  {
+    return this.http.put(this.APIUrl+'/PhongBan/Update',val)
+  }
+  suaTaiKhoan(val:any)
+  {
+  return this.http.put(this.APIUrl+'/TaiKhoan/Update',val)
+  }
+ xoaPhongBan(id: string) {
+  return this.http.delete(this.APIUrl+'/PhongBan/Delete/' + id);
+}
+
 }

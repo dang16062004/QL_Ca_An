@@ -93,12 +93,12 @@ namespace WebApplication1.Controllers
             
         }
 
-		[Route("/PhongBan/Delete")]
+		[Route("/PhongBan/Delete/{maPhong}")]
 		[HttpDelete]
         public JsonResult Delete(string maPhong)
         {
             DataTable dataTable = new DataTable();
-            string query = "Delete from PhongBan where ID_Phong=  " + "'" + maPhong+"'";
+            string query = "Delete from PhongBan where ID_Phong=  @ID_Phong";
             SqlDataReader sqlDataReader;
             string sqlDataSource = _configuration.GetConnectionString("QLCaAn");
 
@@ -110,6 +110,7 @@ namespace WebApplication1.Controllers
                     sqlConnection.Open();
                     using(SqlCommand sqlCommand = new SqlCommand(query,sqlConnection))
                     {
+                        sqlCommand.Parameters.AddWithValue("@ID_Phong", maPhong);
                         sqlDataReader = sqlCommand.ExecuteReader();
                         dataTable.Load(sqlDataReader);
                         sqlDataReader.Close();

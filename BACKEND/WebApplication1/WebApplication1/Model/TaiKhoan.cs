@@ -5,6 +5,6 @@
 		public string ID_TaiKhoan { get; set; }
 		public string TenDangNhap { get; set; }
 		public DateTime NgayTao;
-		public string MatKhau;
+		public string MatKhau { get; set; }
 	}
 }

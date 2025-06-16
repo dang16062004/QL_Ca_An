@@ -1,4 +1,30 @@
-<app-them-sua-taikhoan></app-them-sua-taikhoan>
+
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="moFormThem()">
+  Thêm Tài Khoản
+</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal"data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="dongForm()">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+       <app-them-sua-taikhoan [taiKhoanSelected]="TKHOAN" *ngIf="dangThemSua!=false"></app-them-sua-taikhoan>
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
 <table class="table table-bordered table-striped">
 <thead>
     <tr>
@@ -23,7 +49,7 @@
           <td>
             {{TKhoan.NgayTao}} 
         </td>
-         <button type="button" class="btn btn-primary">Sửa</button>
+         <button type="button" class="btn btn-primary" (click)="chitietTaiKhoan(TKhoan)" data-toggle="modal" data-target="#myModal">Sửa</button>
         <button type="button" class="btn btn-danger">Xoá</button>
         
 

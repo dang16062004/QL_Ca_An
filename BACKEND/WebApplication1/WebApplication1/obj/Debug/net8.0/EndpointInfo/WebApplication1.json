@@ -242,6 +242,10 @@
           "tenDangNhap": {
             "type": "string",
             "nullable": true
+          },
+          "matKhau": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

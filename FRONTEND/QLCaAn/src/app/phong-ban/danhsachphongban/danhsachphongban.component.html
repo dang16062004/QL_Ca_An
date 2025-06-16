@@ -1,4 +1,30 @@
-<app-them-suaphongban></app-them-suaphongban>
+
+<!-- Button to Open the Modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="moFormThem()">
+  Thêm Phòng Ban
+</button>
+
+<!-- The Modal -->
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{tieuDe}}</h4>
+        <button type="button" class="close" data-dismiss="modal"(click)="dongForm()" >&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      <app-them-suaphongban [PBangSelected1]="PBanSelected" *ngIf="dangThemSua==true"></app-them-suaphongban>
+      </div>
+
+     
+
+    </div>
+  </div>
+</div>
 <table class="table table-striped table-bordered">
 
     <thead>
@@ -16,13 +42,13 @@
             <td>
                 {{PBan.TenPhong}}
             </td>
-            
-                <button type="button" class="btn btn-primary">
-                    Sửa
+
+                 <button type="button" class="btn btn-primary" (click)="chitietPhongBan(PBan)"data-toggle="modal" data-target="#myModal">
+                   Sửa    <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
                 </button>
             
             
-                <button type="button" class="btn btn-danger">
+                <button type="button" class="btn btn-danger" (click)="xoaPhongBancu(PBan.ID_Phong)">
                     Xóa
                 </button>
             

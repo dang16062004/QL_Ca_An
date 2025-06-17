@@ -38,4 +38,17 @@ export class SharedService {
       `${this.APIUrl}/TaiKhoan/Delete/${id}`
     );
   }
+  layDSNhanVien(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/NhanVien/GetAll');
+  }
+  themNhanVien(val: any) {
+    return this.http.post(this.APIUrl + '/NhanVien/Insert', val);
+  }
+
+  suaNhanVien(val: any) {
+    return this.http.put(this.APIUrl + '/NhanVien/Update', val);
+  }
+  xoaNhanVien(id: any): Observable<any> {
+    return this.http.delete(this.APIUrl + '/NhanVien/Delete/' + id);
+  }
 }

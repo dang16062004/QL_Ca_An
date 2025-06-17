@@ -1,5 +1,63 @@
 [
   {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "Delete",
+    "RelativePath": "api/NhanVien/Delete/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "GetAll",
+    "RelativePath": "api/NhanVien/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "Insert",
+    "RelativePath": "api/NhanVien/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nhanVien",
+        "Type": "WebApplication1.Model.NhanVien",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "Update",
+    "RelativePath": "api/NhanVien/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nhanVien",
+        "Type": "WebApplication1.Model.NhanVien",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Delete",
     "RelativePath": "api/PhongBan/Delete/{maPhong}",

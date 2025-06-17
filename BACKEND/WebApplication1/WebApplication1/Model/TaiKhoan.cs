@@ -6,5 +6,6 @@
 		public string TenDangNhap { get; set; }
 		public DateTime NgayTao;
 		public string MatKhau { get; set; }
+		public virtual NhanVien NhanVien { get; set; }
 	}
 }

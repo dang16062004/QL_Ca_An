@@ -1,0 +1,107 @@
+<!-- Button to Open the Modal -->
+<br />
+<br />
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#myModal"
+  (click)="moFormThem()"
+>
+  Thêm Nhân Viên
+</button>
+
+<br />
+<br />
+<!-- The Modal -->
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">{{ tieuDe }}</h4>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          (click)="dongForm()"
+        >
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <app-them-sua-nhan-vien
+          *ngIf="dangThemSua"
+          [NVienSelected]="NVienSelected"
+          [isEdit]="isEdit"
+        ></app-them-sua-nhan-vien>
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-hover table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>STT</th>
+      <th>Mã Nhân Viên</th>
+      <th>Tên Nhân Viên</th>
+      <th>Năm sinh</th>
+      <th>Quyền Đăng Kí</th>
+      <th>Phân Quyền</th>
+      <th>Tên tài khoản</th>
+      <th>Phòng Ban</th>
+      <th>Tùy chọn</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let NhanVien of DSNhanVien; let i = index">
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        {{ NhanVien.ID_NhanVien }}
+      </td>
+      <td>
+        {{ NhanVien.HoVaTen }}
+      </td>
+      <td>
+        {{ NhanVien.Namsinh }}
+      </td>
+      <td>
+        {{ NhanVien.QDK }}
+      </td>
+      <td>
+        {{ NhanVien.PhanQuyen }}
+      </td>
+      <td>
+        {{ NhanVien.TenDangNhap }}
+      </td>
+      <td>
+        {{ NhanVien.TenPhong }}
+      </td>
+      <td class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          data-toggle="modal"
+          data-target="#myModal"
+          (click)="moFormSua(NhanVien)"
+        >
+          Sửa
+          <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="xoaNhanVien(NhanVien.ID_NhanVien)"
+        >
+          Xóa
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

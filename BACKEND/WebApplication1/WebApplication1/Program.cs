@@ -50,9 +50,15 @@ app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
+	app.UseDeveloperExceptionPage(); // ✅ Thêm dòng này để hiển thị lỗi chi tiết
+	app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseRouting();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
 
 app.UseHttpsRedirection();
 

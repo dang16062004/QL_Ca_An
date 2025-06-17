@@ -1,0 +1,57 @@
+<div>
+  <label class="col-ms-3">Mã Nhân Viên</label>
+  <input class="form-control col-ms-9" [(ngModel)]="nhanVien.ID_NhanVien" />
+  <small class="text-muted">Không sửa Mã Nhân Viên</small>
+</div>
+<div>
+  <label class="col-ms-3">Tên Nhân Viên</label>
+  <input class="form-control col-ms-9" [(ngModel)]="nhanVien.HoVaTen" />
+</div>
+<div>
+  <label class="col-ms-3"> Năm sinh </label>
+  <input
+    class="form-control col-ms-9"
+    type="date"
+    [(ngModel)]="nhanVien.Namsinh"
+  />
+</div>
+<div>
+  <label class="col-ms-3"> Phân Quyền </label>
+  <select class="form-control col-ms-9" [(ngModel)]="nhanVien.PhanQuyen">
+    <option value="ADMIN">Quản Lý</option>
+    <option value="USER">Nhân Viên</option>
+  </select>
+</div>
+<div>
+  <label class="col-ms-3"> Quyền đăng ký </label>
+  <select class="form-control col-ms-9" [(ngModel)]="nhanVien.QDK">
+    <option value="TAPTHE">Tập Thể</option>
+    <option value="CANHAN">Cá Nhân</option>
+  </select>
+</div>
+<div>
+  <label class="col-ms-3"> Tên tài khoản </label>
+  <select class="form-control" [(ngModel)]="nhanVien.TenDangNhap">
+    <option *ngFor="let tk of taiKhoanChuaGan" [value]="tk.TenDangNhap">
+      {{ tk.TenDangNhap }}
+    </option>
+  </select>
+</div>
+<div>
+  <label class="col-ms-3"> Phòng Ban </label>
+  <select class="form-control col-ms-9" [(ngModel)]="nhanVien.ID_Phong">
+    <option *ngFor="let phong of DSPhongBan" [value]="phong.ID_Phong">
+      {{ phong.TenPhong }}
+    </option>
+  </select>
+  <br />
+  <br />
+  <button *ngIf="!isEdit" class="btn btn-primary" (click)="themNhanVienmoi()">
+    Thêm Nhân Viên
+  </button>
+  <br />
+  <br />
+  <button *ngIf="isEdit" class="btn btn-primary" (click)="suaNhanVienmoi()">
+    Sửa Nhân Viên
+  </button>
+</div>

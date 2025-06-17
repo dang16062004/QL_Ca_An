@@ -2,7 +2,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Delete",
-    "RelativePath": "PhongBan/Delete",
+    "RelativePath": "api/PhongBan/Delete/{maPhong}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -10,7 +10,7 @@
       {
         "Name": "maPhong",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -18,7 +18,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Get",
-    "RelativePath": "PhongBan/GetAll",
+    "RelativePath": "api/PhongBan/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -28,7 +28,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Insert",
-    "RelativePath": "PhongBan/Insert",
+    "RelativePath": "api/PhongBan/Insert",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -44,7 +44,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.PhongBanController",
     "Method": "Update",
-    "RelativePath": "PhongBan/Update",
+    "RelativePath": "api/PhongBan/Update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -60,7 +60,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Delete",
-    "RelativePath": "TaiKhoan/Delete",
+    "RelativePath": "api/TaiKhoan/Delete/{maTaiKhoan}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -68,7 +68,7 @@
       {
         "Name": "maTaiKhoan",
         "Type": "System.String",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -76,7 +76,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Get",
-    "RelativePath": "TaiKhoan/GetAll",
+    "RelativePath": "api/TaiKhoan/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -86,7 +86,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Insert",
-    "RelativePath": "TaiKhoan/Insert",
+    "RelativePath": "api/TaiKhoan/Insert",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -102,7 +102,7 @@
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Update",
-    "RelativePath": "TaiKhoan/Update",
+    "RelativePath": "api/TaiKhoan/Update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,

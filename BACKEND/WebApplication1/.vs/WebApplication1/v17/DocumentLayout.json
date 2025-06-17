@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
@@ -47,21 +47,7 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-13T08:52:19.608Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TaiKhoanController.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAG8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T08:54:49.731Z",
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -83,9 +69,22 @@
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\PhongBanController.cs",
               "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\PhongBanController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\PhongBanController.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAYwB0AAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAAAIoAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-13T06:52:23.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaiKhoanController.cs",
+              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\TaiKhoanController.cs",
+              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\TaiKhoanController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGoAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-13T08:54:49.731Z",
               "EditorCaption": ""
             },
             {
@@ -96,7 +95,7 @@
               "RelativeDocumentMoniker": "WebApplication1\\Model\\PhongBan.cs",
               "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\PhongBan.cs",
               "RelativeToolTip": "WebApplication1\\Model\\PhongBan.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-13T06:48:58.338Z",
               "EditorCaption": ""

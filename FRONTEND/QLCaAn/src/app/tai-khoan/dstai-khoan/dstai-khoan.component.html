@@ -1,61 +1,93 @@
-
+<br />
+<br />
 <!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" (click)="moFormThem()">
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#myModal"
+  (click)="moFormThem()"
+>
   Thêm Tài Khoản
 </button>
 
+<br />
+<br />
 <!-- The Modal -->
-<div class="modal" id="myModal"data-backdrop="static" data-keyboard="false">
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
-
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="close" data-dismiss="modal" (click)="dongForm()">&times;</button>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          (click)="dongForm()"
+        >
+          &times;
+        </button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-       <app-them-sua-taikhoan [taiKhoanSelected]="TKHOAN" *ngIf="dangThemSua!=false"></app-them-sua-taikhoan>
+        <app-them-sua-taikhoan
+          [taiKhoanSelected]="TKHOAN"
+          *ngIf="dangThemSua != false"
+          [checked2]="checked2"
+        ></app-them-sua-taikhoan>
       </div>
-
-      
-
     </div>
   </div>
 </div>
-<table class="table table-bordered table-striped">
-<thead>
+<table class="table table-bordered table-hover">
+  <thead class="thead-light">
     <tr>
-        <th>Mã Tài Khoản</th>
-        <th>Tên Đăng Nhập</th>
-        <th>Mật Khẩu</th>
-        <th>Ngày tạo</th>
-        <th>Tùy Chọn</th>
+      <th>STT</th>
+      <th>Mã Tài Khoản</th>
+      <th>Tên Đăng Nhập</th>
+      <th>Mật Khẩu</th>
+      <th>Ngày tạo</th>
+      <th>Tùy Chọn</th>
     </tr>
-</thead>
-<tbody>
-    <tr *ngFor="let TKhoan of DStaiKhoan">
-        <td>
-            {{TKhoan.ID_TaiKhoan}}
-        </td>
-          <td>
-            {{TKhoan.TenDangNhap}}
-        </td>
-          <td>
-            {{TKhoan.MatKhau}}
-        </td>
-          <td>
-            {{TKhoan.NgayTao}} 
-        </td>
-         <button type="button" class="btn btn-primary" (click)="chitietTaiKhoan(TKhoan)" data-toggle="modal" data-target="#myModal">Sửa</button>
-        <button type="button" class="btn btn-danger">Xoá</button>
-        
+  </thead>
+  <tbody>
+    <tr *ngFor="let TKhoan of DStaiKhoan; let i = index">
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        {{ TKhoan.ID_TaiKhoan }}
+      </td>
+      <td>
+        {{ TKhoan.TenDangNhap }}
+      </td>
+      <td>
+        {{ TKhoan.MatKhau }}
+      </td>
+      <td>
+        {{ TKhoan.NgayTao }}
+      </td>
+      <td class="btn d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          (click)="chitietTaiKhoan(TKhoan)"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
+          Sửa
+        </button>
 
-
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="xoaTaiKhoan(TKhoan.ID_TaiKhoan)"
+        >
+          Xoá
+        </button>
+      </td>
     </tr>
-
-</tbody>
-
+  </tbody>
 </table>

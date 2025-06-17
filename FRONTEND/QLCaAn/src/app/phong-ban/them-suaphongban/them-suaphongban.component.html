@@ -7,6 +7,6 @@
     <label class="col-ms-3">Tên Phòng Ban</label>
     <input class="form-control col-ms-9" [(ngModel)]="TenPhong"/>
 </div>
-<button class="btn btn-primary" (click)="themPhongBanmoi()" *ngIf="ID_Phong===''">Thêm Phòng Ban</button>
-<button class="btn btn-primary" (click)="suaPhongBancu()" *ngIf="ID_Phong!==''">Sửa Phòng Ban</button>
-
+<button class="btn btn-primary" (click)="themPhongBanmoi()" *ngIf="checked==false">Thêm Phòng Ban</button>
+<button class="btn btn-primary" (click)="suaPhongBancu()" *ngIf="checked==true">Sửa Phòng Ban</button>
+    

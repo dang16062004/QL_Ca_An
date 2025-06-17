@@ -13,6 +13,7 @@ export class ThemSuaTaikhoanComponent {
    ID_TaiKhoan: any;
   TenDangNhap: any;
   MatKhau: any;
+  @Input() checked2:any// nhaanj dwx lieeuj twf dstaikhoan.ts
   constructor(private service: SharedService) { }
   ngOnInit(): void {
     this.TenDangNhap = this.taiKhoanSelected.TenDangNhap;
@@ -31,6 +32,7 @@ export class ThemSuaTaikhoanComponent {
       MatKhau: this.MatKhau   ,
       NgayTao: new Date() // Ngày tạo được tạo tự động
     };
+
     this.service.themtaiKhoan(val).subscribe(res => {
       alert(res.toString());
     });

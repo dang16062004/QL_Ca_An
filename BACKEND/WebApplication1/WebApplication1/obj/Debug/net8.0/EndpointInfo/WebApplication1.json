@@ -5,6 +5,112 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/DonDK/GetAll": {
+      "get": {
+        "tags": [
+          "DonDK"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/Insert": {
+      "post": {
+        "tags": [
+          "DonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/Upadte": {
+      "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonDK"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/Delete{id}": {
+      "delete": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/NhanVien/GetAll": {
       "get": {
         "tags": [
@@ -362,6 +468,70 @@
   },
   "components": {
     "schemas": {
+      "ChiTietDonDK": {
+        "type": "object",
+        "properties": {
+          "iD_ChiTietDonDK": {
+            "type": "string",
+            "nullable": true
+          },
+          "soLuong": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "iD_NhanVien": {
+            "type": "string",
+            "nullable": true
+          },
+          "trangThai": {
+            "type": "string",
+            "nullable": true
+          },
+          "iD_DonDK": {
+            "type": "string",
+            "nullable": true
+          },
+          "nhanVien": {
+            "$ref": "#/components/schemas/NhanVien"
+          },
+          "donDK": {
+            "$ref": "#/components/schemas/DonDK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DonDK": {
+        "type": "object",
+        "properties": {
+          "iD_DonDK": {
+            "type": "string",
+            "nullable": true
+          },
+          "loaiDK": {
+            "type": "string",
+            "nullable": true
+          },
+          "iD_NhanVien": {
+            "type": "string",
+            "nullable": true
+          },
+          "caAn": {
+            "type": "string",
+            "nullable": true
+          },
+          "nhanVien": {
+            "$ref": "#/components/schemas/NhanVien"
+          },
+          "chiTietDonDKs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChiTietDonDK"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "NhanVien": {
         "required": [
           "iD_NhanVien",

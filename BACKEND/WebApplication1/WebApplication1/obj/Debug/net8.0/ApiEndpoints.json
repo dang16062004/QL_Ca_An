@@ -1,5 +1,63 @@
 [
   {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "Delete",
+    "RelativePath": "api/DonDK/Delete{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "Get",
+    "RelativePath": "api/DonDK/GetAll",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "Insert",
+    "RelativePath": "api/DonDK/Insert",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "donDK",
+        "Type": "WebApplication1.Model.DonDK",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "Update",
+    "RelativePath": "api/DonDK/Upadte",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "donDK",
+        "Type": "WebApplication1.Model.DonDK",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApplication1.Controllers.NhanVienController",
     "Method": "Delete",
     "RelativePath": "api/NhanVien/Delete/{id}",

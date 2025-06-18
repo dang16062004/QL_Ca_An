@@ -22,6 +22,9 @@ export class SharedService {
   themtaiKhoan(val: any) {
     return this.http.post(this.APIUrl + '/TaiKhoan/Insert', val);
   }
+  dangNhap(val: any): Observable<any[]> {
+    return this.http.post<any>(this.APIUrl + '/TaiKhoan/Login', val);
+  }
   suaPhongBan(val: any) {
     return this.http.put(this.APIUrl + '/PhongBan/Update', val);
   }

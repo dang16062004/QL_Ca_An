@@ -1,0 +1,48 @@
+<!-- Wrapper dùng để căn giữa -->
+<div class="center-wrapper">
+  <div id="formContent">
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="40"
+        height="40"
+        fill="currentColor"
+        class="bi bi-amd"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="m.334 0 4.358 4.359h7.15v7.15l4.358 4.358V0zM.2 9.72l4.487-4.488v6.281h6.28L6.48 16H.2z"
+        />
+      </svg>
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="anFormDangNhap == false">
+      <input
+        type="text"
+        id="login"
+        class="fadeIn second"
+        name="login"
+        placeholder="Tên đăng nhập"
+        [(ngModel)]="tendangNhap"
+      />
+      <input
+        type="password"
+        id="password"
+        class="fadeIn third"
+        name="password"
+        placeholder="Mật khẩu"
+        [(ngModel)]="matKhau"
+      />
+      <input
+        type="submit"
+        class="fadeIn fourth"
+        value="Đăng nhập"
+        (click)="dangNhapTaiKhoan()"
+      />
+    </form>
+
+    <!-- Remind Password -->
+  </div>
+</div>

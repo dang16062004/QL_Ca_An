@@ -48,6 +48,41 @@ namespace WebApplication1.Controllers
 				return new JsonResult("NotFound");
 			}
 		}
+		[Route("Login")]
+		[HttpPost]
+		public JsonResult DangNhap(TaiKhoan taiKhoan)
+		{
+			DataTable dataTable = new DataTable();
+			string sqlDataSource = _configuration.GetConnectionString("QLCaAn");
+			string query = "select count(*) from TaiKhoan where TenDangNhap=@TenDangNhap and MatKhau=@MatKhau   ";
+
+			SqlDataReader sqlDataReader;
+			try
+			{
+				using (SqlConnection sqlConnection = new SqlConnection(sqlDataSource))
+				{
+					sqlConnection.Open();
+					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+					{
+						
+						sqlCommand.Parameters.AddWithValue("@TenDangNhap", taiKhoan.TenDangNhap);
+						sqlCommand.Parameters.AddWithValue("@MatKhau", taiKhoan.MatKhau);
+						//sqlCommand.Parameters.AddWithValue("@NgayTao", taiKhoan.NgayTao);
+						sqlDataReader = sqlCommand.ExecuteReader();
+						dataTable.Load(sqlDataReader);
+						sqlDataReader.Close();
+						sqlConnection.Close();
+
+					}
+				}
+
+				return new JsonResult(dataTable);
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult("Lỗi đăng nhập");
+			}
+		}
 		[Route("Insert")]
 		[HttpPost]
 		public JsonResult Insert(TaiKhoan taiKhoan)

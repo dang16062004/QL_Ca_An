@@ -159,6 +159,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
+    "Method": "DangNhap",
+    "RelativePath": "api/TaiKhoan/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "taiKhoan",
+        "Type": "WebApplication1.Model.TaiKhoan",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
     "Method": "Update",
     "RelativePath": "api/TaiKhoan/Update",
     "HttpMethod": "PUT",

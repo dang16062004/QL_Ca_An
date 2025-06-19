@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Input } from '@angular/core';
 
 @Component({
-  selector: 'app-baocaotheoca',
+  selector: 'app-baocaotheothang',
   standalone: false,
-  templateUrl: './baocaotheoca.component.html',
-  styleUrl: './baocaotheoca.component.css',
+  templateUrl: './baocaotheothang.component.html',
+  styleUrl: './baocaotheothang.component.css',
 })
-export class BaocaotheocaComponent {
+export class BaocaotheothangComponent {
   ngayChon: string = '';
-  caChon: number | null = null;
 
   dsTheoPhong: { [key: string]: any[] } = {};
   objectKeys = Object.keys;
@@ -21,12 +18,11 @@ export class BaocaotheocaComponent {
   ngOnInit() {}
 
   timBaoCao() {
-    if (!this.ngayChon || !this.caChon) {
+    if (!this.ngayChon) {
       alert('Vui lòng chọn đầy đủ ngày và ca ăn!');
       return;
     }
-
-    this.sharedService.layBCTheoCa(this.ngayChon, this.caChon).subscribe(
+    this.sharedService.layBCTheoThang(this.ngayChon).subscribe(
       (data) => {
         this.groupTheoPhong(data);
       },
@@ -48,16 +44,28 @@ export class BaocaotheocaComponent {
   }
 
   getTongSoLuong(items: any[]): number {
-    return items.reduce((sum, x) => sum + x.SoLuong, 0);
+    return items.reduce((sum, x) => sum + x.TongSoLuong, 0);
   }
 
   getTongThanhTien(items: any[]): number {
     return items.reduce((sum, x) => sum + x.ThanhTien, 0);
   }
+  getTongTheoPhong(phong: string, ca: 'Ca1' | 'Ca2' | 'Ca3'): number {
+    return this.dsTheoPhong[phong].reduce(
+      (sum, item) => sum + (item[ca] || 0),
+      0
+    );
+  }
+
+  // Object.values(this.dsTheoPhong): lấy tất cả các mảng nhân viên trong các phòng.
+
+  // .flat(): gộp tất cả thành 1 mảng duy nhất.
+
+  // .reduce(...): cộng dồn theo từng giá trị Ca1, Ca2, Ca3.
 
   getTongSoLuongTatCa(): number {
     return Object.values(this.dsTheoPhong)
       .flat()
-      .reduce((sum, item: any) => sum + item.SoLuong, 0);
+      .reduce((sum, item: any) => sum + item.TongSoLuong, 0);
   }
 }

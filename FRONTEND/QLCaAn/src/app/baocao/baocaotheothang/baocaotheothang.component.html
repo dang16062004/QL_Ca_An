@@ -1,0 +1,84 @@
+<h2 class="text-center font-weight-bold mb-4">
+  <h1>Thống kê theo tháng</h1>
+
+  <!-- Form chọn ngày & ca ăn -->
+  <div class="form-inline justify-content-center mb-4">
+    <div class="form-group mr-3">
+      <h3>
+        <label class="mr-2">Nhập tháng cần báo cáo </label>
+      </h3>
+      <input
+        type="date"
+        class="form-control"
+        [(ngModel)]="ngayChon"
+        name="ngayChon"
+      />
+    </div>
+
+    <button class="btn btn-success" (click)="timBaoCao()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-search"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+        />
+      </svg>
+      Tìm kiếm
+    </button>
+  </div>
+
+  <!-- Tổng toàn bộ -->
+  <h2>
+    <p><strong>Tổng số suất: </strong> {{ getTongSoLuongTatCa() }}</p>
+  </h2>
+
+  <!-- Duyệt từng phòng ban -->
+  <div *ngFor="let phong of objectKeys(dsTheoPhong)">
+    <h3>
+      <strong>Phòng: {{ phong }}</strong>
+    </h3>
+
+    <h5>
+      <table class="table table-bordered text-center">
+        <thead class="thead-light">
+          <tr>
+            <th>STT</th>
+            <th>Họ tên người đăng ký</th>
+            <th>Ca 1</th>
+            <th>Ca 2</th>
+            <th>Ca 3</th>
+            <th>Tổng</th>
+            <th>Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dsTheoPhong[phong]; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.HoVaTen }}</td>
+            <td>{{ item.Ca1 }}</td>
+            <td>{{ item.Ca2 }}</td>
+            <td>{{ item.Ca3 }}</td>
+            <td>{{ item.TongSoLuong }}</td>
+            <td>{{ item.ThanhTien | number : "1.0-0" }}</td>
+          </tr>
+          <!-- Tổng của phòng -->
+          <tr class="font-weight-bold">
+            <td colspan="2">Tổng</td>
+            <td>{{ getTongTheoPhong(phong, "Ca1") }}</td>
+            <td>{{ getTongTheoPhong(phong, "Ca2") }}</td>
+            <td>{{ getTongTheoPhong(phong, "Ca3") }}</td>
+            <td>{{ getTongSoLuong(dsTheoPhong[phong]) }}</td>
+            <td>
+              {{ getTongThanhTien(dsTheoPhong[phong]) | number : "1.0-0" }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </h5>
+  </div>
+</h2>

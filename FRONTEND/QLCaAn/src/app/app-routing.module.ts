@@ -8,6 +8,7 @@ import { DangKiCaAnComponent } from './dang-ki-ca-an/dang-ki-ca-an.component';
 import { BaocaoComponent } from './baocao/baocao.component';
 import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.component';
+import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 const routes: Routes = [
   { path: '', component: DangnhapComponent },
   { path: 'phongban', component: PhongBanComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'baocao', component: BaocaoComponent },
   { path: 'baocao/theocanhan', component: TheocanhanComponent },
   { path: 'baocao/theoca', component: BaocaotheocaComponent },
+  { path: 'baocao/theothang', component: BaocaotheothangComponent },
 ];
 
 @NgModule({

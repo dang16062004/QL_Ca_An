@@ -32,6 +32,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.ChiTietDonDKController",
+    "Method": "GetbyMonth",
+    "RelativePath": "api/ChiTietDonDK/GetbyMonth",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.ChiTietDonDKController",
     "Method": "GetbyName",
     "RelativePath": "api/ChiTietDonDK/GetbyName",
     "HttpMethod": "GET",
@@ -44,7 +60,7 @@
         "IsRequired": false
       },
       {
-        "Name": "phongban",
+        "Name": "maphongban",
         "Type": "System.String",
         "IsRequired": false
       }

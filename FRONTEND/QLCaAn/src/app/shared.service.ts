@@ -80,4 +80,9 @@ export class SharedService {
       this.APIUrl + '/ChiTietDonDK/GetbyCaAn?date=' + ngay + '&caAn=' + caAn
     );
   }
+  layBCTheoThang(ngay: any) {
+    return this.http.get<any[]>(
+      this.APIUrl + '/ChiTietDonDK/GetbyMonth?date=' + ngay
+    );
+  }
 }

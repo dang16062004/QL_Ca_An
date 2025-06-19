@@ -125,7 +125,7 @@
             }
           },
           {
-            "name": "phongban",
+            "name": "maphongban",
             "in": "query",
             "schema": {
               "type": "string"
@@ -159,6 +159,28 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/GetbyMonth": {
+      "get": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
             }
           }
         ],

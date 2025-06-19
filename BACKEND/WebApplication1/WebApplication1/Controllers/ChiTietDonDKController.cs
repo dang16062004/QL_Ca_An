@@ -278,7 +278,61 @@ namespace WebApplication1.Controllers
 				return new JsonResult("Lỗi: " + ex.Message);
 			}
 		}
+		[Route("GetbyMonth")]
+		[HttpGet]
+		public JsonResult GetbyMonth(DateTime date)
+		{
+			if (date == default)
+				return new JsonResult("Ngày không hợp lệ!");
 
+			try
+			{
+				DataTable dataTable = new DataTable();
+				string dataSource = _configuration.GetConnectionString("QLCaAn");
+
+				string query = @"
+			
+				SELECT 
+				nv.HoVaTen,
+				dk.ID_NhanVien,
+				pb.TenPhong,
+				SUM(CASE WHEN dk.CaAn = '1' THEN ct.SoLuong ELSE 0 END) AS Ca1,
+				SUM(CASE WHEN dk.CaAn = '2' THEN ct.SoLuong ELSE 0 END) AS Ca2,
+				SUM(CASE WHEN dk.CaAn = '3' THEN ct.SoLuong ELSE 0 END) AS Ca3,
+				SUM(ct.SoLuong) AS TongSoLuong,
+				SUM(ct.SoLuong) * 15000 AS ThanhTien
+				FROM ChiTietDonDK ct
+				JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
+				JOIN NhanVien nv ON nv.ID_NhanVien = dk.ID_NhanVien
+				join PhongBan pb on pb.ID_Phong=nv.ID_Phong
+				WHERE MONTH(dk.NgayDK) = MONTH(@NgayDK)
+				 AND YEAR(dk.NgayDK) = YEAR(@NgayDK)
+
+				GROUP BY nv.HoVaTen, dk.ID_NhanVien,pb.TenPhong;";
+
+				using (SqlConnection sqlConnection = new SqlConnection(dataSource))
+				{
+					sqlConnection.Open();
+					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
+					{
+						sqlCommand.Parameters.AddWithValue("@NgayDK", date);
+						
+
+						using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+						{
+							dataTable.Load(sqlDataReader);
+						}
+					}
+					sqlConnection.Close();
+				}
+
+				return new JsonResult(dataTable);
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult("Lỗi: " + ex.Message);
+			}
+		}
 
 	}
 }

@@ -21,6 +21,7 @@ import { DSDKComponent } from './dang-ki-ca-an/dsdk/dsdk.component';
 import { BaocaoComponent } from './baocao/baocao.component';
 import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.component';
+import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.compon
     DSDKComponent,
     BaocaoComponent,
     TheocanhanComponent,
-    BaocaotheocaComponent
+    BaocaotheocaComponent,
+    BaocaotheothangComponent
   ],
   imports: [
     BrowserModule,

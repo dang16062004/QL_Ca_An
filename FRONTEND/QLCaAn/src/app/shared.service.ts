@@ -51,7 +51,28 @@ export class SharedService {
   suaNhanVien(val: any) {
     return this.http.put(this.APIUrl + '/NhanVien/Update', val);
   }
-  xoaNhanVien(id: any): Observable<any> {
-    return this.http.delete(this.APIUrl + '/NhanVien/Delete/' + id);
+
+  xoaNhanVien(id: string): Observable<{ success: boolean; message: string }> {
+    return this.http.delete<{ success: boolean; message: string }>(
+      `${this.APIUrl}/NhanVien/Delete/${id}`
+    );
+  }
+  // xoaNhanVien(id: any): Observable<any> {
+  //   return this.http.delete(this.APIUrl + '/NhanVien/Delete/' + id);
+  // }
+  layDSDK(): Observable<any[]> {
+    return this.http.get<any[]>(this.APIUrl + '/DonDK/GetAll');
+  }
+  xoaDonDK(id: any): Observable<any> {
+    return this.http.delete(this.APIUrl + '/DonDK/Delete/' + id);
+  }
+  layBCcanhan(name: string, phongban: string) {
+    return this.http.get<any[]>(
+      this.APIUrl +
+        '/ChiTietDonDK/GetbyName?name=' +
+        name +
+        '&phongban=' +
+        phongban
+    );
   }
 }

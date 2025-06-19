@@ -4,11 +4,15 @@ import { PhongBanComponent } from './phong-ban/phong-ban.component';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 import { NhanVienComponent } from './nhan-vien/nhan-vien.component';
 import { DangnhapComponent } from './tai-khoan/dangnhap/dangnhap.component';
+import { DangKiCaAnComponent } from './dang-ki-ca-an/dang-ki-ca-an.component';
+import { BaocaoComponent } from './baocao/baocao.component';
 const routes: Routes = [
   { path: '', component: DangnhapComponent },
   { path: 'phongban', component: PhongBanComponent },
   { path: 'taikhoan', component: TaiKhoanComponent },
   { path: 'nhanvien', component: NhanVienComponent },
+  { path: 'dondangki', component: DangKiCaAnComponent },
+  { path: 'baocao', component: BaocaoComponent },
 ];
 
 @NgModule({

@@ -16,6 +16,10 @@ import { NhanVienComponent } from './nhan-vien/nhan-vien.component';
 import { DSNhanVienComponent } from './nhan-vien/dsnhan-vien/dsnhan-vien.component';
 import { ThemSuaNhanVienComponent } from './nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component';
 import { DangnhapComponent } from './tai-khoan/dangnhap/dangnhap.component';
+import { DangKiCaAnComponent } from './dang-ki-ca-an/dang-ki-ca-an.component';
+import { DSDKComponent } from './dang-ki-ca-an/dsdk/dsdk.component';
+import { BaocaoComponent } from './baocao/baocao.component';
+import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { DangnhapComponent } from './tai-khoan/dangnhap/dangnhap.component';
     NhanVienComponent,
     DSNhanVienComponent,
     ThemSuaNhanVienComponent,
-    DangnhapComponent
+    DangnhapComponent,
+    DangKiCaAnComponent,
+    DSDKComponent,
+    BaocaoComponent,
+    TheocanhanComponent
   ],
   imports: [
     BrowserModule,

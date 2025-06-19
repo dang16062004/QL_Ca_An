@@ -1,0 +1,48 @@
+<h2 class="text-center">Thống kê cá nhân</h2>
+
+<div class="form-inline justify-content-center mb-4">
+  <label class="mr-2">Họ và tên:</label>
+  <input
+    [(ngModel)]="id"
+    class="form-control mr-3"
+    placeholder="Nhập tên nhân viên"
+  />
+
+  <label class="mr-2">Phòng:</label>
+  <input
+    [(ngModel)]="phongban"
+    class="form-control mr-3"
+    placeholder="Nhập phòng ban"
+  />
+
+  <button class="btn btn-success" (click)="loadBCCN()">Tìm kiếm</button>
+</div>
+
+<table class="table table-bordered table-hover text-center">
+  <thead class="thead-light">
+    <tr>
+      <th>STT</th>
+      <th>Ngày</th>
+      <th>Ca 1</th>
+      <th>Ca 2</th>
+      <th>Ca 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ds of dsdkList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ ds.Ngay | date : "dd/MM/yyyy" }}</td>
+      <td>{{ ds.Ca1 }}</td>
+      <td>{{ ds.Ca2 }}</td>
+      <td>{{ ds.Ca3 }}</td>
+    </tr>
+
+    <!-- Dòng tổng -->
+    <tr *ngIf="dsdkList.length > 0" class="font-weight-bold">
+      <td colspan="2">Tổng</td>
+      <td>{{ getTong("Ca1") }}</td>
+      <td>{{ getTong("Ca2") }}</td>
+      <td>{{ getTong("Ca3") }}</td>
+    </tr>
+  </tbody>
+</table>

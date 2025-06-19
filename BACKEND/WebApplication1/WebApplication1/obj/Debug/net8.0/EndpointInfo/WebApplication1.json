@@ -5,6 +5,170 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/ChiTietDonDK/GetAll": {
+      "get": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/Insert": {
+      "post": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/Update": {
+      "put": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChiTietDonDK"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/Huy{id}": {
+      "put": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/GetbyName": {
+      "get": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "phongban",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ChiTietDonDK/GetbyCaAn": {
+      "get": {
+        "tags": [
+          "ChiTietDonDK"
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "caAn",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/DonDK/GetAll": {
       "get": {
         "tags": [
@@ -53,7 +217,7 @@
         }
       }
     },
-    "/api/DonDK/Upadte": {
+    "/api/DonDK/Update": {
       "put": {
         "tags": [
           "DonDK"
@@ -89,7 +253,7 @@
         }
       }
     },
-    "/api/DonDK/Delete{id}": {
+    "/api/DonDK/Delete/{id}": {
       "delete": {
         "tags": [
           "DonDK"

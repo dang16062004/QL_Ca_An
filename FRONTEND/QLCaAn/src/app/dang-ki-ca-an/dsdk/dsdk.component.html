@@ -1,0 +1,90 @@
+<!-- Button to Open the Modal -->
+<br />
+<br />
+<button
+  type="button"
+  class="btn btn-primary"
+  data-toggle="modal"
+  data-target="#myModal"
+>
+  Thêm Ca Ăn
+</button>
+
+<br />
+<br />
+<!-- The Modal -->
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">{{ tieuDe }}</h4> -->
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- thêm sửa ca ăn -->
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-hover table-bordered">
+  <thead class="thead-light">
+    <tr>
+      <th>STT</th>
+      <th>Mã Đơn đăng kí</th>
+      <th>Tên Nhân Viên</th>
+      <th>Ca ăn</th>
+      <th>Ngày tạo</th>
+      <th>Loại Đăng kí</th>
+
+      <th>Tùy chọn</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let ds of dsdkList; let i = index">
+      <td>
+        {{ i + 1 }}
+      </td>
+      <td>
+        {{ ds.ID_DonDK }}
+      </td>
+      <td>
+        {{ ds.HoVaTen }}
+      </td>
+      <td>
+        {{ ds.CaAn }}
+      </td>
+      <td>
+        {{ ds.NgayDK }}
+      </td>
+      <td>
+        {{ ds.LoaiDK }}
+      </td>
+
+      <td class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
+          Sửa
+          <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
+        </button>
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="xoaDKCA(ds.ID_DonDK)"
+        >
+          Xóa
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

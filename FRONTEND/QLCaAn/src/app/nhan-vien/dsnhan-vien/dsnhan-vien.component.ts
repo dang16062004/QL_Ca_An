@@ -51,18 +51,16 @@ export class DSNhanVienComponent {
     this.tieuDe = 'Sửa Nhân Viên'; // Cập nhật tiêu đề
     this.dangThemSua = true;
   }
-  xoaNhanVien(ma: any) {
-    debugger;
-    if (confirm('Bạn có chắc muốn xóa nhân viên này không?')) {
+  xoaNhanVien(ma: string) {
+    if (confirm('Bạn có chắc muốn xóa nhân viên này không?') === true) {
       this.service.xoaNhanVien(ma).subscribe({
         next: (res) => {
-          alert('Đã xóa thành công');
-          this.LoadDsNhanVien();
-        },
-        error: (err) => {
-          console.error(err.toString());
-          console.error('❌ Lỗi xóa nhân viên:', err);
-          alert('Không tìm thấy nhân viên với ID: ' + ma);
+          if (res.success) {
+            alert('Xóa nhân viên thành công');
+            this.LoadDsNhanVien();
+          } else {
+            alert('Xóa nhân viên thất bại: ' + res.message);
+          }
         },
       });
     }

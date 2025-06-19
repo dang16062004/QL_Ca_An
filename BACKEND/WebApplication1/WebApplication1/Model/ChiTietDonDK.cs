@@ -13,7 +13,7 @@ namespace WebApplication1.Model
 		public string TrangThai { get; set; }
 
 		
-		public string ID_DonDK { get; set; }
+		public string? ID_DonDK { get; set; }
 
 		// Navigation properties
 		[ForeignKey("ID_NhanVien")]

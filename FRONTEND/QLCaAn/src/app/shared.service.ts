@@ -71,8 +71,13 @@ export class SharedService {
       this.APIUrl +
         '/ChiTietDonDK/GetbyName?name=' +
         name +
-        '&phongban=' +
+        '&maphongban=' +
         phongban
+    );
+  }
+  layBCTheoCa(ngay: string, caAn: number) {
+    return this.http.get<any[]>(
+      this.APIUrl + '/ChiTietDonDK/GetbyCaAn?date=' + ngay + '&caAn=' + caAn
     );
   }
 }

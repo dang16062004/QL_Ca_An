@@ -3,52 +3,20 @@
   "WorkspaceRootPath": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\nhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\nhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\chitietdondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\chitietdondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\chitietdondk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\chitietdondk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\dondk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\dondk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\phongbancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\phongbancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\phongban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\phongban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,38 +26,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "TaiKhoan.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\TaiKhoan.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\TaiKhoan.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\TaiKhoan.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\TaiKhoan.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T08:52:19.608Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ChiTietDonDKController.cs",
               "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\ChiTietDonDKController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\ChiTietDonDKController.cs",
               "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\ChiTietDonDKController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\ChiTietDonDKController.cs",
-              "ViewState": "AgIAALkAAAAAAAAAAAAowGMAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAN8AAAAAAAAAAAAowBgBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-18T04:56:05.832Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "ChiTietDonDK.cs",
               "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\ChiTietDonDK.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Model\\ChiTietDonDK.cs",
@@ -97,11 +51,12 @@
               "RelativeToolTip": "WebApplication1\\Model\\ChiTietDonDK.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-18T04:03:37.631Z"
+              "WhenOpened": "2025-06-18T04:03:37.631Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
               "Title": "DonDK.cs",
               "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\DonDK.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Model\\DonDK.cs",
@@ -113,70 +68,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "NhanVienController.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\NhanVienController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\NhanVienController.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\NhanVienController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\NhanVienController.cs",
-              "ViewState": "AgIAAF4AAAAAAAAAAAAYwDIAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-17T04:21:52.142Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NhanVien.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\NhanVien.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\NhanVien.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\NhanVien.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\NhanVien.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAcAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-17T04:16:33.016Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\appsettings.json",
-              "RelativeDocumentMoniker": "WebApplication1\\appsettings.json",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\appsettings.json",
-              "RelativeToolTip": "WebApplication1\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-13T07:08:50.746Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PhongBanController.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\PhongBanController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\PhongBanController.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\PhongBanController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\PhongBanController.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAIoAAAADAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T06:52:23.093Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TaiKhoanController.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "RelativeToolTip": "WebApplication1\\Controllers\\TaiKhoanController.cs",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAYwFQAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T08:54:49.731Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "DonDKController.cs",
               "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\DonDKController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\DonDKController.cs",
@@ -186,30 +78,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-18T04:11:34.852Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PhongBan.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\PhongBan.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\PhongBan.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\PhongBan.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\PhongBan.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T06:48:58.338Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Program.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Program.cs",
-              "RelativeToolTip": "WebApplication1\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-13T04:44:27.486Z"
             }
           ]
         }

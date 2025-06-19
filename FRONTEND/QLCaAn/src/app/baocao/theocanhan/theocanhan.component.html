@@ -8,12 +8,12 @@
     placeholder="Nhập tên nhân viên"
   />
 
-  <label class="mr-2">Phòng:</label>
-  <input
-    [(ngModel)]="phongban"
-    class="form-control mr-3"
-    placeholder="Nhập phòng ban"
-  />
+  <label class="col-ms-3"> Phòng Ban </label>
+  <select class="form-control col-ms-9" [(ngModel)]="phongban">
+    <option *ngFor="let phong of DSPhongBan" [value]="phong.ID_Phong">
+      {{ phong.TenPhong }}
+    </option>
+  </select>
 
   <button class="btn btn-success" (click)="loadBCCN()">Tìm kiếm</button>
 </div>

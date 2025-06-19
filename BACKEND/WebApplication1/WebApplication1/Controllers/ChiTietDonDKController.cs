@@ -167,10 +167,10 @@ namespace WebApplication1.Controllers
 					sqlConnection.Open();
 					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
 					{
-						
+
 						sqlCommand.Parameters.AddWithValue("@ID_ChiTietDonDK", id);
 						sqlCommand.Parameters.AddWithValue("@TrangThai", cancleOrder);
-						
+
 						sqlDataReader = sqlCommand.ExecuteReader();
 						dataTable.Load(sqlDataReader);
 						sqlDataReader.Close();
@@ -184,11 +184,11 @@ namespace WebApplication1.Controllers
 				return new JsonResult(ex.ToString());
 			}
 		}
-		
+
 
 		[Route("GetbyName")]
 		[HttpGet]
-		public JsonResult GetbyName(string name, string phongban)
+		public JsonResult GetbyName(string name, string maphongban)
 		{
 			try
 			{
@@ -198,15 +198,15 @@ namespace WebApplication1.Controllers
 				string query = @"
 			SELECT 
 				CONVERT(DATE, dk.NgayDK) AS Ngay,
-				SUM(CASE WHEN dk.CaAn = '1' THEN 1 ELSE 0 END) AS Ca1,
-				SUM(CASE WHEN dk.CaAn = '2' THEN 1 ELSE 0 END) AS Ca2,
-				SUM(CASE WHEN dk.CaAn = '3' THEN 1 ELSE 0 END) AS Ca3
+				SUM(CASE WHEN dk.CaAn = '1' THEN ct.SoLuong ELSE 0 END) AS Ca1,
+				SUM(CASE WHEN dk.CaAn = '2' THEN ct.SoLuong ELSE 0 END) AS Ca2,
+				SUM(CASE WHEN dk.CaAn = '3' THEN ct.SoLuong ELSE 0 END) AS Ca3
 			FROM ChiTietDonDK ct
 			JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
 			JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
 			JOIN PhongBan pb ON pb.ID_Phong = nv.ID_Phong
 			WHERE nv.HoVaTen LIKE '%' + @name + '%'
-			  and pb.TenPhong LIKE '%' + @phongban + '%'
+			  and pb.ID_Phong = @maphongban
 			GROUP BY CONVERT(DATE, dk.NgayDK)
 			ORDER BY Ngay";
 
@@ -216,7 +216,7 @@ namespace WebApplication1.Controllers
 					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
 					{
 						sqlCommand.Parameters.AddWithValue("@name", name);
-						sqlCommand.Parameters.AddWithValue("@phongban", phongban);
+						sqlCommand.Parameters.AddWithValue("@maphongban", maphongban);
 
 						using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
 						{
@@ -245,17 +245,16 @@ namespace WebApplication1.Controllers
 				string query = @"
 			SELECT 
 				nv.HoVaTen,
+				dk.ID_NhanVien,
 				pb.TenPhong,
-				CONVERT(DATE, dk.NgayDK) AS Ngay,
-				COUNT(*) AS SoLuong,
-				COUNT(*) * 15000 AS ThanhTien
-			FROM ChiTietDonDK ct
-			JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
-			JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
-			JOIN PhongBan pb ON pb.ID_Phong = nv.ID_Phong
-			WHERE dk.NgayDK = @NgayDK AND dk.CaAn = @CaAn
-			GROUP BY nv.HoVaTen, pb.TenPhong, dk.NgayDK
-			ORDER BY nv.HoVaTen";
+				SUM(ct.SoLuong) AS SoLuong,
+				SUM(ct.SoLuong) * 15000 AS ThanhTien
+				FROM ChiTietDonDK ct
+				JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
+				JOIN NhanVien nv ON nv.ID_NhanVien = dk.ID_NhanVien
+				join PhongBan pb on pb.ID_Phong=nv.ID_Phong
+				WHERE CONVERT(DATE, dk.NgayDK) = @NgayDK AND dk.CaAn = @CaAn
+				GROUP BY nv.HoVaTen, dk.ID_NhanVien,pb.TenPhong;";
 
 				using (SqlConnection sqlConnection = new SqlConnection(dataSource))
 				{

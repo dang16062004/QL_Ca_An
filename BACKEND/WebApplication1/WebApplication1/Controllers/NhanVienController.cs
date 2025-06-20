@@ -242,6 +242,49 @@ namespace WebApplication1.Controllers
 		}
 
 
+		[HttpGet]
+		[Route("GetByUsername")]
+		public JsonResult GetByUsername(string username)
+		{
+			DataTable dataTable = new DataTable();
+			string dataSource = _configuration.GetConnectionString("QLCaAn");
+			string query = @"
+		SELECT nv.ID_NhanVien, nv.HoVaTen, nv.Namsinh, nv.QDK, nv.PhanQuyen, nv.TenDangNhap, pb.TenPhong 
+		FROM NhanVien nv
+		INNER JOIN PhongBan pb ON pb.ID_Phong = nv.ID_Phong 
+		WHERE nv.TenDangNhap = @TenDangNhap";
+
+			try
+			{
+				using (SqlConnection conn = new SqlConnection(dataSource))
+				{
+					conn.Open();
+					using (SqlCommand cmd = new SqlCommand(query, conn))
+					{
+						cmd.Parameters.AddWithValue("@TenDangNhap", username);
+						using (SqlDataReader reader = cmd.ExecuteReader())
+						{
+							dataTable.Load(reader);
+						}
+					}
+				}
+
+				if (dataTable.Rows.Count > 0)
+				{
+					return new JsonResult(dataTable.Rows[0]); // chỉ trả về dòng đầu
+				}
+				else
+				{
+					return new JsonResult("Không tìm thấy nhân viên");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.ToString());
+				return new JsonResult("Lỗi truy vấn");
+			}
+		}
+
 
 
 

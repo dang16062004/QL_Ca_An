@@ -201,6 +201,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "GetByUsername",
+    "RelativePath": "api/NhanVien/GetByUsername",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "username",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
     "Method": "Insert",
     "RelativePath": "api/NhanVien/Insert",
     "HttpMethod": "POST",

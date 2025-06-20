@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dangnhap',
@@ -8,7 +9,7 @@ import { SharedService } from '../../shared.service';
   styleUrl: './dangnhap.component.css',
 })
 export class DangnhapComponent {
-  constructor(private service: SharedService) {}
+  constructor(private service: SharedService, private router: Router) {}
 
   // Dữ liệu nhập từ form
   tendangNhap: string = '';
@@ -46,10 +47,11 @@ export class DangnhapComponent {
           alert('Đăng nhập thành công');
 
           // Lưu thông tin vào localStorage
-          localStorage.setItem('TenDangNhap', this.taiKhoan.TenDangNhap);
+          localStorage.setItem('tenDangNhap', this.taiKhoan.TenDangNhap);
 
           // Chuyển hướng
-          window.location.href = 'http://localhost:4200/phongban';
+          this.router.navigate(['/phongban']);
+
           this.anFormDangNhap = true;
         } else {
           alert('Đăng nhập thất bại');

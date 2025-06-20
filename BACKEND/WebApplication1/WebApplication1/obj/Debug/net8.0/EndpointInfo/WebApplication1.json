@@ -403,6 +403,27 @@
         }
       }
     },
+    "/api/NhanVien/GetByUsername": {
+      "get": {
+        "tags": [
+          "NhanVien"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PhongBan/GetAll": {
       "get": {
         "tags": [

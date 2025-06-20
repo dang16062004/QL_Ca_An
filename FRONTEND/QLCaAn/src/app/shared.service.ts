@@ -89,4 +89,9 @@ export class SharedService {
   dangKyDonCaNhan(val: any): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/DonDK/InsertOnly', val);
   }
+  layNhanVienTheoTenDangNhap(username: string): Observable<any> {
+    return this.http.get<any>(
+      this.APIUrl + '/NhanVien/GetByUsername?username=' + username
+    );
+  }
 }

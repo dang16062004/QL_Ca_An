@@ -35,12 +35,9 @@
         placeholder="Mật khẩu"
         [(ngModel)]="matKhau"
       />
-      <input
-        type="submit"
-        class="fadeIn fourth"
-        value="Đăng nhập"
-        (click)="dangNhapTaiKhoan()"
-      />
+      <button type="button" class="fadeIn fourth" (click)="dangNhapTaiKhoan()">
+        Đăng nhập
+      </button>
     </form>
 
     <!-- Remind Password -->

@@ -1,0 +1,29 @@
+<h3>Thêm Đơn Đăng Ký Cá Nhân</h3>
+<h5>
+  Nhân viên đang đăng nhập: <b>{{ name }}</b>
+</h5>
+
+<form (ngSubmit)="dangKyDonCaNhan()">
+  <div class="form-group">
+    <label>Ca ăn</label>
+    <select class="form-control" [(ngModel)]="form.CaAn" name="caAn" required>
+      <option value="1">Ca 1</option>
+      <option value="2">Ca 2</option>
+      <option value="3">Ca 3</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Số lượng</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="form.SoLuong"
+      name="soLuong"
+      min="1"
+      required
+    />
+  </div>
+
+  <button class="btn btn-success" type="submit">Đăng ký</button>
+</form>

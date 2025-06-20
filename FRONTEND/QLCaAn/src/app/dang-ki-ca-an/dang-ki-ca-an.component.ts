@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-dang-ki-ca-an',
   standalone: false,
   templateUrl: './dang-ki-ca-an.component.html',
-  styleUrl: './dang-ki-ca-an.component.css'
+  styleUrl: './dang-ki-ca-an.component.css',
 })
-export class DangKiCaAnComponent {
-
-}
+export class DangKiCaAnComponent {}

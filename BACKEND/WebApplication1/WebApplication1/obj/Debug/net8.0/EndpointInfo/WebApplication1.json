@@ -239,42 +239,6 @@
         }
       }
     },
-    "/api/DonDK/Update": {
-      "put": {
-        "tags": [
-          "DonDK"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonDK"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonDK"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonDK"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonDK"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/DonDK/Delete/{id}": {
       "delete": {
         "tags": [
@@ -290,6 +254,42 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/InsertOnly": {
+      "post": {
+        "tags": [
+          "DonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -682,6 +682,32 @@
           },
           "donDK": {
             "$ref": "#/components/schemas/DonDK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DonCaNhanRequest": {
+        "type": "object",
+        "properties": {
+          "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "ngayDK": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "loaiDK": {
+            "type": "string",
+            "nullable": true
+          },
+          "caAn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "soLuong": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

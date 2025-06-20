@@ -159,15 +159,15 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
-    "Method": "Update",
-    "RelativePath": "api/DonDK/Update",
-    "HttpMethod": "PUT",
+    "Method": "InsertOnly",
+    "RelativePath": "api/DonDK/InsertOnly",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "donDK",
-        "Type": "WebApplication1.Model.DonDK",
+        "Name": "request",
+        "Type": "WebApplication1.Model.DonCaNhanRequest",
         "IsRequired": true
       }
     ],

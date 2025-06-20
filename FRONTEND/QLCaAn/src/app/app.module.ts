@@ -22,6 +22,7 @@ import { BaocaoComponent } from './baocao/baocao.component';
 import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.component';
 import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
+import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheotha
     BaocaoComponent,
     TheocanhanComponent,
     BaocaotheocaComponent,
-    BaocaotheothangComponent
+    BaocaotheothangComponent,
+    ThemcanhanComponent
   ],
   imports: [
     BrowserModule,

@@ -117,6 +117,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "LayChiTietDonTheoID",
+    "RelativePath": "api/DonDK/ChiTietDon/{idDon}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idDon",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
     "Method": "Delete",
     "RelativePath": "api/DonDK/Delete/{id}",
     "HttpMethod": "DELETE",
@@ -152,6 +168,22 @@
       {
         "Name": "donDK",
         "Type": "WebApplication1.Model.DonDK",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "InsertFull",
+    "RelativePath": "api/DonDK/InsertFull",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Model.DonFullRequest",
         "IsRequired": true
       }
     ],
@@ -226,6 +258,22 @@
       {
         "Name": "nhanVien",
         "Type": "WebApplication1.Model.NhanVien",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "LayThongTinTapThe",
+    "RelativePath": "api/NhanVien/LayThongTinTapThe/{tenDangNhap}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "tenDangNhap",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

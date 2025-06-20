@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PhongBanComponent } from './phong-ban/phong-ban.component';
 import { DanhsachphongbanComponent } from './phong-ban/danhsachphongban/danhsachphongban.component';
-import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedService } from './shared.service';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
@@ -23,6 +24,9 @@ import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.component';
 import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.component';
+import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
+import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
+import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
 
 @NgModule({
   declarations: [
@@ -43,16 +47,20 @@ import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.compo
     TheocanhanComponent,
     BaocaotheocaComponent,
     BaocaotheothangComponent,
-    ThemcanhanComponent
+    ThemcanhanComponent,
+    ThemTapTheComponent,
+    DstaptheComponent,
+    ChiTietDonComponent,
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

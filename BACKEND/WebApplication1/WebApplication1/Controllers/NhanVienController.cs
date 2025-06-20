@@ -286,6 +286,67 @@ namespace WebApplication1.Controllers
 		}
 
 
+		[Route("LayThongTinTapThe/{tenDangNhap}")]
+		[HttpGet]
+		public JsonResult LayThongTinTapThe(string tenDangNhap)
+		{
+			try
+			{
+				using SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("QLCaAn"));
+				conn.Open();
+
+				// Truy vấn thông tin nhân viên
+				string queryNV = @"
+			SELECT nv.ID_NhanVien, nv.HoVaTen, pb.TenPhong, pb.ID_Phong
+			FROM NhanVien nv
+			JOIN PhongBan pb ON nv.ID_Phong = pb.ID_Phong
+			WHERE nv.TenDangNhap = @TenDangNhap";
+				string idPhong = "", hoVaTen = "", tenPhong = "";
+				using (SqlCommand cmd = new SqlCommand(queryNV, conn))
+				{
+					cmd.Parameters.AddWithValue("@TenDangNhap", tenDangNhap);
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+						if (!reader.Read())
+							return new JsonResult("❌ Không tìm thấy nhân viên");
+
+						idPhong = reader["ID_Phong"].ToString();
+						hoVaTen = reader["HoVaTen"].ToString();
+						tenPhong = reader["TenPhong"].ToString();
+					}
+				}
+
+				// Lấy danh sách nhân viên trong cùng phòng
+				List<object> danhSach = new();
+				string queryDS = "SELECT ID_NhanVien, HoVaTen FROM NhanVien WHERE ID_Phong = @ID_Phong";
+				using (SqlCommand cmd = new SqlCommand(queryDS, conn))
+				{
+					cmd.Parameters.AddWithValue("@ID_Phong", idPhong);
+					using (SqlDataReader reader = cmd.ExecuteReader())
+					{
+						while (reader.Read())
+						{
+							danhSach.Add(new
+							{
+								ID_NhanVien = reader["ID_NhanVien"].ToString(),
+								HoVaTen = reader["HoVaTen"].ToString()
+							});
+						}
+					}
+				}
+
+				return new JsonResult(new
+				{
+					hoVaTen,
+					tenPhong,
+					danhSachNhanVien = danhSach
+				});
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult("❌ Lỗi server: " + ex.Message);
+			}
+		}
 
 
 

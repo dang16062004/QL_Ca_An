@@ -11,6 +11,10 @@ import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.compon
 import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 import { DSDKComponent } from './dang-ki-ca-an/dsdk/dsdk.component';
 import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.component';
+import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
+import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
+import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
+
 const routes: Routes = [
   { path: '', component: DangnhapComponent },
   { path: 'phongban', component: PhongBanComponent },
@@ -23,6 +27,9 @@ const routes: Routes = [
   { path: 'baocao/theothang', component: BaocaotheothangComponent },
   { path: 'dang-ki-ca-nhan', component: DSDKComponent },
   { path: 'themcanhan', component: ThemcanhanComponent },
+  { path: 'dktapthe', component: ThemTapTheComponent },
+  { path: 'dsTapThe', component: DstaptheComponent },
+  { path: 'chitietdon/:id', component: ChiTietDonComponent },
 ];
 
 @NgModule({

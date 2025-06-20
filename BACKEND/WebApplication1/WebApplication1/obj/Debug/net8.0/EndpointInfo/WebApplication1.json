@@ -297,6 +297,64 @@
         }
       }
     },
+    "/api/DonDK/InsertFull": {
+      "post": {
+        "tags": [
+          "DonDK"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/ChiTietDon/{idDon}": {
+      "get": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "idDon",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/NhanVien/GetAll": {
       "get": {
         "tags": [
@@ -412,6 +470,28 @@
           {
             "name": "username",
             "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/NhanVien/LayThongTinTapThe/{tenDangNhap}": {
+      "get": {
+        "tags": [
+          "NhanVien"
+        ],
+        "parameters": [
+          {
+            "name": "tenDangNhap",
+            "in": "path",
+            "required": true,
             "schema": {
               "type": "string"
             }
@@ -749,13 +829,34 @@
             "nullable": true
           },
           "caAn": {
-            "type": "string",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "nhanVien": {
             "$ref": "#/components/schemas/NhanVien"
           },
           "chiTietDonDKs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChiTietDonDK"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DonFullRequest": {
+        "type": "object",
+        "properties": {
+          "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "donDK": {
+            "$ref": "#/components/schemas/DonDK"
+          },
+          "listChiTiet": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ChiTietDonDK"

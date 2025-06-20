@@ -4,13 +4,13 @@ namespace WebApplication1.Model
 {
 	public class ChiTietDonDK
 	{
-		public string ID_ChiTietDonDK { get; set; }
+		public string? ID_ChiTietDonDK { get; set; }
 
 		public int SoLuong { get; set; }
 
-		public string ID_NhanVien { get; set; }
+		public string ?ID_NhanVien { get; set; }
 
-		public string TrangThai { get; set; }
+		public string? TrangThai { get; set; }
 
 		
 		public string? ID_DonDK { get; set; }

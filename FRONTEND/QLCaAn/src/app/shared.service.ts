@@ -94,4 +94,15 @@ export class SharedService {
       this.APIUrl + '/NhanVien/GetByUsername?username=' + username
     );
   }
+  dangKyTapThe(body: any): Observable<any> {
+    return this.http.post(this.APIUrl + '/DonDK/InsertFull', body);
+  }
+  layThongTinTapThe(tenDangNhap: string): Observable<any> {
+    return this.http.get<any>(
+      this.APIUrl + '/NhanVien/LayThongTinTapThe/' + tenDangNhap
+    );
+  }
+  layChiTietDon(idDon: string): Observable<any> {
+    return this.http.get<any>(`${this.APIUrl}/DonDK/ChiTietDon?id=${idDon}`);
+  }
 }

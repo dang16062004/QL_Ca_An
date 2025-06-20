@@ -4,16 +4,16 @@ namespace WebApplication1.Model
 {
 	public class DonDK
 	{
-		public string ID_DonDK { get; set; }
+		public string? ID_DonDK { get; set; }
 
-		public DateTime NgayDK;
+		public DateTime? NgayDK;
 
-		public string LoaiDK { get; set; }
+		public string? LoaiDK { get; set; }
 
 		// Foreign key
-		public string ID_NhanVien { get; set; }
+		public string ?ID_NhanVien { get; set; }
 
-		public string CaAn { get; set; }
+		public int? CaAn { get; set; }
 
 		// Navigation property
 		[ForeignKey("ID_NhanVien")]

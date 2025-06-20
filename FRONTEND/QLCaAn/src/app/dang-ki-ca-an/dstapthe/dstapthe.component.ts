@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
-
 @Component({
-  selector: 'app-dsdk',
+  selector: 'app-dstapthe',
   standalone: false,
-  templateUrl: './dsdk.component.html',
-  styleUrl: './dsdk.component.css',
+  templateUrl: './dstapthe.component.html',
+  styleUrl: './dstapthe.component.css',
 })
-export class DSDKComponent {
+export class DstaptheComponent {
   dsdkList: any[] = [];
 
   constructor(private sharedService: SharedService) {

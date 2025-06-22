@@ -14,6 +14,8 @@ import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.compo
 import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
 import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
 import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
+import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
+import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
 
 const routes: Routes = [
   { path: '', component: DangnhapComponent },
@@ -30,6 +32,9 @@ const routes: Routes = [
   { path: 'dktapthe', component: ThemTapTheComponent },
   { path: 'dsTapThe', component: DstaptheComponent },
   { path: 'chitietdon/:id', component: ChiTietDonComponent },
+
+  { path: 'capnhat-don/:id', component: UpdateDonOnlyComponent },
+  { path: 'capnhat-don-tapthe/:id', component: UpdateDonFullComponent },
 ];
 
 @NgModule({

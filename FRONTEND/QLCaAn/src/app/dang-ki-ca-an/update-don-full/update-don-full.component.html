@@ -1,0 +1,41 @@
+<h3>Cập nhật Đơn Tập Thể</h3>
+
+<form (ngSubmit)="capNhatDonTapThe()">
+  <div class="form-group">
+    <td>{{ name }}</td>
+    <label>Ca ăn:</label>
+    <select class="form-control" [(ngModel)]="donDK.CaAn" name="CaAn" required>
+      <option [value]="1">Ca 1 (trước 9h)</option>
+      <option [value]="2">Ca 2 (trước 15h)</option>
+      <option [value]="3">Ca 3 (trước 21h)</option>
+    </select>
+  </div>
+
+  <h5>Danh sách chi tiết:</h5>
+  <table class="table table-bordered text-center">
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>ID Nhân viên</th>
+        <th>Số lượng</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ct of listChiTiet; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ ct.ID_NhanVien || ct.id_NhanVien }}</td>
+
+        <td>
+          <input
+            type="number"
+            [(ngModel)]="ct.SoLuong"
+            name="soLuong{{ i }}"
+            required
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button class="btn btn-primary" type="submit">Cập nhật</button>
+</form>

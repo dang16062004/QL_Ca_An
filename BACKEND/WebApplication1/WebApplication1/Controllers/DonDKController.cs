@@ -487,11 +487,11 @@ namespace WebApplication1.Controllers
 				else if (loaiDK.Trim().ToUpper() == "TAPTHE")
 				{
 					string query = @"
-				SELECT d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, ct.TrangThai
-				FROM DonDK d
-				JOIN ChiTietDonDK ct ON d.ID_DonDK = ct.ID_DonDK
-				JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
-				WHERE d.ID_DonDK = @ID_DonDK";
+					SELECT ct.ID_NhanVien, d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, ct.TrangThai
+					FROM DonDK d
+					JOIN ChiTietDonDK ct ON d.ID_DonDK = ct.ID_DonDK
+					JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
+					WHERE d.ID_DonDK = @ID_DonDK";
 
 					using SqlCommand cmd = new SqlCommand(query, conn);
 					cmd.Parameters.AddWithValue("@ID_DonDK", idDon);
@@ -506,6 +506,7 @@ namespace WebApplication1.Controllers
 						DanhSachChiTiet = table
 					});
 				}
+
 				else
 				{
 					return new JsonResult("❌ Loại đăng ký không hợp lệ");

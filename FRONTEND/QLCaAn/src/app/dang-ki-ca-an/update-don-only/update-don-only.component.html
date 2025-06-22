@@ -1,0 +1,44 @@
+<h3>Cập nhật Đơn Cá Nhân</h3>
+<form #form="ngForm" (ngSubmit)="capNhatDon()">
+  <td>{{ name }}</td>
+  <div class="form-group">
+    <label>Ca ăn</label>
+    <select
+      class="form-control"
+      [(ngModel)]="donCaNhan.CaAn"
+      name="CaAn"
+      required
+    >
+      <option [value]="1">Ca 1 (trước 9h)</option>
+      <option [value]="2">Ca 2 (trước 15h)</option>
+      <option [value]="3">Ca 3 (trước 21h)</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Số lượng</label>
+    <input
+      type="number"
+      class="form-control"
+      [(ngModel)]="donCaNhan.SoLuong"
+      name="SoLuong"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label>Loại đăng ký</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="donCaNhan.LoaiDK"
+      name="LoaiDK"
+      value="CANHAN"
+      disabled
+    />
+  </div>
+
+  <button class="btn btn-primary" type="submit" routerLink="dang-ki-ca-nhan">
+    Cập nhật
+  </button>
+</form>

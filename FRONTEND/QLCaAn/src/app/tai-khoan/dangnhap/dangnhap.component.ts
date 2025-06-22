@@ -47,7 +47,7 @@ export class DangnhapComponent {
           alert('Đăng nhập thành công');
 
           // Lưu thông tin vào localStorage
-          localStorage.setItem('tenDangNhap', this.taiKhoan.TenDangNhap);
+          localStorage.setItem('tenDangNhap', this.table[0].TenDangNhap);
 
           // Chuyển hướng
           this.router.navigate(['/phongban']);

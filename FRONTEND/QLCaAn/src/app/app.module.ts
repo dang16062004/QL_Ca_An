@@ -27,6 +27,8 @@ import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.compo
 import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
 import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
 import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
+import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
+import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.c
     ThemTapTheComponent,
     DstaptheComponent,
     ChiTietDonComponent,
+    UpdateDonOnlyComponent,
+    UpdateDonFullComponent,
   ],
   imports: [
     RouterModule,

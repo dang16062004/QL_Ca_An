@@ -333,7 +333,7 @@
         }
       }
     },
-    "/api/DonDK/ChiTietDon/{idDon}": {
+    "/api/DonDK/ChiTietDon": {
       "get": {
         "tags": [
           "DonDK"
@@ -341,13 +341,102 @@
         "parameters": [
           {
             "name": "idDon",
-            "in": "path",
-            "required": true,
+            "in": "query",
             "schema": {
               "type": "string"
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/UpdateDonOnly": {
+      "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "iD",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/UpdateFull": {
+      "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "Id_DonDK",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonFullRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -796,7 +885,8 @@
           },
           "ngayDK": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "loaiDK": {
             "type": "string",

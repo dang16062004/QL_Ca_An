@@ -356,7 +356,7 @@ namespace WebApplication1.Controllers
 				cmdDon.Parameters.AddWithValue("@ID_NhanVien", idNhanVien);
 				cmdDon.ExecuteNonQuery();
 
-				
+
 				// 3. Truy vấn lại ID_DonDK vừa tạo gần nhất
 				string getIDQuery = @"
 					SELECT TOP 1 ID_DonDK 
@@ -423,7 +423,7 @@ namespace WebApplication1.Controllers
 
 
 
-				
+
 
 				transaction.Commit();
 				return new JsonResult("✅ Đã thêm đơn và chi tiết thành công");
@@ -516,6 +516,208 @@ namespace WebApplication1.Controllers
 				return new JsonResult("❌ Lỗi: " + ex.Message);
 			}
 		}
+		[Route("UpdateDonOnly")]
+		[HttpPut]
+		public JsonResult UpdateDonOnly(DonCaNhanRequest request, string iD)
+		{
+
+			DataTable dataTable = new DataTable();
+			SqlDataReader dataReader;
+			try
+			{
+				using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					conn.Open();
+					// 1. Lấy ID_NhanVien và HoVaTen từ TenDangNhap
+					string getNVQuery = @"
+					SELECT ID_NhanVien, HoVaTen 
+					FROM NhanVien 
+					WHERE TenDangNhap = @TenDangNhap";
+					using SqlCommand cmdNV = new SqlCommand(getNVQuery, conn);
+					cmdNV.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+
+					string idNhanVien = null;
+					string hoVaTen = null;
+					using (SqlDataReader reader = cmdNV.ExecuteReader())
+					{
+						if (!reader.Read())
+							return new JsonResult("❌ Không tìm thấy nhân viên");
+
+						idNhanVien = reader["ID_NhanVien"].ToString();
+						hoVaTen = reader["HoVaTen"].ToString();
+					}
+
+					// 2. Kiểm tra loại đăng ký
+					if (request.LoaiDK?.ToUpper() != "CANHAN")
+						return new JsonResult("❌ Chỉ được phép sửa loại 'CANHAN'");
+					// 2.1 Kiểm tra hạn đăng ký
+					DateTime hanDangKy;
+					if (request.CaAn == 1)
+						hanDangKy = DateTime.Today.AddHours(9);
+					else if (request.CaAn == 2)
+						hanDangKy = DateTime.Today.AddHours(15);
+					else if (request.CaAn == 3)
+						hanDangKy = DateTime.Today.AddHours(21);
+					else
+						return new JsonResult("❌ Ca ăn không hợp lệ");
+
+					if (DateTime.Now > hanDangKy)
+						return new JsonResult("❌ Đã quá hạn đăng ký ca ăn");
+					string queryUp = @"BEGIN TRANSACTION;
+
+					-- Cập nhật bảng 1 dựa trên bảng 2
+					UPDATE dk 
+					SET dk.CaAn = @CaAn
+					FROM DonDK dk
+					JOIN ChiTietDonDK ct  ON ct.ID_DonDK = dk.ID_DonDK
+					JOIN NhanVien nv  ON nv.ID_NhanVien = dk.ID_NhanVien
+					WHERE dk.ID_DonDK=@ID_DonDK and nv.ID_NhanVien =@ID_NhanVien;
+
+					-- Cập nhật bảng 2 dựa trên bảng 1   ::::EROR: CHƯA LOAD VÀO BẢNG CHITIETDONDK
+					UPDATE ct 
+					SET ct.SoLuong = @Soluong
+					FROM ChiTietDonDK ct
+					JOIN DonDK dk ON ct.ID_DonDK = dk.ID_DonDK
+					JOIN NhanVien nv  ON nv.ID_NhanVien = ct.ID_NhanVien
+					WHERE dk.ID_DonDK=@ID_DonDK and nv.ID_NhanVien =@ID_NhanVien;
+
+					COMMIT;
+
+						";
+					using (SqlCommand sqlCommand = new SqlCommand(queryUp, conn))
+					{
+						sqlCommand.Parameters.AddWithValue("@CaAn", request.CaAn);
+						sqlCommand.Parameters.AddWithValue("@Soluong", request.SoLuong);
+						sqlCommand.Parameters.AddWithValue("@ID_NhanVien", idNhanVien);
+						sqlCommand.Parameters.AddWithValue("@ID_DonDK", iD);
+						dataReader = sqlCommand.ExecuteReader();
+						dataTable.Load(dataReader);
+
+					}
+
+					dataReader.Close();
+					conn.Close();
+				}
+				return new JsonResult("Update success");
+			}
+			catch (Exception ex)
+			{
+				return new JsonResult(ex.ToString());
+			}
+		}
+		[Route("UpdateFull")]
+		[HttpPut]
+		public JsonResult UpdateFull([FromBody] DonFullRequest request, string Id_DonDK)
+		{
+			using SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("QLCaAn"));
+			conn.Open();
+			using SqlTransaction transaction = conn.BeginTransaction();
+
+			try
+			{
+				// 0. Lấy ID_NhanVien và HoVaTen, QDK từ TenDangNhap
+				string getNVQuery = @"
+					SELECT ID_NhanVien, HoVaTen, QDK
+					FROM NhanVien 
+					WHERE TenDangNhap = @TenDangNhap";
+				using SqlCommand cmdNV = new SqlCommand(getNVQuery, conn, transaction);
+				cmdNV.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+
+				string idNhanVien = null;
+				string hoVaTen = null;
+				string qdk = null;
+
+				using (SqlDataReader reader = cmdNV.ExecuteReader())
+				{
+					if (!reader.Read())
+						return new JsonResult("❌ Không tìm thấy nhân viên");
+
+					idNhanVien = reader["ID_NhanVien"].ToString();
+					hoVaTen = reader["HoVaTen"].ToString();
+					qdk = reader["QDK"].ToString();
+
+					if (qdk == "CANHAN")
+						return new JsonResult("❌ Nhân viên này chỉ có quyền đăng ký là CANHAN");
+				}
+
+				// 1. Kiểm tra loại đăng ký
+				if (request.donDK.LoaiDK?.ToUpper() != "TAPTHE")
+					return new JsonResult("❌ Chỉ được phép đăng ký loại 'TAPTHE'");
+				// 0.1: Kiểm tra tất cả nhân viên có cùng phòng ban
+				List<string> danhSachPhong = new List<string>();
+
+				foreach (var ct in request.listChiTiet)
+				{
+					string getPhongQuery = "SELECT ID_Phong FROM NhanVien WHERE ID_NhanVien = @ID";
+					using SqlCommand cmdPhong = new SqlCommand(getPhongQuery, conn, transaction	);
+					cmdPhong.Parameters.AddWithValue("@ID", ct.ID_NhanVien);
+
+					object result = cmdPhong.ExecuteScalar();
+					if (result == null)
+						return new JsonResult($"❌ Không tìm thấy nhân viên có ID: {ct.ID_NhanVien}");
+
+					danhSachPhong.Add(result.ToString());
+				}
+
+				if (danhSachPhong.Distinct().Count() > 1)
+					return new JsonResult("❌ Tất cả nhân viên trong danh sách phải thuộc cùng một phòng ban.");
+				// 2. Sửa đơn đăng ký
+				string queryDon = @"
+					Update  dk set dk.CaAn=@CaAn 
+					FROM DonDK dk
+					JOIN NhanVien nv on nv.ID_NhanVien = dk.ID_NhanVien
+					where dk.ID_DonDK = @ID_DonDK and dk.ID_NhanVien = @ID_NhanVien";
+				using SqlCommand cmdDon = new SqlCommand(queryDon, conn, transaction);
+				//cmdDon.Parameters.AddWithValue("@LoaiDK", "TAPTHE");
+				cmdDon.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
+				cmdDon.Parameters.AddWithValue("@ID_NhanVien", idNhanVien);
+				cmdDon.Parameters.AddWithValue("@ID_DonDK", Id_DonDK);
+				cmdDon.ExecuteNonQuery();
+
+
+
+				DateTime hanDangKy;
+				if (request.donDK.CaAn == 1)
+					hanDangKy = DateTime.Today.AddHours(9);
+				else if (request.donDK.CaAn == 2)
+					hanDangKy = DateTime.Today.AddHours(15);
+				else if (request.donDK.CaAn == 3)
+					hanDangKy = DateTime.Today.AddHours(21);
+				else
+					return new JsonResult("❌ Ca ăn không hợp lệ");
+
+				if (DateTime.Now > hanDangKy)
+					return new JsonResult("❌ Đã quá hạn sửa ca ăn");
+				// 4. Sửa các chi tiết đơn
+				foreach (var ct in request.listChiTiet)
+				{
+					string queryCT = @"
+					Update  ct set ct.SoLuong=@SoLuong 
+					FROM ChiTietDonDK ct
+					JOIN DonDK dk on dk.ID_DonDK = ct.ID_DonDK
+					JOIN NhanVien nv on nv.ID_NhanVien = dk.ID_NhanVien
+					where ct.ID_DonDK = @ID_DonDK and ct.ID_NhanVien = @ID_NhanVien
+				";
+					using SqlCommand cmdCT = new SqlCommand(queryCT, conn, transaction);
+					cmdCT.Parameters.AddWithValue("@ID_DonDK", Id_DonDK);
+					cmdCT.Parameters.AddWithValue("@ID_NhanVien", ct.ID_NhanVien);
+					cmdCT.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
+
+					cmdCT.ExecuteNonQuery();
+				}
+
+				transaction.Commit();
+
+				return new JsonResult("✅ Đã sửa đơn và chi tiết thành công");
+			}
+			catch (Exception ex)
+			{
+				transaction.Rollback();
+
+				return new JsonResult("❌ Lỗi: " + ex.Message);
+			}
+		}
+
 
 
 

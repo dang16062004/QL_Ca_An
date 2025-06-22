@@ -103,6 +103,6 @@ export class SharedService {
     );
   }
   layChiTietDon(idDon: string): Observable<any> {
-    return this.http.get<any>(`${this.APIUrl}/DonDK/ChiTietDon?id=${idDon}`);
+    return this.http.get<any>(`${this.APIUrl}/DonDK/ChiTietDon?idDon=${idDon}`);
   }
 }

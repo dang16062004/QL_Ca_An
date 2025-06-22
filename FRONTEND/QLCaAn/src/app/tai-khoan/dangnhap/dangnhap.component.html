@@ -35,9 +35,19 @@
         placeholder="Mật khẩu"
         [(ngModel)]="matKhau"
       />
-      <button type="button" class="fadeIn fourth" (click)="dangNhapTaiKhoan()">
+      <!-- <button type="button" class="fadeIn fourth" (click)="dangNhapTaiKhoan()">
         Đăng nhập
-      </button>
+      </button> -->
+      <div class="d-flex justify-content-center mt-3 login_container">
+        <button
+          type="button"
+          name="button"
+          class="btn login_btn"
+          (click)="dangNhapTaiKhoan()"
+        >
+          Login
+        </button>
+      </div>
     </form>
 
     <!-- Remind Password -->

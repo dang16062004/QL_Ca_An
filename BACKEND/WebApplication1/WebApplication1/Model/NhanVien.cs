@@ -5,8 +5,8 @@ namespace WebApplication1.Model
 {
 	public class NhanVien
 	{
-		[Required(ErrorMessage = "\"Nên nhập theo công thức NV+ số TT \"")]
-		public string ID_NhanVien { get; set; }
+		
+		public int ID_NhanVien { get; set; }
 
 		
 		public string HoVaTen { get; set; }
@@ -26,6 +26,7 @@ namespace WebApplication1.Model
 
 		
 		public string TenDangNhap { get; set; }
+		public string MatKhau { get; set; }
 
 	
 	

@@ -2,7 +2,7 @@
 <div class="center-wrapper">
   <div id="formContent">
     <!-- Icon -->
-    <div class="fadeIn first">
+    <div class="fadeIn first mt-3">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="40"
@@ -18,38 +18,36 @@
     </div>
 
     <!-- Login Form -->
-    <form *ngIf="anFormDangNhap == false">
+    <form *ngIf="anFormDangNhap == false" #loginForm="ngForm">
       <input
         type="text"
         id="login"
-        class="fadeIn second"
-        name="login"
+        class="fadeIn second form-control mt-3"
+        name="tendangNhap"
         placeholder="Tên đăng nhập"
         [(ngModel)]="tendangNhap"
+        required
       />
       <input
         type="password"
         id="password"
-        class="fadeIn third"
-        name="password"
+        class="fadeIn third form-control mt-3"
+        name="matKhau"
         placeholder="Mật khẩu"
         [(ngModel)]="matKhau"
+        required
       />
-      <!-- <button type="button" class="fadeIn fourth" (click)="dangNhapTaiKhoan()">
-        Đăng nhập
-      </button> -->
-      <div class="d-flex justify-content-center mt-3 login_container">
+
+      <div class="d-flex justify-content-center mt-4 mb-3 login_container">
         <button
           type="button"
           name="button"
-          class="btn login_btn"
+          class="btn btn-primary login_btn"
           (click)="dangNhapTaiKhoan()"
         >
-          Login
+          Đăng nhập
         </button>
       </div>
     </form>
-
-    <!-- Remind Password -->
   </div>
 </div>

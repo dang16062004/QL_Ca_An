@@ -84,3 +84,4 @@ D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\refint\WebA
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

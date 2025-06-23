@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -33,14 +35,40 @@ builder.Services.AddControllersWithViews()
 
 
 
+
+
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+
+
+////Setting JWT
+builder.Services.AddAuthentication("Bearer")
+	.AddJwtBearer("Bearer", options =>
+	{
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = false,
+			ValidateAudience = false,
+			ValidateLifetime = true,
+			ValidateIssuerSigningKey = true,
+			IssuerSigningKey = new SymmetricSecurityKey(
+				Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef")) // phải giống khi tạo token
+		};
+	});
+
+
+
 var app = builder.Build();
 
-
+///Add UseAuthentication: xác thực người dùng
+///Add UseAuthorization:phân quyền truy cập
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 //Tránh lỗi CORS khi frontend (như Angular, React, Vue) gọi API từ một domain khác với backend.
 

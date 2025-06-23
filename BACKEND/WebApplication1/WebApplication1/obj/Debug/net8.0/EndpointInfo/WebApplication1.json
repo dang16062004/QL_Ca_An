@@ -5,6 +5,42 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/Auth/Login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ChiTietDonDK/GetAll": {
       "get": {
         "tags": [
@@ -956,17 +992,30 @@
         },
         "additionalProperties": false
       },
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "matKhau": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "NhanVien": {
         "required": [
-          "iD_NhanVien",
           "phanQuyen",
           "qdk"
         ],
         "type": "object",
         "properties": {
           "iD_NhanVien": {
-            "minLength": 1,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           "hoVaTen": {
             "type": "string",
@@ -987,6 +1036,10 @@
             "type": "string"
           },
           "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "matKhau": {
             "type": "string",
             "nullable": true
           },

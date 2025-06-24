@@ -46,7 +46,7 @@ builder.Services.AddSwaggerGen();
 
 
 
-////Setting JWT
+////Đăng kí dịch vụ xác thực của JWT 
 builder.Services.AddAuthentication("Bearer")
 	.AddJwtBearer("Bearer", options =>
 	{

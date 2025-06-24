@@ -2,10 +2,13 @@
 {
 	public class TaiKhoan
 	{
-		public string? ID_TaiKhoan { get; set; }
-		public string TenDangNhap { get; set; }
-		public DateTime NgayTao;
-		public string MatKhau { get; set; }
-		public virtual NhanVien? NhanVien { get; set; }
+		public int ID_TaiKhoan { get; set; }
+		public DateTime? NgayTao { get; set; }
+		public string Role { get; set; }
+
+		// Quan hệ N-N với NhanVien
+		public virtual ICollection<NhanVien_TaiKhoan> NhanVien_TaiKhoans { get; set; }
+
+
 	}
 }

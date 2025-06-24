@@ -455,7 +455,7 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.TaiKhoanController",
-    "Method": "DangNhap",
+    "Method": "Insert",
     "RelativePath": "api/TaiKhoan/Login",
     "HttpMethod": "POST",
     "IsController": true,

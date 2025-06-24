@@ -16,9 +16,10 @@ import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
 import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
 import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
 import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: DangnhapComponent },
+  { path: '', component: LoginComponent },
   { path: 'phongban', component: PhongBanComponent },
   { path: 'taikhoan', component: TaiKhoanComponent },
   { path: 'nhanvien', component: NhanVienComponent },

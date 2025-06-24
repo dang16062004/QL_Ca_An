@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <h2>Đăng nhập</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="TenDangNhap" class="form-label">Tên đăng nhập</label>
+      <input
+        type="text"
+        class="form-control"
+        id="TenDangNhap"
+        formControlName="TenDangNhap"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="matKhau" class="form-label">Mật khẩu</label>
+      <input
+        type="password"
+        class="form-control"
+        id="MatKhau"
+        formControlName="MatKhau"
+      />
+    </div>
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="loginForm.invalid"
+    >
+      Đăng nhập
+    </button>
+  </form>
+</div>

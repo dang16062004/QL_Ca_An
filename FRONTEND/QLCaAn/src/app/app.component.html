@@ -64,7 +64,12 @@
       <form class="form-inline my-2 my-md-0">
         <input class="form-control" type="text" placeholder="Search" />
       </form>
+      <span class="text-white ml-auto pr-3"> 👤 Xin chào, {{ name }} </span>
     </div>
+    <button class="btn btn-sm btn-outline-light ml-2" (click)="logout()">
+      Đăng xuất
+    </button>
   </nav>
+
   <router-outlet></router-outlet>
 </div>

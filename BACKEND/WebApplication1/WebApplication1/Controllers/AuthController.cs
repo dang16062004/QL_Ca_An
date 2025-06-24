@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
 				//Dùng để đảm bảo token không bị chỉnh sửa bởi ai khác (vì chỉ server biết key này).
 				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef"));//Con dấu
 
-				// đùng để mã hóa key theo thuật toán HmacSha256(kiểu đóng dấu)
+				// Dùng để mã hóa key theo thuật toán HmacSha256 (kiểu đóng dấu)
 				var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 
@@ -68,13 +68,18 @@ namespace WebApplication1.Controllers
 				//Gửi thư
 				var token = new JwtSecurityToken(
 					claims: claims,//nội dung thư
-					expires: DateTime.Now.AddHours(2),//hạn của thư nếu hết giờ thì quay lại phần đăng nhập
+					expires: DateTime.Now.AddDays(7),//hạn của thư nếu hết ngày thì quay lại phần đăng nhập
 					signingCredentials: creds//cách đóng dấu đỏ để người khác xác minh
 					);
 
 
-				//Mã hóa thành chuỗi và trả về cho CLient
-				return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });//Đóng gọi phong thư và chuyển cho người nhận
+				//Mã hóa thành chuỗi và trả về cho Client
+				return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token),
+					Role = reader["Role"].ToString(),
+					ID_NhanVien = reader["ID_NhanVien"].ToString(),
+					ID_TaiKhoan = reader["ID_TaiKhoan"].ToString(),
+					HoVaTen = reader["HoVaTen"].ToString(),
+				});//Đóng gọi phong thư và chuyển cho người nhận
 
 			}
 			catch (Exception ex)
@@ -86,47 +91,7 @@ namespace WebApplication1.Controllers
 		}
 
 
-		[HttpPost("refresh-token")]
-		public IActionResult Refresh([FromBody] RefreshRequest request)
-		{
-			using SqlConnection conn = new SqlConnection(_config.GetConnectionString("QLCaAn"));
-			conn.Open();
-
-			// 1. Kiểm tra refresh token có tồn tại và còn hạn không
-			string sql = @"SELECT ID_NhanVien, ExpiryDate FROM RefreshTokens WHERE Token = @token";
-			using SqlCommand cmd = new SqlCommand(sql, conn);
-			cmd.Parameters.AddWithValue("@token", request.RefreshToken);
-
-			using var reader = cmd.ExecuteReader();
-			if (!reader.Read()) return Unauthorized("❌ Refresh token không hợp lệ");
-
-			string idNV = reader["ID_NhanVien"].ToString();
-			
-			DateTime expiry = (DateTime)reader["ExpiryDate"];
-
-			if (expiry < DateTime.Now)
-				return Unauthorized("❌ Refresh token đã hết hạn");
-
-			// 2. Sinh access token mới
-			var claims = new[]
-			{
-				 new Claim("ID_NhanVien", idNV),
-				new Claim("HoVaTen", hoVaTen),
-				new Claim("Role", role), // "0" hoặc "1"
-				new Claim("Email", email)
-	};
-
-			var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-secret-key-123"));
-			var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-			var token = new JwtSecurityToken(
-				claims: claims,
-				expires: DateTime.Now.AddMinutes(15),
-				signingCredentials: creds);
-
-			string accessToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-			return Ok(new { accessToken });
-		}
+	
 
 	}
 }

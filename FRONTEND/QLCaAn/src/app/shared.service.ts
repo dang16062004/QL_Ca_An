@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoginRespon } from './models/login-respon.models';
+import { LoginRequest } from './models/login-request.models';
+import { NonNullAssert } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root',
@@ -114,5 +117,20 @@ export class SharedService {
       `${this.APIUrl}/DonDK/UpdateFull?Id_DonDK=${idDon}`,
       body
     );
+  }
+  login(request: LoginRequest): Observable<LoginRespon> {
+    return this.http.post<LoginRespon>(`${this.APIUrl}/Auth/Login`, request);
+  }
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+  logout(): void {
+    localStorage.removeItem('token');
+  }
+  getRole(): string | null {
+    return localStorage.getItem('role');
   }
 }

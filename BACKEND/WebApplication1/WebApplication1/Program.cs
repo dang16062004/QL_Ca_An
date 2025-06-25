@@ -1,52 +1,118 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿
+//using Microsoft.IdentityModel.Tokens;
+//using Newtonsoft.Json.Serialization;
+//using System.Text;
+
+//var builder = WebApplication.CreateBuilder(args);
+
+//// ====================================
+//// 1️⃣ Add services
+//// ====================================
+
+//// CORS
+//builder.Services.AddCors(options =>
+//{
+//	options.AddPolicy("AllowOrigin", policy =>
+//		policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+//});
+
+//// JSON Serializer
+//builder.Services.AddControllersWithViews()
+//	.AddNewtonsoftJson(option =>
+//		option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+//	.AddNewtonsoftJson(option =>
+//		option.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
+//// Swagger
+//builder.Services.AddEndpointsApiExplorer();
+//builder.Services.AddSwaggerGen();
+
+//// JWT Authentication
+//builder.Services.AddAuthentication("Bearer")
+//	.AddJwtBearer("Bearer", options =>
+//	{
+//		options.TokenValidationParameters = new TokenValidationParameters
+//		{
+//			ValidateIssuer = false,
+//			ValidateAudience = false,
+//			ValidateLifetime = true,
+//			ValidateIssuerSigningKey = true,
+//			IssuerSigningKey = new SymmetricSecurityKey(
+//				Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef")),
+//			RoleClaimType = "role"    // tên claim chứa quyền trong JWT
+//		};
+//	});
+
+//builder.Services.AddAuthorization(option =>
+//{
+//	option.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+//});
+
+//builder.Services.AddControllers();
+
+//var app = builder.Build();
+
+//// ====================================
+//// 2️⃣ Configure middleware
+//// ====================================
+
+//if (app.Environment.IsDevelopment())
+//{
+//	app.UseDeveloperExceptionPage(); // ✅ Show exception page in dev
+//	app.UseSwagger();
+//	app.UseSwaggerUI();
+//}
+
+//app.UseHttpsRedirection();
+
+//app.UseStaticFiles(); // nếu có dùng tệp tĩnh như ảnh, css
+
+//app.UseRouting();
+
+//// ✅ ĐÚNG THỨ TỰ: Authentication → Authorization → Cors
+//app.UseAuthentication();
+//app.UseAuthorization();
+//app.UseCors("AllowOrigin");
+
+//// ✅ Endpoint mapping
+//app.UseEndpoints(endpoints =>
+//{
+//	endpoints.MapControllers();
+//});
+
+//app.Run();
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
 using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ====================================
+// 1️⃣ CẤU HÌNH DỊCH VỤ (DI Container)
+// ====================================
 
-//Thêm mới
-// addCors
-builder.Services.AddCors(c =>
+// 🔓 Cho phép các domain khác gọi API (Cross-Origin Resource Sharing)
+builder.Services.AddCors(options =>
 {
-    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+	options.AddPolicy("AllowOrigin", policy =>
+		policy.WithOrigins("http://localhost:4200")         // Cho phép c domain
+			  .AllowAnyHeader()         // Cho phép tất cả các header
+			  .AllowAnyMethod()
+			  );       // Cho phép tất cả các phương thức (GET, POST, ...)
 });
 
-//Đoạn code trên cho phép frontend (giao diện web) từ bất kỳ đâu gọi API này mà không bị chặn, kể cả gọi từ domain khác.
-
-//JSON Serializer
-
+// 🧾 Cấu hình JSON khi trả về từ API
 builder.Services.AddControllersWithViews()
-    .AddNewtonsoftJson(option =>
-    option.SerializerSettings.ReferenceLoopHandling = Newtonsoft
-    .Json.ReferenceLoopHandling.Ignore)
-    .AddNewtonsoftJson(option =>
-    option.SerializerSettings.ContractResolver = new DefaultContractResolver());
+	.AddNewtonsoftJson(option =>
+		option.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)  // Bỏ qua vòng lặp tham chiếu (tránh lỗi khi có dữ liệu cha-con lồng nhau)
+	.AddNewtonsoftJson(option =>
+		option.SerializerSettings.ContractResolver = new DefaultContractResolver());  // Giữ nguyên định dạng tên thuộc tính (không đổi sang camelCase)
 
-
-
-//Cấu hình này giúp:
-
-//Gọi API với dữ liệu JSON mà không bị lỗi vòng lặp khi có quan hệ đối tượng phức tạp.
-
-//Đảm bảo JSON trả về giữ nguyên tên biến đúng như trong C#.
-
-//Cho phép dùng MVC trong ASP.NET Core.
-
-
-
-
-
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// 📘 Swagger (API Docs UI)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
-
-////Đăng kí dịch vụ xác thực của JWT 
+// 🔐 Cấu hình xác thực bằng JWT Bearer
 builder.Services.AddAuthentication("Bearer")
 	.AddJwtBearer("Bearer", options =>
 	{
@@ -57,41 +123,50 @@ builder.Services.AddAuthentication("Bearer")
 			ValidateLifetime = true,
 			ValidateIssuerSigningKey = true,
 			IssuerSigningKey = new SymmetricSecurityKey(
-				Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef")) // phải giống khi tạo token
+				Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef")),
+
+			// ✅ Bắt buộc: ánh xạ đúng field chứa role trong JWT
+			RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
 		};
 	});
 
-
-
-var app = builder.Build();
-
-///Add UseAuthentication: xác thực người dùng
-///Add UseAuthorization:phân quyền truy cập
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseCors(options => options.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-//Tránh lỗi CORS khi frontend (như Angular, React, Vue) gọi API từ một domain khác với backend.
-
-
-
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// ✅ Tùy chọn: dùng nếu bạn áp dụng [Authorize(Policy = "Admin")]
+builder.Services.AddAuthorization(options =>
 {
-	app.UseDeveloperExceptionPage(); // ✅ Thêm dòng này để hiển thị lỗi chi tiết
-	app.UseSwagger();
-    app.UseSwaggerUI();
-}
-app.UseRouting();
-app.UseEndpoints(endpoints =>
-{
-	endpoints.MapControllers();
+	options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
 });
 
-app.UseHttpsRedirection();
+// Đăng ký Controller
+builder.Services.AddControllers();
 
-app.UseAuthorization();
+// ====================================
+// 2️⃣ CẤU HÌNH PIPELINE MIDDLEWARE
+// ====================================
 
-app.MapControllers();
+var app = builder.Build();
+app.UseCors("AllowOrigin");
+if (app.Environment.IsDevelopment())
+{
+	app.UseDeveloperExceptionPage(); // ✅ Hiện chi tiết lỗi khi chạy môi trường phát triển
+	app.UseSwagger();                // ✅ Dùng Swagger cho môi trường dev
+	app.UseSwaggerUI();             // ✅ Giao diện UI của Swagger
+}
 
-app.Run();
+app.UseHttpsRedirection();          // ✅ Tự động chuyển hướng HTTP → HTTPS
+
+app.UseStaticFiles();               // ✅ Phục vụ các file tĩnh (ảnh, css, js) từ wwwroot/
+
+app.UseRouting();                   // ✅ Định tuyến yêu cầu đến Controller
+
+// ⚠️ Lưu ý: thứ tự rất quan trọng khi dùng JWT + CORS
+app.UseAuthentication();            // ✅ Xác thực (phải đứng trước Authorization)
+app.UseAuthorization();             // ✅ Phân quyền
+app.UseCors("AllowOrigin");         // ✅ Cho phép CORS (cần đặt sau Authentication nếu token được gửi qua header)
+
+// ✅ Kết nối route tới controller
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();      // Map tất cả các controller có attribute [ApiController]
+});
+
+app.Run(); // ✅ Khởi chạy ứng dụng

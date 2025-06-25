@@ -17,6 +17,8 @@ import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.c
 import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
 import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
 import { LoginComponent } from './login/login.component';
+import { CreateNhanVienComponent } from './nhan-vien/create-nhanvien/create-nhanvien.component';
+import { AdminGuard } from './auth/admin.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -36,6 +38,11 @@ const routes: Routes = [
 
   { path: 'capnhat-don/:id', component: UpdateDonOnlyComponent },
   { path: 'capnhat-don-tapthe/:id', component: UpdateDonFullComponent },
+  {
+    path: 'nhanvien/createNhanVien',
+    component: CreateNhanVienComponent,
+    canActivate: [AdminGuard],
+  },
 ];
 
 @NgModule({

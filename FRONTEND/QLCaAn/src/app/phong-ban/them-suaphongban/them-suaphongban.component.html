@@ -1,12 +1,17 @@
-<div >
-    <label class="col-ms-3">Mã Phòng Ban</label>
-    <input class="form-control col-ms-9" [(ngModel)]="ID_Phong" />
-     <small class="text-muted" *ngIf="ID_Phong!=''">Không sửa Mã Phòng</small>
+<div>
+  <label class="col-ms-3">Mã Phòng Ban</label>
+  <input class="form-control col-ms-9" [(ngModel)]="ID_Phong" />
+  <small class="text-muted" *ngIf="ID_Phong != ''">Không sửa Mã Phòng</small>
 </div>
-<div >
-    <label class="col-ms-3">Tên Phòng Ban</label>
-    <input class="form-control col-ms-9" [(ngModel)]="TenPhong"/>
+<div>
+  <label class="col-ms-3">Tên Phòng Ban</label>
+  <input class="form-control col-ms-9" [(ngModel)]="TenPhong" />
 </div>
-<button class="btn btn-primary" (click)="themPhongBanmoi()" *ngIf="checked==false">Thêm Phòng Ban</button>
-<button class="btn btn-primary" (click)="suaPhongBancu()" *ngIf="checked==true">Sửa Phòng Ban</button>
-    
+<button
+  class="btn btn-primary"
+  (click)="themPhongBanmoi()"
+  *ngIf="checked == false"
+>
+  Thêm Phòng Ban
+</button>
+<button class="btn btn-primary" *ngIf="checked == true">Sửa Phòng Ban</button>

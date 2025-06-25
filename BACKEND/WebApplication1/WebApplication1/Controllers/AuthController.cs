@@ -20,6 +20,7 @@ namespace WebApplication1.Controllers
 		{
 			_config = config;
 		}
+
 		[HttpPost("Login")]
 		public IActionResult Login([FromBody] LoginRequest request)
 		{
@@ -27,71 +28,97 @@ namespace WebApplication1.Controllers
 			{
 				using SqlConnection conn = new SqlConnection(_config.GetConnectionString("QLCaAn"));
 				conn.Open();
+
 				string sql = @"
-				select nv.HoVaTen,nv.TenDangNhap, tk.ID_TaiKhoan, tk.Role, nv.ID_NhanVien
-				from NhanVien nv
-				join NhanVien_TaiKhoan nvtk on nv.ID_NhanVien = nvtk.ID_NhanVien
-				join TaiKhoan tk on tk.ID_TaiKhoan = nvtk.ID_TaiKhoan
-				where nv.TenDangNhap = @gmail and nv.MatKhau= @mk
-				";
+		SELECT nv.ID_NhanVien, nv.HoVaTen, tk.ID_TaiKhoan, tk.Role
+		FROM NhanVien nv
+		JOIN NhanVien_TaiKhoan nvtk ON nv.ID_NhanVien = nvtk.ID_NhanVien
+		JOIN TaiKhoan tk ON tk.ID_TaiKhoan = nvtk.ID_TaiKhoan
+		WHERE nv.TenDangNhap = @gmail AND nv.MatKhau = @mk";
+
 				using SqlCommand command = new SqlCommand(sql, conn);
 				command.Parameters.AddWithValue("@gmail", request.TenDangNhap);
 				command.Parameters.AddWithValue("@mk", request.MatKhau);
 
 				using var reader = command.ExecuteReader();
-				if (!reader.Read())
+
+				List<(string ID_TaiKhoan, string Role)> taiKhoanRoles = new();
+				int? idNhanVien = null;
+				string hoVaTen = "";
+
+				while (reader.Read())
 				{
-					return BadRequest("Lỗi đăng nhập");
+					if (idNhanVien == null)
+					{
+						idNhanVien = Convert.ToInt32(reader["ID_NhanVien"]);
+						hoVaTen = reader["HoVaTen"].ToString();
+					}
+
+					string idTaiKhoan = reader["ID_TaiKhoan"].ToString();
+					string role = reader["Role"].ToString();
+
+					taiKhoanRoles.Add((idTaiKhoan, role));
 				}
 
+				if (idNhanVien == null || taiKhoanRoles.Count == 0)
+					return BadRequest("Sai tài khoản hoặc mật khẩu.");
 
-				//Thiết lập tạo JWT và xác thực người dùng (Nội dung thư)
-				var claims = new[]
+				// Ưu tiên: Admin > User > TapThe > CaNhan
+				string[] rolePriority = { "Admin", "User", "TapThe", "CaNhan" };
+				string roleFinal = "Unknown";
+				string idTaiKhoanFinal = "";
+
+				foreach (var role in rolePriority)
 				{
-					new Claim(ClaimTypes.Name,reader["HoVaTen"].ToString()),  //constant (hằng số) của .NET, đại diện cho "Tên người dùng".
-					new Claim("ID_NhanVien", reader["ID_NhanVien"].ToString()),
-					new Claim("Role",reader["Role"].ToString()),
-					new Claim("ID_TaiKhoan", reader["ID_TaiKhoan"].ToString())//vì new Claim(string type, string value)
+					var match = taiKhoanRoles.FirstOrDefault(x => x.Role == role);
+					if (!string.IsNullOrEmpty(match.ID_TaiKhoan))
+					{
+						roleFinal = match.Role;
+						idTaiKhoanFinal = match.ID_TaiKhoan;
+						break;
+					}
+				}
+
+				// 1. Thu thập các claim
+				var claims = new List<Claim>
+				{
+					new Claim(ClaimTypes.Name, hoVaTen),
+					new Claim("ID_NhanVien", idNhanVien.ToString())
 				};
 
-				//khai báo key dùng để làm chìa khóa cho việc ký và xác minh
-				//Dùng để đảm bảo token không bị chỉnh sửa bởi ai khác (vì chỉ server biết key này).
-				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef"));//Con dấu
+				foreach (var r in taiKhoanRoles.Select(x => x.Role).Distinct())
+					claims.Add(new Claim(ClaimTypes.Role, r));   // ✔️ chuẩn
 
-				// Dùng để mã hóa key theo thuật toán HmacSha256 (kiểu đóng dấu)
+				var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super-secret-key-1234567890-abcdef"));
 				var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-
-
-
-				//
-				//Gửi thư
 				var token = new JwtSecurityToken(
-					claims: claims,//nội dung thư
-					expires: DateTime.Now.AddDays(7),//hạn của thư nếu hết ngày thì quay lại phần đăng nhập
-					signingCredentials: creds//cách đóng dấu đỏ để người khác xác minh
-					);
+					claims: claims,
+					expires: DateTime.Now.AddDays(7),
+					signingCredentials: creds);
 
-
-				//Mã hóa thành chuỗi và trả về cho Client
-				return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token),
-					Role = reader["Role"].ToString(),
-					ID_NhanVien = reader["ID_NhanVien"].ToString(),
-					ID_TaiKhoan = reader["ID_TaiKhoan"].ToString(),
-					HoVaTen = reader["HoVaTen"].ToString(),
-				});//Đóng gọi phong thư và chuyển cho người nhận
-
+				return Ok(new
+				{
+					token = new JwtSecurityTokenHandler().WriteToken(token),
+					Role = roleFinal,
+					ID_TaiKhoan = idTaiKhoanFinal,
+					ListRole = taiKhoanRoles.Select(x => x.Role).Distinct().ToList(),
+					DSTaiKhoan = taiKhoanRoles.Select(x => x.ID_TaiKhoan).Distinct().ToList(),
+					ID_NhanVien = idNhanVien,
+					HoVaTen = hoVaTen
+				});
 			}
 			catch (Exception ex)
 			{
 				return BadRequest(ex.ToString());
-
 			}
-
 		}
 
 
-	
+
+
+
+
 
 	}
 }

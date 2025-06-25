@@ -31,14 +31,14 @@ export class ThemSuaphongbanComponent {
       alert(res.toString());
     });
   }
-  suaPhongBancu() {
-    var val = {
-      ID_Phong: this.ID_Phong,
-      TenPhong: this.TenPhong,
-    };
-    // this.checked=false;
-    this.service.suaPhongBan(val).subscribe((res) => {
-      alert(res.toString());
-    });
-  }
+  // suaPhongBancu() {
+  //   var val = {
+  //     ID_Phong: this.ID_Phong,
+  //     TenPhong: this.TenPhong,
+  //   };
+  //   // this.checked=false;
+  //   this.service.suaPhongBan(val).subscribe((res) => {
+  //     alert(res.toString());
+  //   });
+  // }
 }

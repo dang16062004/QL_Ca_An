@@ -12,10 +12,10 @@ import { SharedService } from './shared.service';
 import { TaiKhoanComponent } from './tai-khoan/tai-khoan.component';
 import { DSTaiKhoanComponent } from './tai-khoan/dstai-khoan/dstai-khoan.component';
 import { ThemSuaphongbanComponent } from './phong-ban/them-suaphongban/them-suaphongban.component';
-import { ThemSuaTaikhoanComponent } from './tai-khoan/them-sua-taikhoan/them-sua-taikhoan.component';
+// import { ThemSuaTaikhoanComponent } from './tai-khoan/them-sua-taikhoan/them-sua-taikhoan.component';
 import { NhanVienComponent } from './nhan-vien/nhan-vien.component';
 import { DSNhanVienComponent } from './nhan-vien/dsnhan-vien/dsnhan-vien.component';
-import { ThemSuaNhanVienComponent } from './nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component';
+// import { ThemSuaNhanVienComponent } from './nhan-vien/them-sua-nhan-vien/them-sua-nhan-vien.component';
 import { DangnhapComponent } from './tai-khoan/dangnhap/dangnhap.component';
 import { DangKiCaAnComponent } from './dang-ki-ca-an/dang-ki-ca-an.component';
 import { DSDKComponent } from './dang-ki-ca-an/dsdk/dsdk.component';
@@ -30,6 +30,7 @@ import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.c
 import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
 import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
 import { LoginComponent } from './login/login.component';
+import { CreateNhanVienComponent } from './nhan-vien/create-nhanvien/create-nhanvien.component';
 
 @NgModule({
   declarations: [
@@ -39,10 +40,10 @@ import { LoginComponent } from './login/login.component';
     TaiKhoanComponent,
     DSTaiKhoanComponent,
     ThemSuaphongbanComponent,
-    ThemSuaTaikhoanComponent,
+    // ThemSuaTaikhoanComponent,
     NhanVienComponent,
     DSNhanVienComponent,
-    ThemSuaNhanVienComponent,
+    // ThemSuaNhanVienComponent,
     DangnhapComponent,
     DangKiCaAnComponent,
     DSDKComponent,
@@ -65,6 +66,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CreateNhanVienComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],

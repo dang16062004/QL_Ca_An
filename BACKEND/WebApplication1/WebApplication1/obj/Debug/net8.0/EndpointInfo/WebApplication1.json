@@ -492,7 +492,7 @@
         }
       }
     },
-    "/api/NhanVien/Insert": {
+    "/api/NhanVien/Create": {
       "post": {
         "tags": [
           "NhanVien"
@@ -501,127 +501,26 @@
           "content": {
             "application/json-patch+json": {
               "schema": {
-                "$ref": "#/components/schemas/NhanVien"
+                "$ref": "#/components/schemas/CreateNhanVienRequest"
               }
             },
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NhanVien"
+                "$ref": "#/components/schemas/CreateNhanVienRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/NhanVien"
+                "$ref": "#/components/schemas/CreateNhanVienRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/NhanVien"
+                "$ref": "#/components/schemas/CreateNhanVienRequest"
               }
             }
           }
         },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/NhanVien/Update": {
-      "put": {
-        "tags": [
-          "NhanVien"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/NhanVien"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NhanVien"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NhanVien"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/NhanVien"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/NhanVien/Delete/{id}": {
-      "delete": {
-        "tags": [
-          "NhanVien"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/NhanVien/GetByUsername": {
-      "get": {
-        "tags": [
-          "NhanVien"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/NhanVien/LayThongTinTapThe/{tenDangNhap}": {
-      "get": {
-        "tags": [
-          "NhanVien"
-        ],
-        "parameters": [
-          {
-            "name": "tenDangNhap",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -641,235 +540,11 @@
         }
       }
     },
-    "/api/PhongBan/Insert": {
-      "post": {
-        "tags": [
-          "PhongBan"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/PhongBan/Delete/{maPhong}": {
-      "delete": {
-        "tags": [
-          "PhongBan"
-        ],
-        "parameters": [
-          {
-            "name": "maPhong",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/PhongBan/Update": {
-      "put": {
-        "tags": [
-          "PhongBan"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/PhongBan"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/TaiKhoan/GetAll": {
       "get": {
         "tags": [
           "TaiKhoan"
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TaiKhoan/Login": {
-      "post": {
-        "tags": [
-          "TaiKhoan"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TaiKhoan/Insert": {
-      "post": {
-        "tags": [
-          "TaiKhoan"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TaiKhoan/Delete/{maTaiKhoan}": {
-      "delete": {
-        "tags": [
-          "TaiKhoan"
-        ],
-        "parameters": [
-          {
-            "name": "maTaiKhoan",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/TaiKhoan/Update": {
-      "put": {
-        "tags": [
-          "TaiKhoan"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/TaiKhoan"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -908,6 +583,40 @@
           },
           "donDK": {
             "$ref": "#/components/schemas/DonDK"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateNhanVienRequest": {
+        "type": "object",
+        "properties": {
+          "hoVaTen": {
+            "type": "string",
+            "nullable": true
+          },
+          "namSinh": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "matKhau": {
+            "type": "string",
+            "nullable": true
+          },
+          "iD_Phong": {
+            "type": "string",
+            "nullable": true
+          },
+          "phanQuyen": {
+            "type": "string",
+            "nullable": true
+          },
+          "qdk": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1007,10 +716,6 @@
         "additionalProperties": false
       },
       "NhanVien": {
-        "required": [
-          "phanQuyen",
-          "qdk"
-        ],
         "type": "object",
         "properties": {
           "iD_NhanVien": {
@@ -1021,21 +726,16 @@
             "type": "string",
             "nullable": true
           },
-          "namSinh": {
+          "namsinh": {
             "type": "string",
-            "format": "date"
-          },
-          "qdk": {
-            "minLength": 1,
-            "pattern": "^(TAPTHE|CANHAN)$",
-            "type": "string"
-          },
-          "phanQuyen": {
-            "minLength": 1,
-            "pattern": "^(ADMIN|USER)$",
-            "type": "string"
+            "format": "date",
+            "nullable": true
           },
           "tenDangNhap": {
+            "type": "string",
+            "nullable": true
+          },
+          "iD_Phong": {
             "type": "string",
             "nullable": true
           },
@@ -1043,36 +743,32 @@
             "type": "string",
             "nullable": true
           },
-          "iD_Phong": {
-            "type": "string",
+          "nhanVien_TaiKhoans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NhanVien_TaiKhoan"
+            },
             "nullable": true
-          },
-          "phongBan": {
-            "$ref": "#/components/schemas/PhongBan"
-          },
-          "taiKhoan": {
-            "$ref": "#/components/schemas/TaiKhoan"
           }
         },
         "additionalProperties": false
       },
-      "PhongBan": {
+      "NhanVien_TaiKhoan": {
         "type": "object",
         "properties": {
-          "iD_Phong": {
+          "iD_NhanVien": {
             "type": "string",
             "nullable": true
           },
-          "tenPhong": {
+          "nhanVien": {
+            "$ref": "#/components/schemas/NhanVien"
+          },
+          "iD_TaiKhoan": {
             "type": "string",
             "nullable": true
           },
-          "nhanViens": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NhanVien"
-            },
-            "nullable": true
+          "taiKhoan": {
+            "$ref": "#/components/schemas/TaiKhoan"
           }
         },
         "additionalProperties": false
@@ -1081,19 +777,24 @@
         "type": "object",
         "properties": {
           "iD_TaiKhoan": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ngayTao": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "role": {
             "type": "string",
             "nullable": true
           },
-          "tenDangNhap": {
-            "type": "string",
+          "nhanVien_TaiKhoans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NhanVien_TaiKhoan"
+            },
             "nullable": true
-          },
-          "matKhau": {
-            "type": "string",
-            "nullable": true
-          },
-          "nhanVien": {
-            "$ref": "#/components/schemas/NhanVien"
           }
         },
         "additionalProperties": false

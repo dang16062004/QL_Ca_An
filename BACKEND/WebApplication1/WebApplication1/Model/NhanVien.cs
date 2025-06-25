@@ -8,7 +8,7 @@ namespace WebApplication1.Model
 
 		public int ID_NhanVien { get; set; }
 		public string HoVaTen { get; set; }
-		public DateTime? Namsinh { get; set; }
+		public DateOnly? Namsinh { get; set; }
 		public string TenDangNhap { get; set; }
 		public string ID_Phong { get; set; } // Giả sử có bảng Phong liên kết
 

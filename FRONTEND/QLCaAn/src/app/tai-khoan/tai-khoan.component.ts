@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-tai-khoan',
   standalone: false,
   templateUrl: './tai-khoan.component.html',
-  styleUrl: './tai-khoan.component.css'
+  styleUrls: ['./tai-khoan.component.css'], // nên là styleUrls (dạng mảng), không phải styleUrl
 })
-export class TaiKhoanComponent {
-
-}
+export class TaiKhoanComponent {}

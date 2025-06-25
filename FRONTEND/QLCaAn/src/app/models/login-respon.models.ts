@@ -1,7 +1,8 @@
 export interface LoginRespon {
-  ID_NhanVien: any;
-  ID_TaiKhoan: any;
-  token: any;
-  Role: any;
-  HoVaTen: any;
+  token: string;
+  Role: string;
+  ListRole: string[]; // ✅ thêm: danh sách vai trò
+  DSTaiKhoan: string[]; // ✅ thêm: danh sách ID tài khoản
+  ID_NhanVien: number;
+  HoVaTen: string;
 }

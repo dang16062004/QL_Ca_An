@@ -1,3 +1,11 @@
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.AssemblyReference.cache
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.GeneratedMSBuildEditorConfig.editorconfig
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.AssemblyInfoInputs.cache
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.AssemblyInfo.cs
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\appsettings.json
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\WebApplication1.staticwebassets.endpoints.json
@@ -8,6 +16,7 @@ D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\WebApplicat
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\WebApplication1.pdb
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Azure.Core.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Azure.Identity.dll
+D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -59,14 +68,6 @@ D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\wi
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Diagnostics.EventLog.dll
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.AssemblyReference.cache
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.GeneratedMSBuildEditorConfig.editorconfig
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.AssemblyInfoInputs.cache
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.AssemblyInfo.cs
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.csproj.CoreCompileInputs.cache
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cs
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.MvcApplicationPartsAssemblyInfo.cache
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.sourcelink.json
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\WebApplication1.styles.css
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
@@ -84,4 +85,3 @@ D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\refint\WebA
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.pdb
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\WebApplication1.genruntimeconfig.cache
 D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\obj\Debug\net8.0\ref\WebApplication1.dll
-D:\QL_Ca_An\BACKEND\WebApplication1\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

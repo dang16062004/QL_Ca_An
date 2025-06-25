@@ -1,13 +1,7 @@
 <!-- Button to Open the Modal -->
 <br />
 <br />
-<button
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#myModal"
-  (click)="moFormThem()"
->
+<button type="button" class="btn btn-primary" routerLink="createNhanVien">
   Thêm Nhân Viên
 </button>
 
@@ -31,13 +25,13 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body">
+      <!-- <div class="modal-body">
         <app-them-sua-nhan-vien
           *ngIf="dangThemSua"
           [NVienSelected]="NVienSelected"
           [isEdit]="isEdit"
         ></app-them-sua-nhan-vien>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
@@ -48,7 +42,7 @@
       <th>Mã Nhân Viên</th>
       <th>Tên Nhân Viên</th>
       <th>Năm sinh</th>
-      <th>Quyền Đăng Kí</th>
+      <th>Quyền Đăng Ký</th>
       <th>Phân Quyền</th>
       <th>Tên tài khoản</th>
       <th>Phòng Ban</th>
@@ -68,7 +62,7 @@
         {{ NhanVien.HoVaTen }}
       </td>
       <td>
-        {{ NhanVien.Namsinh }}
+        {{ NhanVien.NamSinh }}
       </td>
       <td>
         {{ NhanVien.QDK }}
@@ -94,13 +88,7 @@
           <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
         </button>
 
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="xoaNhanVien(NhanVien.ID_NhanVien)"
-        >
-          Xóa
-        </button>
+        <button type="button" class="btn btn-danger">Xóa</button>
       </td>
     </tr>
   </tbody>

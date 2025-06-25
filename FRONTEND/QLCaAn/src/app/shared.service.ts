@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 import { LoginRespon } from './models/login-respon.models';
 import { LoginRequest } from './models/login-request.models';
 import { NonNullAssert } from '@angular/compiler';
-
+import { NhanVienDTO } from './nhan-vien/nhanvien-model';
+import { jwtDecode } from 'jwt-decode';
+// Interface định nghĩa kiểu dữ liệu của payload sau khi decode token(decode token: giải mã token)
+export interface JwtPayload {
+  // Claim "role" có thể là chuỗi hoặc mảng chuỗi (ví dụ: "Admin" hoặc ["Admin", "User"])
+  'http://schemas.microsoft.com/ws/2008/06/identity/claims/role':
+    | string
+    | string[];
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -22,45 +30,19 @@ export class SharedService {
   themPhongBan(val: any) {
     return this.http.post(this.APIUrl + '/PhongBan/Insert', val);
   }
-  themtaiKhoan(val: any) {
-    return this.http.post(this.APIUrl + '/TaiKhoan/Insert', val);
-  }
 
-  suaPhongBan(val: any) {
-    return this.http.put(this.APIUrl + '/PhongBan/Update', val);
-  }
-  suaTaiKhoan(val: any) {
-    return this.http.put(this.APIUrl + '/TaiKhoan/Update', val);
-  }
-  xoaPhongBan(id: string): Observable<{ success: boolean; message: string }> {
-    return this.http.delete<{ success: boolean; message: string }>(
-      `${this.APIUrl}/PhongBan/Delete/${id}`
-    );
-  }
-  xoaTaiKhoan(id: string): Observable<{ success: boolean; message: string }> {
-    return this.http.delete<{ success: boolean; message: string }>(
-      `${this.APIUrl}/TaiKhoan/Delete/${id}`
-    );
-  }
   layDSNhanVien(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/NhanVien/GetAll');
   }
-  themNhanVien(val: any) {
-    return this.http.post(this.APIUrl + '/NhanVien/Insert', val);
+
+  createNhanVien(nv: NhanVienDTO): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post(this.APIUrl + '/NhanVien/Create', nv, { headers });
   }
 
-  suaNhanVien(val: any) {
-    return this.http.put(this.APIUrl + '/NhanVien/Update', val);
-  }
-
-  xoaNhanVien(id: string): Observable<{ success: boolean; message: string }> {
-    return this.http.delete<{ success: boolean; message: string }>(
-      `${this.APIUrl}/NhanVien/Delete/${id}`
-    );
-  }
-  // xoaNhanVien(id: any): Observable<any> {
-  //   return this.http.delete(this.APIUrl + '/NhanVien/Delete/' + id);
-  // }
   layDSDK(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/DonDK/GetAll');
   }
@@ -118,19 +100,46 @@ export class SharedService {
       body
     );
   }
-  login(request: LoginRequest): Observable<LoginRespon> {
-    return this.http.post<LoginRespon>(`${this.APIUrl}/Auth/Login`, request);
-  }
+
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
   getToken(): string | null {
     return localStorage.getItem('token');
   }
+  // bên trong SharedService
+
+  login(req: LoginRequest): Observable<LoginRespon> {
+    // Gửi POST request đến API đăng nhập với thông tin tài khoản (req)
+    return this.http.post<LoginRespon>(`${this.APIUrl}/Auth/Login`, req).pipe(
+      tap((res: LoginRespon) => {
+        // ✅ Lưu token vào localStorage để dùng cho các request tiếp theo
+        localStorage.setItem('token', res.token);
+        // ✅ Giải mã token để lấy thông tin bên trong payload (dữ liệu người dùng)
+        const payload = jwtDecode<{
+          'http://schemas.microsoft.com/ws/2008/06/identity/claims/role':
+            | string
+            | string[];
+        }>(res.token);
+        // ✅ Trích xuất quyền từ payload với key chuẩn theo định dạng JWT
+        const raw =
+          payload[
+            'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+          ];
+        // ✅ Nếu chỉ có 1 quyền thì ép thành mảng để đồng nhất xử lý
+        const roles = Array.isArray(raw) ? raw : [raw];
+        // ✅ Lưu danh sách quyền vào localStorage để tiện truy cập sau này
+        localStorage.setItem('roles', JSON.stringify(roles));
+      })
+    );
+  }
+
+  getRoles(): string[] {
+    return JSON.parse(localStorage.getItem('roles') || '[]');
+  }
+
   logout(): void {
     localStorage.removeItem('token');
-  }
-  getRole(): string | null {
-    return localStorage.getItem('role');
+    localStorage.removeItem('roles');
   }
 }

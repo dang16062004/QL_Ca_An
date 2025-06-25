@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-nhan-vien',
   standalone: false,
   templateUrl: './nhan-vien.component.html',
-  styleUrl: './nhan-vien.component.css'
+  styleUrl: './nhan-vien.component.css',
 })
-export class NhanVienComponent {
-
-}
+export class NhanVienComponent {}

@@ -1,0 +1,59 @@
+<!-- src/app/nhan-vien/create-nhanvien/create-nhanvien.component.html -->
+<h2 class="text-xl font-bold mb-4">Thêm nhân viên</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+  <!-- Họ và tên -->
+  <div>
+    <label class="block">Họ và Tên</label>
+    <input type="text" formControlName="HoVaTen" class="input" />
+  </div>
+
+  <!-- Năm sinh -->
+  <div>
+    <label class="block">Năm sinh</label>
+    <input type="date" formControlName="NamSinh" class="input" />
+  </div>
+
+  <!-- Tên đăng nhập -->
+  <div>
+    <label class="block">Tên đăng nhập</label>
+    <input type="text" formControlName="TenDangNhap" class="input" />
+  </div>
+
+  <!-- Mật khẩu -->
+  <div>
+    <label class="block">Mật khẩu</label>
+    <input type="password" formControlName="MatKhau" class="input" />
+  </div>
+
+  <!-- Phòng ban -->
+  <div>
+    <label class="block">Phòng ban</label>
+    <select formControlName="ID_Phong" class="input">
+      <option [ngValue]="null">-- chọn phòng --</option>
+      <option *ngFor="let p of phongBans" [ngValue]="p.id_Phong">
+        {{ p.tenPhong }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Quyền (Admin/User) -->
+  <div>
+    <label class="block">Phân quyền</label>
+    <select formControlName="PhanQuyen" class="input">
+      <option *ngFor="let r of roles" [ngValue]="r">{{ r }}</option>
+    </select>
+  </div>
+
+  <!-- QDK (CaNhan/TapThe) -->
+  <div>
+    <label class="block">Quyền đăng ký (QDK)</label>
+    <select formControlName="QDK" class="input">
+      <option *ngFor="let q of qdks" [ngValue]="q">{{ q }}</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+    Lưu
+  </button>
+</form>

@@ -1,25 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Security.Claims;
 using WebApplication1.Model;
 
 namespace WebApplication1.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class NhanVienController : ControllerBase
-    {
-        private readonly IConfiguration _configuration;
-        public NhanVienController(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
+	[Route("api/[controller]")]
+	[ApiController]
+	public class NhanVienController : ControllerBase
+	{
+		private readonly IConfiguration _configuration;
+		public NhanVienController(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 
-		
-		
+
+
 		[Route("GetAll")]
 		//[Authorize]
 		[HttpGet]
@@ -78,7 +80,7 @@ namespace WebApplication1.Controllers
 		}
 
 
-	
+
 
 		[Route("Create")]
 		[HttpPost]
@@ -101,7 +103,7 @@ namespace WebApplication1.Controllers
 				// ✅ Mở Transaction để đảm bảo toàn bộ quá trình thêm nhân viên là nguyên tử(có tính liên kết)
 
 				using SqlTransaction tran = conn.BeginTransaction(IsolationLevel.Serializable);
-
+				//0.Kiểm tra xem I_phòng vừa nhập có tồn tại hay không => ko cần làm chỉ load danh sách phòng ban là được
 				// 1️. Nếu tạo Admin mới → kiểm tra đã có Admin nào tồn tại chưa (Admin = ID_TaiKhoan = 1)
 				if (req.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase))
 				{
@@ -112,6 +114,19 @@ namespace WebApplication1.Controllers
 						// ❌ Nếu đã có Admin rồi → trả lỗi
 						return Conflict("Đã tồn tại người có quyền Admin. Không thể thêm Admin thứ hai.");
 				}
+				//Kiem tra xem cai ten dang nhap da tton tai hay chua
+				string queryTenDN = @"select count(*) from NhanVien where TenDangNhap=@TenDangNhap";
+				using (SqlCommand commnaTenDN = new SqlCommand(queryTenDN, conn, tran))
+				{
+					commnaTenDN.Parameters.AddWithValue("@TenDangNhap", req.TenDangNhap);
+					int hasTenDNsame = (int)commnaTenDN.ExecuteScalar();
+					if (hasTenDNsame > 1)
+					{
+						return BadRequest("Da ton tia ten dang nhap nhu vay");
+					}
+				}
+
+
 
 				// 2️. Nếu QDK là TapThe → kiểm tra phòng đã có ai TapThe chưa (TapThe = ID_TaiKhoan = 4)
 				if (req.QDK.Equals("TapThe", StringComparison.OrdinalIgnoreCase))
@@ -153,8 +168,8 @@ namespace WebApplication1.Controllers
 
 				// 5️⃣ Chèn các liên kết giữa nhân viên và quyền vào bảng trung gian
 				const string sqlLink = @"
-            INSERT INTO NhanVien_TaiKhoan (ID_NhanVien, ID_TaiKhoan)
-            VALUES (@IDNV, @IDTK);";
+				INSERT INTO NhanVien_TaiKhoan (ID_NhanVien, ID_TaiKhoan)
+				VALUES (@IDNV, @IDTK);";
 
 				foreach (var idTk in tkIds.Distinct())
 				{
@@ -178,6 +193,453 @@ namespace WebApplication1.Controllers
 		}
 
 
+		[Route("Delete")]
+		[HttpDelete]
+		[Authorize(Roles = "Admin")]// ✅ Chỉ người có role "Admin" trong JWT mới gọi được API này
+		public IActionResult Delete(int iD_NhanVien)
+		{
+			try
+			{
+				string queryTableNhanVien = "delete from NhanVien where ID_NhanVien = @id";
+				string queryTableNhanVien_TaiKhoan = "delete from NhanVien_TaiKhoan where ID_NhanVien = @id";
+
+				if ((int?)iD_NhanVien == null) return BadRequest("Dữ liệu rỗng");
+				using (SqlConnection con = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					con.Open();
+					using (SqlCommand command = new SqlCommand(queryTableNhanVien_TaiKhoan, con))
+					{
+						command.Parameters.AddWithValue("@id", iD_NhanVien);
+						command.ExecuteNonQuery();
+					}
+					using (SqlCommand command = new SqlCommand(queryTableNhanVien, con))
+					{
+						command.Parameters.AddWithValue("@id", iD_NhanVien);
+						command.ExecuteNonQuery();
+					}
+				}
+				return Ok("Delete Success");
+
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.ToString());
+			}
+		}
+
+
+		[Route("UpdatebyAdmin")]
+		[HttpPut]
+		[Authorize(Roles = "Admin")]//✅ Chỉ người có role "Admin" trong JWT mới gọi được API này thì được sửa hết tất cả nhân viên 
+
+		public IActionResult UpdateByAdmin([FromBody] UpdateNhanVienRequest request)
+		{
+			if (request == null) return BadRequest("Dữ liệu bị rỗng");
+			if (new[] { "Admin", "User" }.Contains(request.PhanQuyen, StringComparer.OrdinalIgnoreCase) == false)
+			{
+				return BadRequest("Lỗi Phan Quyen không hợp lệ");
+
+			}
+			if (new[] { "CaNhan", "TapThe" }.Contains(request.QDK, StringComparer.OrdinalIgnoreCase) == false)
+			{
+				return BadRequest("Lỗi QDK không hợp lệ");
+			}
+			try
+			{
+				using (SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					conn.Open();
+					using SqlTransaction transaction = conn.BeginTransaction(IsolationLevel.Serializable);
+
+					//Kiểm tra xem đã tồn tại nhân viên nào có role là Admin hay chưa
+
+					if (request.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+					{
+						string queryChekAdmin = @"select count(*) from NhanVien_TaiKhoan where ID_TaiKhoan=1";
+						using SqlCommand command = new SqlCommand(queryChekAdmin, conn, transaction);
+						var hasAdmin = (int)command.ExecuteScalar();
+						if (hasAdmin > 0)
+						{
+							return Conflict("Đã tồn tại nhân viên có Role=Admin, Vui lòng chọn User");
+
+						}
+					}
+					//Kiểm tra xem ID_phòng vừa nhập có tồn tại hay không => ko cần làm chỉ load danh sách phòng ban là được
+					////Kiểm tra xem đã tồn tại nhân viên nào có role là TapThe trong phòng ban đó hay chưa
+					if (request.QDK.Equals("TapThe", StringComparison.OrdinalIgnoreCase))
+					{
+						string queryChecKTapThe = @"select count(*) 
+								from NhanVien nv
+								join NhanVien_TaiKhoan nvtk on nvtk.ID_NhanVien=nv.ID_NhanVien
+								join PhongBan pb on pb.ID_Phong = nv.ID_Phong 
+								where nv.ID_Phong =@id and nvtk.ID_TaiKhoan=4 ";///ID_TaiKhoan=4 có role TapThe
+						using SqlCommand comman = new SqlCommand(queryChecKTapThe, conn, transaction);
+						comman.Parameters.AddWithValue("@id", request.ID_Phong);
+						int hasTapThe = (int)comman.ExecuteScalar();
+						if (hasTapThe > 1)
+						{
+							return Conflict("Phòng " + request.ID_Phong + " đã tồn tại nhân viên có QDK Tập Thể.Vui lòng chọn cá nhân ");
+						}
+					}
+					string queryTenDN = @"select count(*) from NhanVien where TenDangNhap=@TenDangNhap  and ID_NhanVien <> @ID_NhanVien";
+					using (SqlCommand commandTenDN = new SqlCommand(queryTenDN, conn, transaction))
+					{
+						commandTenDN.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+						commandTenDN.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+						int hasSameTenDN = (int)commandTenDN.ExecuteScalar();
+						if (hasSameTenDN >= 1)
+						{
+							return BadRequest("Đã có nhân viên trùng tên đăng nhập , nhập tên khác");
+						}
+					}
+					//Upate ở bảng NhanVien
+					string queryUpateNhanVien = @"
+							update NhanVien set HoVaTen =@HoVaTen, Namsinh= @Namsinh,TenDangNhap=@TenDangNhap,MatKhau=@MatKhau, ID_Phong=@ID_Phong
+							where ID_NhanVien=@ID_NhanVien";
+					using SqlCommand commandupdateNhanVien = new SqlCommand(queryUpateNhanVien, conn, transaction);
+					commandupdateNhanVien.Parameters.AddWithValue("@HoVaTen", request.HoVaTen);
+					commandupdateNhanVien.Parameters.AddWithValue("@Namsinh", request.NamSinh);
+					commandupdateNhanVien.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+					commandupdateNhanVien.Parameters.AddWithValue("@MatKhau", request.MatKhau);
+					commandupdateNhanVien.Parameters.AddWithValue("@ID_Phong", request.ID_Phong);
+					commandupdateNhanVien.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+					commandupdateNhanVien.ExecuteNonQuery();
+					// 4️. Xác định ID_TaiKhoan tương ứng với quyền (1: Admin, 2: User, 3: CaNhan, 4: TapThe)
+					var Idtk = new List<int>();
+					Idtk.Add(request.QDK.Equals("TapThe", StringComparison.OrdinalIgnoreCase) ? 4 : 3);
+					Idtk.Add(request.PhanQuyen.Equals("Amin", StringComparison.OrdinalIgnoreCase) ? 1 : 2);
+
+					//phải xóa các cột ở bảng NhanVien_TaiKhoan vì nếu dùng lệnh updatte sẽ là trùng khóa chính nên phải xóa sau đó thêm mới
+					string queryXoa = "DELETE FROM NhanVien_TaiKhoan WHERE ID_NhanVien = @ID_NhanVien";
+					using (SqlCommand cmdXoa = new SqlCommand(queryXoa, conn, transaction))
+					{
+						cmdXoa.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+						cmdXoa.ExecuteNonQuery();
+					}
+
+					string queryThem = "INSERT INTO NhanVien_TaiKhoan (ID_NhanVien, ID_TaiKhoan) VALUES (@ID_NhanVien, @ID_TaiKhoan)";
+					foreach (var idtk in Idtk.Distinct())
+					{
+						using SqlCommand cmdThem = new SqlCommand(queryThem, conn, transaction);
+						cmdThem.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+						cmdThem.Parameters.AddWithValue("@ID_TaiKhoan", idtk);
+						cmdThem.ExecuteNonQuery();
+					}
+
+					transaction.Commit();
+				}
+
+
+				return Ok("Update by Admin success");
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest($"SQL Error: {ex}");
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.ToString());
+			}
+
+		}
+
+
+		[Route("UpdateByUser")]
+		[HttpPut]
+		[Authorize(Roles = "User")]//✅ Chỉ người có role "User" trong JWT mới gọi được API này thì được sửa duy nhất nhân viên đăng nhập đó
+		public IActionResult UpdateByUser([FromBody] UpdateNhanVienRequest request)
+		{
+			try
+			{
+				if (request == null)
+				{
+					return BadRequest("Giá trị bị null");
+				}
+				if (new[] { "User", "Admin" }.Contains(request.PhanQuyen, StringComparer.OrdinalIgnoreCase) == false)
+				{
+					return Conflict("Phan quyen khong hop le");
+				}
+				if (new[] { "CaNhan", "TapThe" }.Contains(request.QDK, StringComparer.OrdinalIgnoreCase) == false)
+				{
+					return Conflict("QDK khong hop le");
+				}
+				int idFromToken = GetIDFromJWT() ?? -1;
+				if (idFromToken == null)
+				{
+					return Unauthorized("Không lấy ID từ token");
+				}
+				if (idFromToken != request.ID_NhanVien)
+				{
+					return Forbid("Bạn chỉ được phép sửa thông tin của chính mình");
+				}
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					connection.Open();
+
+					using (SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+					{
+						//kiem tra xem da ton tai nhan vien co quyen Admin khong
+						if (request.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase) == true)
+						{
+							string queryAdmin = @"select count(*) from NhanVien_TaiKhoan where ID_TaiKhoan=1";
+							using (SqlCommand command = new SqlCommand(queryAdmin, connection, transaction))
+							{
+								int hasAdmin = (int)command.ExecuteScalar();
+								if (hasAdmin > 1)
+								{
+									return Conflict("Da ton tai nhan vien co quyen Admin ");
+								}
+							}
+						}
+						//kiem tra xem nhan vien co ton tain qdk la TapThe trong 1phong khong
+						if (request.QDK.Equals("TapThe", StringComparison.OrdinalIgnoreCase) == true)
+						{
+							string queryTapThe = @"select count(*) from NhanVien nv
+							join NhanVien_TaiKhoan nvtk on nvtk.ID_NhanVien = nv.ID_NhanVien
+							where nv.ID_Phong=@id and nvtk.ID_TaiKhoan=4";
+							using (SqlCommand commandTapThe = new SqlCommand(queryTapThe, connection, transaction))
+							{
+								commandTapThe.Parameters.AddWithValue("@id", request.ID_Phong);
+								int hasTapThe = (int)commandTapThe.ExecuteScalar();
+								if (hasTapThe > 1)
+								{
+									return Conflict("Da ton tai nhan vien co quyen TapThe o Phong" + request.ID_Phong);
+								}
+							}
+						}
+						string queryTenDN = @"select count(*) from NhanVien where TenDangNhap=@TenDangNhap  and ID_NhanVien <> @ID_NhanVien";
+						using (SqlCommand commandTenDN = new SqlCommand(queryTenDN, connection, transaction))
+						{
+							commandTenDN.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+							commandTenDN.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+							int hasSameTenDN = (int)commandTenDN.ExecuteScalar();
+							if (hasSameTenDN >= 1)
+							{
+								return BadRequest("Đã có nhân viên trùng tên đăng nhập , nhập tên khác");
+							}
+						}
+						//update bang nhan vien
+						string queryNhanVien = @"
+						update NhanVien set HoVaTen=@HoVaTen,MatKhau=@MatKhau,ID_Phong=@ID_Phong,TenDangNhap =@TenDangNhap,Namsinh=@Namsinh
+						where ID_NhanVien=@ID_NhanVien
+						";
+						using (SqlCommand commandNhanVien = new SqlCommand(queryNhanVien, connection, transaction))
+						{
+							commandNhanVien.Parameters.AddWithValue("@HoVaTen", request.HoVaTen);
+							commandNhanVien.Parameters.AddWithValue("@MatKhau", request.MatKhau);
+							commandNhanVien.Parameters.AddWithValue("@ID_Phong", request.ID_Phong);
+							commandNhanVien.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+							commandNhanVien.Parameters.AddWithValue("@Namsinh", request.NamSinh);
+							commandNhanVien.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+
+							commandNhanVien.ExecuteNonQuery();
+						}
+
+						//xoa thong tin trong bang NhanVien_TaiKhoan
+						string querydelete = @"delete from NhanVien_TaiKhoan where ID_NhanVien=@ID_NhanVien";
+						using (SqlCommand commandDelete = new SqlCommand(querydelete, connection, transaction))
+						{
+							commandDelete.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+							commandDelete.ExecuteNonQuery();
+						}
+
+						//insert lai cho bang NhanVien_TaiKhoan 
+						var listtIDTk = new List<int>();
+						listtIDTk.Add(request.QDK.Equals("Tapthe", StringComparison.OrdinalIgnoreCase) ? 4 : 3);
+						listtIDTk.Add(request.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase) ? 1 : 2);
+
+						string queryInsert = @"insert into NhanVien_TaiKhoan  (ID_NhanVien,ID_TaiKhoan) values(@ID_NhanVien,@ID_TaiKhoan) ";
+						foreach (var list in listtIDTk.Distinct())
+						{
+							using (SqlCommand commandInsert = new SqlCommand(queryInsert, connection, transaction))
+							{
+								commandInsert.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+								commandInsert.Parameters.AddWithValue("@ID_TaiKhoan", list);
+								commandInsert.ExecuteNonQuery(); ;
+							}
+						}
+
+						transaction.Commit();
+					}
+					;
+
+				}
+				;
+
+				return Ok("Updadte by user success");
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest($"Lỗi sql :{ex}");
+			}
+			catch (Exception ex)
+			{
+				return BadRequest("Lỗi" + ex.ToString());
+			}
+		}
+
+
+
+		private int? GetIDFromJWT()
+		{
+			var id = User?.Claims?.FirstOrDefault(c => c.Type == "ID_NhanVien")?.Value;
+			return int.TryParse(id, out int result) ? result : (int?)null;
+		}
+		private List<string> GetRolesFromJWT()
+		{
+			return User.Claims
+				.Where(c => c.Type == ClaimTypes.Role)
+				.Select(c => c.Value)
+				.ToList();
+		}
+
+
+
+		[Route("UpdateNhanVien")]
+		[HttpPut]
+		[Authorize(Roles = "User,Admin")]//functtion thay cho 2 fucnttion upđate ttreen
+		public IActionResult UpdateNhanVien([FromBody] UpdateNhanVienRequest request)
+		{
+			try
+			{
+				if (request == null)
+				{
+					return BadRequest("Thông tin nhập vào là rỗng");
+				}
+				//Kiểm tra định ạng cho phân quyền => để nhập đúng
+				if (new[] { "User", "Admin" }.Contains(request.PhanQuyen, StringComparer.OrdinalIgnoreCase) == false)
+				{
+					return BadRequest("Phân quyen đã định dạng sai");
+
+				}
+				//Kiểm tra định ạng cho QDK
+				if (new[] { "TapThe", "CaNhan" }.Contains(request.QDK, StringComparer.OrdinalIgnoreCase) == false)
+				{
+					return BadRequest("QDK đã định dạng sai");
+
+				}
+				//Kiểm tra người đăng nhâp(check user)
+				int? idFromJWT = GetIDFromJWT();
+				if (idFromJWT == null)
+				{
+					return BadRequest("Thông tin lấy từ jwtt vào là rỗng");
+				}
+				if (GetRolesFromJWT().Contains("User") && idFromJWT != request.ID_NhanVien)
+				{
+					return BadRequest("Tài Khoản đăng nhập là User nên chỉ sửa được thông tin của nhân viên đó với ID là "+idFromJWT);
+				}
+
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					connection.Open();
+					using (SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+					{
+						//Kiểm tra xem đã tồn tại nhân viên có quyền là Admin hay chưa
+						if (request.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+						{
+							string queryAdmin = @"select count(*) from NhanVien_TaiKhoan where ID_TaiKhoan=1";
+							using (SqlCommand commanddAdmin = new SqlCommand(queryAdmin, connection, transaction))
+							{
+								int hasAdmin = (int)commanddAdmin.ExecuteScalar();
+								if (hasAdmin > 1)
+								{
+									return BadRequest("Đã tồn tại nhân viên có quyền Admin , hãy chọn là User");
+								}
+							}
+						}
+
+						//Kiểm tra xem đã tồn tại Nhân viên có quyền TapThe ttrong 1 phòng ban cụ thể hay chưa
+						if (request.QDK.Equals("Tapthe", StringComparison.OrdinalIgnoreCase))
+						{
+							string queryTapThe = @"select count(*) 
+							from NhanVien nv 
+							join PhongBan pb on pb.ID_NhanVien = nv.ID_NhanVien
+							join NhanVien_TaiKhoan nvtk on mvtk.ID_NhanVien= nv.ID_NhanVien
+							where nv.ID_Phong=@ID_Phong and nvtk.ID_TaiKhoan=4";
+
+							using(SqlCommand commandQDK = new SqlCommand(queryTapThe, connection, transaction))
+							{
+								commandQDK.Parameters.AddWithValue("@ID_Phong", request.ID_Phong);
+								int hastapThe = (int)commandQDK.ExecuteScalar();
+								if (hastapThe > 1)
+								{
+									return BadRequest("Đã tồn tại nhân viên ở phòng có ID là" + request.ID_Phong);
+								}
+							}
+						}
+
+						//Kiểm tra xem có trùng tên đăng nhập hay khồng
+						string queryTenDN = @"select count(*) from NhanVien where TenDangNhap=@TenDangNhap  and ID_NhanVien <> @ID_NhanVien";
+						using(SqlCommand commandTenDN = new SqlCommand(queryTenDN, connection, transaction))
+						{
+							commandTenDN.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+							commandTenDN.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+							int hasSameTenDN = (int)commandTenDN.ExecuteScalar();
+							if(hasSameTenDN>=1)
+							{
+								return BadRequest("Đã có nhân viên trùng tên đăng nhập , nhập tên khác");
+							}
+						}
+
+						//Update bảng NhanVien
+						string queryNhanVien = @"
+						update NhanVien set HoVaTen = @HoVaTen, Namsinh = @Namsinh , TenDangNhap =@TenDangNhap, MatKhau=@MatKhau,ID_Phong=@ID_Phong
+						where ID_NhanVien = @ID_NhanVien
+						";
+
+						using (SqlCommand commandNhanVien = new SqlCommand(queryNhanVien, connection, transaction))
+						{
+							commandNhanVien.Parameters.AddWithValue("@HoVaTen",request.HoVaTen);
+							commandNhanVien.Parameters.AddWithValue("@Namsinh", request.NamSinh);
+							commandNhanVien.Parameters.AddWithValue("@TenDangNhap", request.TenDangNhap);
+							commandNhanVien.Parameters.AddWithValue("@MatKhau", request.MatKhau);
+							commandNhanVien.Parameters.AddWithValue("@ID_Phong", request.ID_Phong);
+							commandNhanVien.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+							
+							commandNhanVien.ExecuteNonQuery();
+
+						}
+
+						//Upadte bảng NhanVien_TaiKhoarn = xóa +tạo mới
+						string queryDelete = @"delete from NhanVien_TaiKhoan where ID_NhanVien=@ID_NhanVien";
+						using(SqlCommand commandDelete = new SqlCommand(queryDelete, connection, transaction))
+						{
+							commandDelete.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+							commandDelete.ExecuteNonQuery();
+						}
+
+						var listID = new List<int>();
+						listID.Add(request.PhanQuyen.Equals("Admin", StringComparison.OrdinalIgnoreCase) ? 1 : 2);
+						listID.Add(request.QDK.Equals("TapThe", StringComparison.OrdinalIgnoreCase) ? 4 : 3);
+						foreach (var list in listID.Distinct())
+						{
+							string queryInsert = @"insert into NhanVien_TaiKhoan(ID_NhanVien,ID_TaiKhoan)  values(@ID_NhanVien,@ID_TaiKhoan)";
+							using (SqlCommand commandInsert = new SqlCommand(queryInsert, connection, transaction))
+							{
+								commandInsert.Parameters.AddWithValue("@ID_NhanVien", request.ID_NhanVien);
+								commandInsert.Parameters.AddWithValue("@ID_TaiKhoan", list);
+								commandInsert.ExecuteNonQuery();
+							}
+						}
+
+
+
+						transaction.Commit();
+					}
+				}
+
+
+				return Ok("Update NhanVien Success");
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest($"Lỗi Sql" + ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest($"Lỗi " + ex.Message);
+			}
+		}
 
 
 

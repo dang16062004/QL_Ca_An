@@ -281,12 +281,76 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "Delete",
+    "RelativePath": "api/NhanVien/Delete",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "iD_NhanVien",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
     "Method": "GetAll",
     "RelativePath": "api/NhanVien/GetAll",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "UpdateByAdmin",
+    "RelativePath": "api/NhanVien/UpdatebyAdmin",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Model.UpdateNhanVienRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "UpdateByUser",
+    "RelativePath": "api/NhanVien/UpdateByUser",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Model.UpdateNhanVienRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "UpdateNhanVien",
+    "RelativePath": "api/NhanVien/UpdateNhanVien",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "WebApplication1.Model.UpdateNhanVienRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

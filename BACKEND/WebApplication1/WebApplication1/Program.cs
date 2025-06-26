@@ -95,7 +95,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowOrigin", policy =>
-		policy.WithOrigins("http://localhost:4200")         // Cho phép c domain
+		policy.WithOrigins("http://localhost:4200")         // Cho phép  domain
 			  .AllowAnyHeader()         // Cho phép tất cả các header
 			  .AllowAnyMethod()
 			  );       // Cho phép tất cả các phương thức (GET, POST, ...)

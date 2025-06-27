@@ -3,24 +3,20 @@
   "WorkspaceRootPath": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\dondkcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\donfullrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\donfullrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\nhanviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\createnhanvienrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\createnhanvienrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\updatenhanvienrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\updatenhanvienrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\model\\phongban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\model\\phongban.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|d:\\ql_ca_an\\backend\\webapplication1\\webapplication1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B74B2CB9-61E9-4D3E-99EB-C4AE61A8E1C9}|WebApplication1\\WebApplication1.csproj|solutionrelative:webapplication1\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,70 +26,59 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UpdateNhanVienRequest.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\UpdateNhanVienRequest.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\UpdateNhanVienRequest.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\UpdateNhanVienRequest.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\UpdateNhanVienRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAWAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "DonFullRequest.cs",
+              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\DonFullRequest.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Model\\DonFullRequest.cs",
+              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\DonFullRequest.cs",
+              "RelativeToolTip": "WebApplication1\\Model\\DonFullRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-26T02:22:59.694Z",
+              "WhenOpened": "2025-06-27T03:44:02.382Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "NhanVienController.cs",
               "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\NhanVienController.cs",
               "RelativeDocumentMoniker": "WebApplication1\\Controllers\\NhanVienController.cs",
               "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\NhanVienController.cs",
               "RelativeToolTip": "WebApplication1\\Controllers\\NhanVienController.cs",
-              "ViewState": "AgIAAFQCAAAAAAAAAIAwwGQCAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAFwBAAAAAAAAAAAAAGIBAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-25T02:15:32.891Z",
+              "WhenOpened": "2025-06-27T03:43:09.528Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CreateNhanVienRequest.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\CreateNhanVienRequest.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\CreateNhanVienRequest.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\CreateNhanVienRequest.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\CreateNhanVienRequest.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAQAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "DonDKController.cs",
+              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\DonDKController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\DonDKController.cs",
+              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\DonDKController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\DonDKController.cs",
+              "ViewState": "AgIAAEkCAAAAAAAAAAAAAFoCAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-25T03:24:53.041Z",
+              "WhenOpened": "2025-06-27T03:41:38.285Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "TaiKhoan.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\TaiKhoan.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\TaiKhoan.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\TaiKhoan.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\TaiKhoan.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "WebApplication1\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "WebApplication1\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-24T03:47:29.97Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PhongBan.cs",
-              "DocumentMoniker": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\PhongBan.cs",
-              "RelativeDocumentMoniker": "WebApplication1\\Model\\PhongBan.cs",
-              "ToolTip": "D:\\QL_Ca_An\\BACKEND\\WebApplication1\\WebApplication1\\Model\\PhongBan.cs",
-              "RelativeToolTip": "WebApplication1\\Model\\PhongBan.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-25T02:07:22.3Z"
+              "WhenOpened": "2025-06-27T02:03:06.706Z",
+              "EditorCaption": ""
             }
           ]
         }

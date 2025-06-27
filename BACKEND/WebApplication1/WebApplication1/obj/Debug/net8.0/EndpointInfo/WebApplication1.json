@@ -390,51 +390,6 @@
         }
       }
     },
-    "/api/DonDK/UpdateDonOnly": {
-      "put": {
-        "tags": [
-          "DonDK"
-        ],
-        "parameters": [
-          {
-            "name": "iD",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonCaNhanRequest"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonCaNhanRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonCaNhanRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DonCaNhanRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/DonDK/UpdateFull": {
       "put": {
         "tags": [
@@ -754,10 +709,6 @@
       "DonCaNhanRequest": {
         "type": "object",
         "properties": {
-          "tenDangNhap": {
-            "type": "string",
-            "nullable": true
-          },
           "ngayDK": {
             "type": "string",
             "format": "date-time",

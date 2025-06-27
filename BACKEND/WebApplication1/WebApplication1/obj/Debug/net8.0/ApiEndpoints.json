@@ -223,27 +223,6 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
-    "Method": "UpdateDonOnly",
-    "RelativePath": "api/DonDK/UpdateDonOnly",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "WebApplication1.Model.DonCaNhanRequest",
-        "IsRequired": true
-      },
-      {
-        "Name": "iD",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.DonDKController",
     "Method": "UpdateFull",
     "RelativePath": "api/DonDK/UpdateFull",
     "HttpMethod": "PUT",

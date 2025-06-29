@@ -390,6 +390,51 @@
         }
       }
     },
+    "/api/DonDK/UpdateDonOnly": {
+      "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "iD",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DonCaNhanRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/DonDK/UpdateFull": {
       "put": {
         "tags": [
@@ -397,7 +442,7 @@
         ],
         "parameters": [
           {
-            "name": "Id_DonDK",
+            "name": "iD",
             "in": "query",
             "schema": {
               "type": "string"
@@ -709,11 +754,6 @@
       "DonCaNhanRequest": {
         "type": "object",
         "properties": {
-          "ngayDK": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
           "loaiDK": {
             "type": "string",
             "nullable": true
@@ -765,10 +805,6 @@
       "DonFullRequest": {
         "type": "object",
         "properties": {
-          "tenDangNhap": {
-            "type": "string",
-            "nullable": true
-          },
           "donDK": {
             "$ref": "#/components/schemas/DonDK"
           },

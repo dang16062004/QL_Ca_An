@@ -133,6 +133,22 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
+    "Method": "KhoaDon",
+    "RelativePath": "api/DonDK/CheckedDon",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "iD_Don",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.DonDKController",
     "Method": "LayChiTietDonTheoID",
     "RelativePath": "api/DonDK/ChiTietDon",
     "HttpMethod": "GET",
@@ -141,7 +157,7 @@
     "Parameters": [
       {
         "Name": "idDon",
-        "Type": "System.String",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -149,16 +165,16 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
-    "Method": "Delete",
-    "RelativePath": "api/DonDK/Delete/{id}",
+    "Method": "DeletebyUser",
+    "RelativePath": "api/DonDK/Delete",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.String",
-        "IsRequired": true
+        "Name": "iD_Don",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -236,7 +252,7 @@
       },
       {
         "Name": "iD",
-        "Type": "System.String",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -257,7 +273,7 @@
       },
       {
         "Name": "iD",
-        "Type": "System.String",
+        "Type": "System.Int32",
         "IsRequired": false
       }
     ],
@@ -303,38 +319,6 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.NhanVienController",
-    "Method": "UpdateByAdmin",
-    "RelativePath": "api/NhanVien/UpdatebyAdmin",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "WebApplication1.Model.UpdateNhanVienRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "WebApplication1.Controllers.NhanVienController",
-    "Method": "UpdateByUser",
-    "RelativePath": "api/NhanVien/UpdateByUser",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "WebApplication1.Model.UpdateNhanVienRequest",
-        "IsRequired": true
-      }
-    ],
     "ReturnTypes": []
   },
   {

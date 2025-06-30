@@ -79,7 +79,7 @@ namespace WebApplication1.Controllers
 					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
 					{
 						sqlCommand.Parameters.AddWithValue("@ID_DonDK", chiTietDonDK.ID_DonDK);
-						sqlCommand.Parameters.AddWithValue("@TrangThai", chiTietDonDK.TrangThai);
+						//sqlCommand.Parameters.AddWithValue("@TrangThai", chiTietDonDK.TrangThai);
 						sqlCommand.Parameters.AddWithValue("@ID_NhanVien", chiTietDonDK.ID_NhanVien);
 						sqlCommand.Parameters.AddWithValue("@SoLuong", chiTietDonDK.SoLuong);
 						sqlCommand.Parameters.AddWithValue("@ID_ChiTietDonDK", chiTietDonDK.ID_ChiTietDonDK);
@@ -129,7 +129,7 @@ namespace WebApplication1.Controllers
 					sqlConnection.Open();
 					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
 					{
-						sqlCommand.Parameters.AddWithValue("@TrangThai", chiTietDonDK.TrangThai);
+						//sqlCommand.Parameters.AddWithValue("@TrangThai", chiTietDonDK.TrangThai);
 						sqlCommand.Parameters.AddWithValue("@ID_NhanVien", chiTietDonDK.ID_NhanVien);
 						sqlCommand.Parameters.AddWithValue("@SoLuong", chiTietDonDK.SoLuong);
 						sqlCommand.Parameters.AddWithValue("@ID_ChiTietDonDK", chiTietDonDK.ID_ChiTietDonDK);

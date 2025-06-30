@@ -508,10 +508,10 @@ namespace WebApplication1.Controllers
 				}
 				//Kiểm tra định ạng cho phân quyền => để nhập đúng
 			//	if (new[] { "User", "Admin" }.Contains(request.PhanQuyen, StringComparer.OrdinalIgnoreCase) == false)
-				{
-					return BadRequest("Phân quyen đã định dạng sai");
+				//{
+				//	return BadRequest("Phân quyen đã định dạng sai");
 
-				}
+				//}
 				//Kiểm tra định ạng cho QDK
 				if (new[] { "TapThe", "CaNhan" }.Contains(request.QDK, StringComparer.OrdinalIgnoreCase) == false)
 				{

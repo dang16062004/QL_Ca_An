@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System.ComponentModel;
 using System.Data;
 using System.Security.Claims;
 using WebApplication1.Model;
@@ -108,110 +109,107 @@ namespace WebApplication1.Controllers
 			}
 		}
 
-		//[Route("Update")]
-		//[HttpPut]
-		//public JsonResult Update(DonDK donDK)
-		//{
-		//	try
-		//	{
-		//		using SqlConnection conn = new SqlConnection(_configuration.GetConnectionString("QLCaAn"));
-		//		conn.Open();
 
-		//		// Lấy QDK từ bảng NhanVien
-		//		string getQdkQuery = "SELECT QDK FROM NhanVien WHERE ID_NhanVien = @ID_NhanVien";
-		//		using SqlCommand getQdkCmd = new SqlCommand(getQdkQuery, conn);
-		//		getQdkCmd.Parameters.AddWithValue("@ID_NhanVien", donDK.ID_NhanVien);
-		//		string qdk = getQdkCmd.ExecuteScalar()?.ToString();
-
-		//		if (qdk == null)
-		//			return new JsonResult("Không tìm thấy nhân viên");
-
-		//		// Kiểm tra điều kiện LoaiDK theo QDK
-		//		if (qdk == "CANHAN" && donDK.LoaiDK == "TAPTHE")
-
-		//		{
-		//			return new JsonResult("Nhân viên chỉ được đăng ký loại đăng ký phù hợp với QDK của họ");
-		//		}
-
-		//		DateTime hanDangKy;
-		//		if (donDK.CaAn == "1")
-		//			hanDangKy = DateTime.Today.AddHours(9);
-		//		else if (donDK.CaAn == "2")
-		//			hanDangKy = DateTime.Today.AddHours(15);
-		//		else if (donDK.CaAn == "3")
-		//			hanDangKy = DateTime.Today.AddHours(21);
-		//		else
-		//			return new JsonResult("Ca ăn không hợp lệ");
-
-		//		if (DateTime.Now > hanDangKy)
-		//			return new JsonResult("Đã quá thời gian sửa đơn đăng ký");
-
-		//		string query = "UPDATE DonDK SET LoaiDK=@LoaiDK, ID_NhanVien=@ID_NhanVien, CaAn=@CaAn WHERE ID_DonDK=@ID_DonDK";
-
-		//		using SqlCommand cmd = new SqlCommand(query, conn);
-		//		cmd.Parameters.AddWithValue("@ID_DonDK", donDK.ID_DonDK);
-		//		cmd.Parameters.AddWithValue("@LoaiDK", donDK.LoaiDK);
-		//		cmd.Parameters.AddWithValue("@ID_NhanVien", donDK.ID_NhanVien);
-		//		cmd.Parameters.AddWithValue("@CaAn", donDK.CaAn);
-		//		cmd.ExecuteNonQuery();
-		//		return new JsonResult("Update Success");
-		//	}
-		//	catch (Exception ex)
-		//	{
-		//		return new JsonResult(ex.Message);
-		//	}
-		//}
-		[Route("Delete/{id}")]
+		[Route("DeletebyUser")]
+		[Authorize(Roles ="User,Admin")]
 		[HttpDelete]
-		public JsonResult Delete(string id)
+		public IActionResult DeletebyUser(int iD_Don)
 		{
 			try
 			{
-				string dataSource = _configuration.GetConnectionString("QLCaAn");
-				string caAn = "", quyen = "";
 
-				using SqlConnection conn = new SqlConnection(dataSource);
-				conn.Open();
-
-				// Lấy CaAn và PhanQuyen
-				string checkQuery = @"
-			SELECT CaAn, nv.PhanQuyen
-			FROM DonDK d
-			JOIN NhanVien nv ON d.ID_NhanVien = nv.ID_NhanVien
-			WHERE d.ID_DonDK = @ID_DonDK";
-				using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+				//Check trùng ID_NhanVien
+				//Lấy ID_NhanVien từ JWT
+				int? ID_NhanVien = (int)GetIDFromJWT();
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
 				{
-					checkCmd.Parameters.AddWithValue("@ID_DonDK", id);
-					using (SqlDataReader reader = checkCmd.ExecuteReader())
+					connection.Open();
+					using (SqlTransaction transaction = connection.BeginTransaction())
 					{
-						if (!reader.Read())
-							return new JsonResult("Không tìm thấy đơn đăng ký");
+						//lấy ID_NhanVien từ database 
+						int ID_NhanVienCheck;
+						string queryNhanVien = @"select ID_NhanVien from DonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandNhanVien = new SqlCommand(queryNhanVien, connection, transaction))
+						{
+							commandNhanVien.Parameters.AddWithValue("@ID_DonDK",iD_Don);
+							object result = commandNhanVien.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy ID nhân viên");
+							}
+							ID_NhanVienCheck = (int)result;
+						}
+						if (ID_NhanVien != ID_NhanVienCheck)
+						{
+							return BadRequest("Không trùng ID_Nhan vien");
+						}
 
-						caAn = reader["CaAn"].ToString();
-						quyen = reader["PhanQuyen"].ToString();
+						//xóa DonDK thì phải xóa ID nhân viên cũng như ID_Chi tiết nhân viên
+
+						//Lấy ID_ChiTiet 
+						int ID_ChiTiet;
+						string queryChiTiet = @"select ID_ChiTietDonDK from ChiTietDonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandChiTiet = new SqlCommand(queryChiTiet, connection, transaction))
+						{
+							commandChiTiet.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							object result = commandChiTiet.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được ID_ChiTiet ");
+							}
+							ID_ChiTiet= (int)result;
+						}
+
+						//Check xem có xóa đc ko 
+						string TrangThaiCheck;
+						string queryCheck = @"select TrangThai from  DonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandCheck = new SqlCommand(@queryCheck, connection, transaction))
+						{
+							commandCheck.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							object result = commandCheck.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được Trạng thái");
+							}
+							TrangThaiCheck = (string)result;
+
+						}
+						if (TrangThaiCheck != TrangThaiDon.ChoXacNhan.ToString())
+						{
+							return BadRequest("Chỉ xóa khi Trạng thái là Chờ đăng ký");
+						}
+
+						//Xóa ChiTiet
+						string queryDeleteCT = @"delete from ChiTietDonDK where ID_ChiTietDonDK=@ID_ChiTietDonDK";
+						using (SqlCommand commandDeleteCT = new SqlCommand(queryDeleteCT, connection, transaction))
+						{
+							commandDeleteCT.Parameters.AddWithValue("@ID_ChiTietDonDK", ID_ChiTiet);
+							commandDeleteCT.ExecuteNonQuery();
+						}
+						//Xóa DonDK
+						string queryDeleteDK = @"delete from DonDK where ID_DonDK=@ID_DonDK";
+						using (SqlCommand commandDeleteDK = new SqlCommand(queryDeleteDK, connection, transaction))
+						{
+							commandDeleteDK.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							commandDeleteDK.ExecuteNonQuery();
+						}
+						transaction.Commit();
 					}
 				}
 
-				// Kiểm tra quyền
-				if (caAn == "3" && quyen != "ADMIN")
-					return new JsonResult("Chỉ ADMIN mới có quyền xóa ca ăn 3");
-
-				// Thực hiện xóa
-				string deleteQuery = "DELETE FROM DonDK WHERE ID_DonDK = @ID_DonDK";
-				using SqlCommand deleteCmd = new SqlCommand(deleteQuery, conn);
-				deleteCmd.Parameters.AddWithValue("@ID_DonDK", id);
-				deleteCmd.ExecuteNonQuery();
-
-				return new JsonResult("Delete Success");
+				return Ok("Delete Success");
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ex.Message);
 			}
 			catch (Exception ex)
 			{
-				return new JsonResult("Lỗi: " + ex.Message);
+				return BadRequest(ex.Message);
 			}
+
+
 		}
-
-
-
 
 
 		//Tạo 1 function lấy ID_NhanVien từ JWT
@@ -229,15 +227,13 @@ namespace WebApplication1.Controllers
 		{
 			try
 			{
+			
+
+
 				if (request == null)
 				{
 					return BadRequest("Thông tin nhập vào là rỗng");
 				}
-				//if (new[] { "CaNhan", "TapThe" }.Contains(request.LoaiDK, StringComparer.OrdinalIgnoreCase) == false)
-				//{
-				//	return BadRequest("LoaiDK nhập sai hợp lệ");
-				//}
-
 
 				//Lấy iD_NhanVien từ jwt
 				int? id_nhanvien = GetIDFromJWT();
@@ -254,9 +250,7 @@ namespace WebApplication1.Controllers
 					return BadRequest("Đây là đăng kí cho cá nhân , vui lòng sửa lại LoaiDK");
 				}
 
-
-
-				//Kiểm ttra hạn đăng kí theo các ca
+				//Kiểm tra hạn đăng kí theo các ca
 				DateTime hanDangKy;
 				if (request.CaAn == 1)
 				{
@@ -309,14 +303,20 @@ namespace WebApplication1.Controllers
 							}
 						}
 
-						//Insert bảng DOnDK
-						string queryDonDK = @" insert into DonDK(LoaiDK,CaAn,ID_NhanVien,TrangThai) values(@LoaiDK,@CaAn,@ID_NhanVien,@TrangThai)";
+						//Insert bảng DonDK
+						string queryDonDK = @"insert into DonDK(LoaiDK,CaAn,ID_NhanVien,TrangThai) values (@LoaiDK,@CaAn,@ID_NhanVien,@TrangThai)";
 						using (SqlCommand commanDonDK = new SqlCommand(queryDonDK, connection, transaction))
 						{
 							commanDonDK.Parameters.AddWithValue("@LoaiDK", request.LoaiDK);
 							commanDonDK.Parameters.AddWithValue("@ID_NhanVien", id_nhanvien);
 							commanDonDK.Parameters.AddWithValue("@CaAn", request.CaAn);
-							commanDonDK.Parameters.AddWithValue("@TrangThai", "WAIT");
+
+
+							// 👇 Chèn enum dưới dạng chuỗi
+							string trangThaiStr = TrangThaiDon.ChoXacNhan.ToString(); // "ChoXacNhan"
+							commanDonDK.Parameters.AddWithValue("@TrangThai", trangThaiStr);
+
+							
 							commanDonDK.ExecuteNonQuery();
 						}
 
@@ -342,21 +342,17 @@ namespace WebApplication1.Controllers
 
 							}
 							iD_DonDK = result.ToString();
-
 						}
 
-						//Ínsert vào bảng ChiTietDonDK
+						//Insert vào bảng ChiTietDonDK
 						string queryChiTiet = @"insert into ChiTietDonDK(SoLuong,ID_NhanVien,ID_DonDK) values(@SoLuong,@ID_NhanVien,@ID_DonDK)";
 						using (SqlCommand commandChiTiet = new SqlCommand(queryChiTiet, connection, transaction))
 						{
 							commandChiTiet.Parameters.AddWithValue("@SoLuong", request.SoLuong);
 							commandChiTiet.Parameters.AddWithValue("@ID_NhanVien", id_nhanvien);
-
 							commandChiTiet.Parameters.AddWithValue("@ID_DonDK", iD_DonDK);
 							commandChiTiet.ExecuteNonQuery();
 						}
-
-
 						transaction.Commit();
 					}
 				}
@@ -373,10 +369,6 @@ namespace WebApplication1.Controllers
 			}
 
 		}
-
-
-
-
 
 
 		[Route("InsertFull")]
@@ -464,7 +456,7 @@ namespace WebApplication1.Controllers
 							commandDonDK.Parameters.AddWithValue("@LoaiDK", request.donDK.LoaiDK);
 							commandDonDK.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
 							commandDonDK.Parameters.AddWithValue("@ID_NhanVien", id_NhanVien);
-							commandDonDK.Parameters.AddWithValue("@TrangThai", "WAIT");
+							commandDonDK.Parameters.AddWithValue("@TrangThai", TrangThaiDon.ChoXacNhan.ToString());
 							commandDonDK.ExecuteNonQuery();
 						}
 
@@ -552,13 +544,10 @@ namespace WebApplication1.Controllers
 		}
 
 
-
-
-
 		[Route("ChiTietDon")]
 		[HttpGet]
 		[Authorize]
-		public JsonResult LayChiTietDonTheoID(string idDon)
+		public JsonResult LayChiTietDonTheoID(int idDon)
 		{
 			try
 			{
@@ -644,15 +633,13 @@ namespace WebApplication1.Controllers
 		[Route("UpdateDonOnly")]
 		[HttpPut]
 		[Authorize(Roles = "Admin,User")]
-		public IActionResult UpdateDonOnly(DonCaNhanRequest request, string iD)
+		public IActionResult UpdateDonOnly(DonCaNhanRequest request, int iD)
 		{
-
-
 			try
 			{
 				if (iD == null)
 				{
-					return BadRequest("Thông tin ID đon cần xóa  rỗng");
+					return BadRequest("Thông tin ID đơn cần xóa  rỗng");
 				}
 				if (request == null)
 				{
@@ -660,7 +647,7 @@ namespace WebApplication1.Controllers
 				}
 				if (request.LoaiDK.Equals("CaNhan", StringComparison.OrdinalIgnoreCase) == false)
 				{
-					return BadRequest("Nhập dúng loaijk là CaNhan");
+					return BadRequest("Nhập đúng LoaiDK là CaNhan");
 				}
 				//Lấy Id_nhan viên từ jwt;
 				int? id_NhanVien = GetIDFromJWT();
@@ -693,7 +680,6 @@ namespace WebApplication1.Controllers
 					return BadRequest("Quá hạn sửa đổi của ca");
 				}
 
-
 				int idNhanVienCheck;
 				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
 				{
@@ -720,29 +706,75 @@ namespace WebApplication1.Controllers
 							return BadRequest("Chỉ có nhân viên tạo ra mới được sửa");
 						}
 
-						////update ca an trong DonDK
-						//string queryDonDk = @"update DonDK set CaAn = @CaAn
-						//	where ID_DonDK = @ID_DonDK";
-						//using (SqlCommand commandDonDK = new SqlCommand(queryDonDk, connection, transaction))
-						//{
-						//	commandDonDK.Parameters.AddWithValue("@CaAn", request.CaAn);
-						//	commandDonDK.Parameters.AddWithValue("@ID_DonDK", iD);
-						//	commandDonDK.ExecuteNonQuery();
-						//}
+						// Kiểm tra đã tồn tại đơn chưa
+						string checkQuery = @"
+							SELECT COUNT(*) 
+							FROM DonDK 
+							WHERE ID_NhanVien = @ID_NhanVien 
+							  AND LoaiDK = @LoaiDK 
+							  AND CaAn = @CaAn 
+							  AND CONVERT(date, NgayDK) = CONVERT(date, GETDATE())";
+
+						using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection, transaction))
+						{
+							checkCommand.Parameters.AddWithValue("@ID_NhanVien", id_NhanVien);
+							checkCommand.Parameters.AddWithValue("@LoaiDK", request.LoaiDK);
+							checkCommand.Parameters.AddWithValue("@CaAn", request.CaAn);
+
+							int count = (int)checkCommand.ExecuteScalar();
+							if (count > 0)
+							{
+								transaction.Rollback(); // rollback nếu dùng transaction
+								return BadRequest("Bạn đã đặt đơn cho ca này trong ngày hôm nay.");
+							}
+						}
+
+						//Check xem trạng thái có là Da Xac Nhan
+						string trangThaiDon;
+						string queryTrangThai = @"select TrangThai from DonDK where ID_DonDK= @ID_DonDK";
+						using(SqlCommand commandTrangThai = new SqlCommand(queryTrangThai, connection, transaction))
+						{
+							commandTrangThai.Parameters.AddWithValue("@ID_DonDK", iD);
+							object result = commandTrangThai.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được trạng thái của đơn");
+							}
+							trangThaiDon = result.ToString();
+
+						}
+						if (trangThaiDon != TrangThaiDon.ChoXacNhan.ToString())
+						{
+							return BadRequest("Trạng thái đơn phải là Chờ xác nhận mới có thể update được ");
+						}
 
 
-						//Không update ca ăn trong DonDK vì nếu sửa ca ăn như ca1 này đã qua thì sửa thành ca2 , 3 được thì 2,3 là free
+
+
+						//update ca an trong DonDK
+						string queryDonDk = @"update DonDK set CaAn = @CaAn
+							where ID_DonDK = @ID_DonDK and TrangThai = @TrangThai";
+						using (SqlCommand commandDonDK = new SqlCommand(queryDonDk, connection, transaction))
+						{
+							commandDonDK.Parameters.AddWithValue("@CaAn", request.CaAn);
+							commandDonDK.Parameters.AddWithValue("@ID_DonDK", iD);
+							commandDonDK.Parameters.AddWithValue("@TrangThai", TrangThaiDon.ChoXacNhan.ToString());
+							commandDonDK.ExecuteNonQuery();
+						}
 						//update so luong  trong ChiTietDonDK
 						string queryChiTietDonDK = @"update ct set ct.SoLuong = @SoLuong
 							from ChiTietDonDK ct	
 							join DonDK dk on dk.ID_DonDK = ct.ID_DonDK
-							where ct.ID_DonDK = @ID_DonDK and dk.CaAn = @CaAn and ct.TrangThai=@TrangThai and dk.ID_NhanVien=@ID_NhanVien ";
+							where dk.ID_DonDK = @ID_DonDK 
+							and dk.ID_NhanVien=@ID_NhanVien 
+							and dk.TrangThai = @TrangThai 
+							and dk.CaAn = @CaAn";
 						using (SqlCommand commandChiTietDonDK = new SqlCommand(queryChiTietDonDK, connection, transaction))
 						{
 							commandChiTietDonDK.Parameters.AddWithValue("@SoLuong", request.SoLuong);
 							commandChiTietDonDK.Parameters.AddWithValue("@ID_DonDK", iD);
+							commandChiTietDonDK.Parameters.AddWithValue("@TrangThai", TrangThaiDon.ChoXacNhan.ToString());
 							commandChiTietDonDK.Parameters.AddWithValue("@CaAn", request.CaAn);
-							commandChiTietDonDK.Parameters.AddWithValue("@TrangThai", "WAIT");
 							commandChiTietDonDK.Parameters.AddWithValue("@ID_NhanVien", idNhanVienCheck);
 							commandChiTietDonDK.ExecuteNonQuery();
 						}
@@ -761,10 +793,12 @@ namespace WebApplication1.Controllers
 			}
 		}
 
+
+
 		[Route("UpdateFull")]
 		[HttpPut]
 		[Authorize(Roles = "TapThe")]
-		public IActionResult UpdateFull([FromBody] DonFullRequest request, string iD)
+		public IActionResult UpdateFull([FromBody] DonFullRequest request, int iD)
 		{
 			try
 			{
@@ -832,9 +866,60 @@ namespace WebApplication1.Controllers
 						{
 							return BadRequest("Chỉ nhân viên nào đăng ký đơn này thì mới có quyền sửa");
 						}
-						//Kiểm tra xem các thành viên có cùng chung 1 phòng ko
-						//Kiểm tra xem các nhân viên có cùng 1 phòng ban hay không
 
+
+						// Kiểm tra đã tồn tại đơn chưa
+						string checkQuery = @"
+							SELECT COUNT(*) 
+							FROM DonDK 
+							WHERE ID_NhanVien = @ID_NhanVien 
+							  AND LoaiDK = @LoaiDK 
+							  AND CaAn = @CaAn 
+							  AND CONVERT(date, NgayDK) = CONVERT(date, GETDATE())";
+
+						using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection, transaction))
+						{
+							checkCommand.Parameters.AddWithValue("@ID_NhanVien", id_NVFromJWT);
+							checkCommand.Parameters.AddWithValue("@LoaiDK", request.donDK.LoaiDK);
+							checkCommand.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
+
+							int count = (int)checkCommand.ExecuteScalar();
+							if (count > 0)
+							{
+								transaction.Rollback(); // rollback nếu dùng transaction
+								return BadRequest("Bạn đã đặt đơn cho ca này trong ngày hôm nay.");
+							}
+						}
+
+						//Check xem trạng thái có là Da Xac Nhan
+						string trangThaiDon;
+						string queryTrangThai = @"select TrangThai from DonDK where ID_DonDK= @ID_DonDK";
+						using (SqlCommand commandTrangThai = new SqlCommand(queryTrangThai, connection, transaction))
+						{
+							commandTrangThai.Parameters.AddWithValue("@ID_DonDK", iD);
+							object result = commandTrangThai.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được trạng thái của đơn");
+							}
+							trangThaiDon = result.ToString();
+
+						}
+						if (trangThaiDon != TrangThaiDon.ChoXacNhan.ToString())
+						{
+							return BadRequest("Trạng thái đơn phải là Chờ xác nhận mới có thể update được ");
+						}
+
+						//update ca an trong DonDK
+						string queryDonDk = @"update DonDK set CaAn = @CaAn
+							where ID_DonDK = @ID_DonDK and TrangThai= @TrangThai";
+						using (SqlCommand commandDonDK = new SqlCommand(queryDonDk, connection, transaction))
+						{
+							commandDonDK.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
+							commandDonDK.Parameters.AddWithValue("@ID_DonDK", iD);
+							commandDonDK.Parameters.AddWithValue("@TrangThai", TrangThaiDon.ChoXacNhan.ToString());
+							commandDonDK.ExecuteNonQuery();
+						}
 						var danhsachPhong = new List<string>();
 
 						foreach (var ct in request.listChiTiet)
@@ -865,12 +950,11 @@ namespace WebApplication1.Controllers
 							string queryChiTiet = @"update ct set ct.SoLuong= @SoLuong
 						from ChitietDonDK ct
 						join DonDK dk on ct.ID_DonDK=dk.ID_DonDK
-						where ct.ID_DonDK=@ID_DonDK and dk.CaAn=@CaAn and ct.TrangThai=@TrangThai";
+						where ct.ID_DonDK=@ID_DonDK ";
 							using (SqlCommand commandChiTTiet = new SqlCommand(queryChiTiet, connection, transaction))
 							{
 								commandChiTTiet.Parameters.AddWithValue("@SoLuong", ctt.SoLuong);
-								commandChiTTiet.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
-								commandChiTTiet.Parameters.AddWithValue("@TrangThai", "WAIT");
+								
 								commandChiTTiet.Parameters.AddWithValue("@ID_DonDK", iD);
 								commandChiTTiet.ExecuteNonQuery();
 
@@ -902,29 +986,30 @@ namespace WebApplication1.Controllers
 		[Route("CheckedDon")]
 		[HttpPut]
 		[Authorize(Roles = "User, Admin")]
-		public IActionResult KhoaDon(string iD_Don)
+		public IActionResult KhoaDon(int iD_Don)
 		{
 			try
 			{
 				//Lấy iD nhân viên từ đăng nhập
 				int? IDFromJWT = GetIDFromJWT();
-				if(IDFromJWT== null)
+				if (IDFromJWT == null)
 				{
 					return BadRequest("Không lấy được ID nhân viên từ JWT");
 
 				}
-				using( SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
 				{
-					using(SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable))
+					connection.Open();
+					using (SqlTransaction transaction = connection.BeginTransaction(IsolationLevel.Serializable))
 					{
 						//lấy id nhân viên đã đăng ký cái đơn này 
 						string queryID = @"select ID_NhanVien from DonDK where ID_DonDK = @ID_DonDK";
 						int id_NVChecked;
-						using(SqlCommand commandID = new SqlCommand(queryID, connection, transaction))
+						using (SqlCommand commandID = new SqlCommand(queryID, connection, transaction))
 						{
 							commandID.Parameters.AddWithValue("@ID_DonDK", iD_Don);
 							object result = commandID.ExecuteScalar();
-							if(result==null)
+							if (result == null)
 							{
 								return BadRequest("Không lấy được Id nhân viên đã tạo ra đơn này");
 							}
@@ -937,9 +1022,9 @@ namespace WebApplication1.Controllers
 						}
 						//sửa trạng thái từ wait -> complete
 						string queryChange = @"update DonDK set TrangThai= @TrangThai where ID_DonDK = @ID_DonDK";
-						using(SqlCommand commandChange = new SqlCommand(queryChange, connection, transaction))
+						using (SqlCommand commandChange = new SqlCommand(queryChange, connection, transaction))
 						{
-							commandChange.Parameters.AddWithValue("@TrangThai", "COMPLETE");
+							commandChange.Parameters.AddWithValue("@TrangThai", TrangThaiDon.DaXacNhan.ToString());
 							commandChange.Parameters.AddWithValue("@ID_DonDK", iD_Don);
 							commandChange.ExecuteNonQuery();
 
@@ -954,16 +1039,11 @@ namespace WebApplication1.Controllers
 			{
 				return BadRequest(ex.Message);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				return BadRequest(ex.Message);
 			}
 		}
-
-
-
-
-
 
 
 	}

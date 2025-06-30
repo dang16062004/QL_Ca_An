@@ -1,14 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApplication1.Model
 {
+	
 	public class DonDK
 	{
-		public string? ID_DonDK { get; set; }
+		public int? ID_DonDK { get; set; }
 
 		public DateTime? NgayDK;
 
 		public string? LoaiDK { get; set; }
+		public TrangThaiDon TrangThai { get; set; }
 
 		// Foreign key
 		public string ?ID_NhanVien { get; set; }

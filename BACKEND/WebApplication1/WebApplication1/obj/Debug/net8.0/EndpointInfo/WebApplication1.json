@@ -275,18 +275,18 @@
         }
       }
     },
-    "/api/DonDK/Delete/{id}": {
+    "/api/DonDK/Delete": {
       "delete": {
         "tags": [
           "DonDK"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
+            "name": "iD_Don",
+            "in": "query",
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -379,7 +379,8 @@
             "name": "idDon",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -400,7 +401,8 @@
             "name": "iD",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -445,7 +447,8 @@
             "name": "iD",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "integer",
+              "format": "int32"
             }
           }
         ],
@@ -473,6 +476,28 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/CheckedDon": {
+      "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "iD_Don",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -550,78 +575,6 @@
         }
       }
     },
-    "/api/NhanVien/UpdatebyAdmin": {
-      "put": {
-        "tags": [
-          "NhanVien"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/NhanVien/UpdateByUser": {
-      "put": {
-        "tags": [
-          "NhanVien"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateNhanVienRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/NhanVien/UpdateNhanVien": {
       "put": {
         "tags": [
@@ -689,7 +642,8 @@
         "type": "object",
         "properties": {
           "iD_ChiTietDonDK": {
-            "type": "string",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "soLuong": {
@@ -697,10 +651,6 @@
             "format": "int32"
           },
           "iD_NhanVien": {
-            "type": "string",
-            "nullable": true
-          },
-          "trangThai": {
             "type": "string",
             "nullable": true
           },
@@ -773,12 +723,16 @@
         "type": "object",
         "properties": {
           "iD_DonDK": {
-            "type": "string",
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "loaiDK": {
             "type": "string",
             "nullable": true
+          },
+          "trangThai": {
+            "$ref": "#/components/schemas/TrangThaiDon"
           },
           "iD_NhanVien": {
             "type": "string",
@@ -915,6 +869,14 @@
           }
         },
         "additionalProperties": false
+      },
+      "TrangThaiDon": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "UpdateNhanVienRequest": {
         "type": "object",

@@ -275,7 +275,7 @@
         }
       }
     },
-    "/api/DonDK/Delete": {
+    "/api/DonDK/DeletebyUser": {
       "delete": {
         "tags": [
           "DonDK"

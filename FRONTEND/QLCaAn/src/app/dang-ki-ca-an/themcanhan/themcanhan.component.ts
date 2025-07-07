@@ -52,15 +52,15 @@ export class ThemcanhanComponent implements OnInit {
       SoLuong: this.form.SoLuong,
     };
 
-    this.service.dangKyDonCaNhan(request).subscribe(
-      (res: any) => {
-        alert(res);
-        this.router.navigate(['/dang-ki-ca-nhan']); // quay lại danh sách sau khi thêm
-      },
-      (err: any) => {
-        console.error('Lỗi đăng ký:', err);
-        alert('Không thể thêm đơn');
-      }
-    );
+    // this.service.dangKyDonCaNhan(request).subscribe(
+    //   (res: any) => {
+    //     alert(res);
+    //     this.router.navigate(['/dang-ki-ca-nhan']); // quay lại danh sách sau khi thêm
+    //   },
+    //   (err: any) => {
+    //     console.error('Lỗi đăng ký:', err);
+    //     alert('Không thể thêm đơn');
+    //   }
+    // );
   }
 }

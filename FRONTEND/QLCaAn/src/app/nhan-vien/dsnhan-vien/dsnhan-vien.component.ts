@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
+import { AccountService } from '../../account.service';
 
 @Component({
   selector: 'app-dsnhan-vien',
@@ -14,7 +15,7 @@ export class DSNhanVienComponent {
   tieuDe: string = '';
   isEdit: boolean = false;
 
-  constructor(private service: SharedService) {}
+  constructor(private service: AccountService) {}
 
   ngOnInit(): void {
     this.LoadDsNhanVien();
@@ -44,13 +45,22 @@ export class DSNhanVienComponent {
     };
     this.dangThemSua = true;
     this.isEdit = false;
-    this.tieuDe = 'Thêm Nhân Viên';
   }
 
-  moFormSua(nv: any) {
-    this.NVienSelected = { ...nv };
-    this.isEdit = true;
-    this.tieuDe = 'Sửa Nhân Viên';
-    this.dangThemSua = true;
+  XoaNhanVien(nv: any) {
+    if (!confirm(`Bạn có muốn xóa nhân viên ${nv.HoVaTen}?`)) return;
+
+    this.service.deleteNhanVien(nv.ID_NhanVien).subscribe({
+      next: (msg) => {
+        alert(msg);
+        alert('Xóa thành công!');
+        this.LoadDsNhanVien();
+      },
+      error: (err) => {
+        console.error('Error response:', err);
+        // Hiển thị rõ mã lỗi và thông báo từ server
+        alert(`Lỗi ${err.status}: ${err.error || err.message}`);
+      },
+    });
   }
 }

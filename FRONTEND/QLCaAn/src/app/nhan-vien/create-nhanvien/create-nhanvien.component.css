@@ -1,0 +1,4 @@
+.input {
+  margin-left: 20px;   /* cách label xuống input */
+  /* hoặc margin-left nếu muốn đẩy input sang phải */
+}

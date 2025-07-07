@@ -3,6 +3,7 @@ import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { DangKiCaService } from '../../dang-ki-ca.service';
 
 @Component({
   selector: 'app-update-don-only',
@@ -14,7 +15,7 @@ export class UpdateDonOnlyComponent implements OnInit {
   donCaNhan: any = {
     CaAn: 1,
     SoLuong: 1,
-    LoaiDK: 'CANHAN',
+    LoaiDK: 'CaNhan',
     TenDangNhap: '',
   };
 
@@ -23,7 +24,8 @@ export class UpdateDonOnlyComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: SharedService
+    private service: SharedService,
+    private dangkiService: DangKiCaService
   ) {}
 
   ngOnInit(): void {
@@ -40,20 +42,20 @@ export class UpdateDonOnlyComponent implements OnInit {
     this.name = username;
   }
 
-  capNhatDon() {
-    this.service.capNhatDonCaNhan(this.idDon, this.donCaNhan).subscribe({
-      next: (res) => {
-        if (typeof res === 'string' && res.startsWith('❌')) {
-          alert(res); // ❌ báo lỗi trả về từ API
-          return;
-        }
+  // capNhatDon() {
+  //   this.service.capNhatDonCaNhan(this.idDon, this.donCaNhan).subscribe({
+  //     next: (res) => {
+  //       if (typeof res === 'string' && res.startsWith('❌')) {
+  //         alert(res); // ❌ báo lỗi trả về từ API
+  //         return;
+  //       }
 
-        alert('✅ Đã cập nhật đơn đăng ký thành công');
-        this.router.navigate(['/dang-ki-ca-nhan']);
-      },
-      error: (err) => {
-        alert('❌ Lỗi cập nhật đơn đăng ký: ' + err.error);
-      },
-    });
-  }
+  //       alert('✅ Đã cập nhật đơn đăng ký thành công');
+  //       this.router.navigate(['/dang-ki-ca-nhan']);
+  //     },
+  //     error: (err) => {
+  //       alert('❌ Lỗi cập nhật đơn đăng ký: ' + err.error);
+  //     },
+  //   });
+  // }
 }

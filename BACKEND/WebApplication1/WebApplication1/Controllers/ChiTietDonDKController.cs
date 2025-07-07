@@ -245,7 +245,7 @@ namespace WebApplication1.Controllers
 				string query = @"
 			SELECT 
 				nv.HoVaTen,
-				dk.ID_NhanVien,
+				ct.ID_NhanVien,
 				pb.TenPhong,
 				SUM(ct.SoLuong) AS SoLuong,
 				SUM(ct.SoLuong) * 15000 AS ThanhTien
@@ -254,7 +254,7 @@ namespace WebApplication1.Controllers
 				JOIN NhanVien nv ON nv.ID_NhanVien = dk.ID_NhanVien
 				join PhongBan pb on pb.ID_Phong=nv.ID_Phong
 				WHERE CONVERT(DATE, dk.NgayDK) = @NgayDK AND dk.CaAn = @CaAn
-				GROUP BY nv.HoVaTen, dk.ID_NhanVien,pb.TenPhong;";
+				GROUP BY nv.HoVaTen, ct.ID_NhanVien,pb.TenPhong;";
 
 				using (SqlConnection sqlConnection = new SqlConnection(dataSource))
 				{
@@ -294,7 +294,7 @@ namespace WebApplication1.Controllers
 			
 				SELECT 
 				nv.HoVaTen,
-				dk.ID_NhanVien,
+				ct.ID_NhanVien,
 				pb.TenPhong,
 				SUM(CASE WHEN dk.CaAn = '1' THEN ct.SoLuong ELSE 0 END) AS Ca1,
 				SUM(CASE WHEN dk.CaAn = '2' THEN ct.SoLuong ELSE 0 END) AS Ca2,
@@ -308,7 +308,7 @@ namespace WebApplication1.Controllers
 				WHERE MONTH(dk.NgayDK) = MONTH(@NgayDK)
 				 AND YEAR(dk.NgayDK) = YEAR(@NgayDK)
 
-				GROUP BY nv.HoVaTen, dk.ID_NhanVien,pb.TenPhong;";
+				GROUP BY nv.HoVaTen, ct.ID_NhanVien,pb.TenPhong;";
 
 				using (SqlConnection sqlConnection = new SqlConnection(dataSource))
 				{

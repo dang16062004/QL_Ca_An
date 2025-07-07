@@ -31,18 +31,6 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/PhongBan/Insert', val);
   }
 
-  layDSNhanVien(): Observable<any[]> {
-    return this.http.get<any[]>(this.APIUrl + '/NhanVien/GetAll');
-  }
-
-  createNhanVien(nv: NhanVienDTO): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.post(this.APIUrl + '/NhanVien/Create', nv, { headers });
-  }
-
   layDSDK(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/DonDK/GetAll');
   }
@@ -71,17 +59,17 @@ export class SharedService {
   dangNhap(val: any): Observable<any[]> {
     return this.http.post<any>(this.APIUrl + '/TaiKhoan/Login', val);
   }
-  dangKyDonCaNhan(val: any): Observable<any[]> {
-    return this.http.post<any>(this.APIUrl + '/DonDK/InsertOnly', val);
-  }
+  // dangKyDonCaNhan(val: any): Observable<any[]> {
+  //   return this.http.post<any>(this.APIUrl + '/DonDK/InsertOnly', val);
+  // }
   layNhanVienTheoTenDangNhap(username: string): Observable<any> {
     return this.http.get<any>(
       this.APIUrl + '/NhanVien/GetByUsername?username=' + username
     );
   }
-  dangKyTapThe(body: any): Observable<any> {
-    return this.http.post(this.APIUrl + '/DonDK/InsertFull', body);
-  }
+  // dangKyTapThe(body: any): Observable<any> {
+  //   return this.http.post(this.APIUrl + '/DonDK/InsertFull', body);
+  // }
   layThongTinTapThe(tenDangNhap: string): Observable<any> {
     return this.http.get<any>(
       this.APIUrl + '/NhanVien/LayThongTinTapThe/' + tenDangNhap
@@ -90,16 +78,16 @@ export class SharedService {
   layChiTietDon(idDon: string): Observable<any> {
     return this.http.get<any>(`${this.APIUrl}/DonDK/ChiTietDon?idDon=${idDon}`);
   }
-  capNhatDonCaNhan(idDon: string, donCaNhan: any) {
-    const url = `${this.APIUrl}/DonDK/UpdateDonOnly?iD=${idDon}`;
-    return this.http.put(url, donCaNhan);
-  }
-  capNhatDonTapThe(idDon: string, body: any) {
-    return this.http.put(
-      `${this.APIUrl}/DonDK/UpdateFull?Id_DonDK=${idDon}`,
-      body
-    );
-  }
+  // capNhatDonCaNhan(idDon: string, donCaNhan: any) {
+  //   const url = `${this.APIUrl}/DonDK/UpdateDonOnly?iD=${idDon}`;
+  //   return this.http.put(url, donCaNhan);
+  // }
+  // capNhatDonTapThe(idDon: string, body: any) {
+  //   return this.http.put(
+  //     `${this.APIUrl}/DonDK/UpdateFull?Id_DonDK=${idDon}`,
+  //     body
+  //   );
+  // }
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);

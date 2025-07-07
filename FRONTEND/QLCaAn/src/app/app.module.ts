@@ -31,6 +31,7 @@ import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-d
 import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-don-full.component';
 import { LoginComponent } from './login/login.component';
 import { CreateNhanVienComponent } from './nhan-vien/create-nhanvien/create-nhanvien.component';
+import { suanvComponent } from './nhan-vien/suanv/suanv.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { CreateNhanVienComponent } from './nhan-vien/create-nhanvien/create-nhan
     UpdateDonOnlyComponent,
     UpdateDonFullComponent,
     LoginComponent,
+    suanvComponent,
   ],
   imports: [
     RouterModule,

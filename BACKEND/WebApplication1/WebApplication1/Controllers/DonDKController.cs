@@ -222,7 +222,7 @@ namespace WebApplication1.Controllers
 
 		[Route("InsertOnly")]
 		[HttpPost]
-		[Authorize(Roles = "User,Admin")]
+		[Authorize(Roles = "User")]
 		public IActionResult InsertOnly(DonCaNhanRequest request)
 		{
 			try

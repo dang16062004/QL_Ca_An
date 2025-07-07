@@ -19,6 +19,7 @@ import { UpdateDonFullComponent } from './dang-ki-ca-an/update-don-full/update-d
 import { LoginComponent } from './login/login.component';
 import { CreateNhanVienComponent } from './nhan-vien/create-nhanvien/create-nhanvien.component';
 import { AdminGuard } from './auth/admin.guard';
+import { suanvComponent } from './nhan-vien/suanv/suanv.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -43,6 +44,7 @@ const routes: Routes = [
     component: CreateNhanVienComponent,
     canActivate: [AdminGuard],
   },
+  { path: 'nhanvien/suaNhanVien', component: suanvComponent },
 ];
 
 @NgModule({

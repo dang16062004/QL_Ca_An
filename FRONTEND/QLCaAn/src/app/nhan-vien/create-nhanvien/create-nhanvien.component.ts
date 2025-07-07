@@ -7,6 +7,7 @@ import { NhanVienDTO } from '../nhanvien-model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AccountService } from '../../account.service';
 
 @Component({
   selector: 'app-create-nhanvien',
@@ -24,7 +25,8 @@ export class CreateNhanVienComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private sv: SharedService,
+    private st: SharedService,
+    private sv: AccountService,
     private router: Router
   ) {}
 
@@ -40,7 +42,7 @@ export class CreateNhanVienComponent implements OnInit {
     });
 
     // lấy danh sách phòng ban để đổ dropdown
-    this.sv.layDSPhongBan().subscribe((res) => {
+    this.st.layDSPhongBan().subscribe((res) => {
       this.phongBans = res.map((p: any) => ({
         id_Phong: p.id_Phong || p.ID_Phong,
         tenPhong: p.tenPhong || p.TenPhong,

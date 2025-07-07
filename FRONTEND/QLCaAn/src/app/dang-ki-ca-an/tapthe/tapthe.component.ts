@@ -66,15 +66,15 @@ export class ThemTapTheComponent implements OnInit {
       listChiTiet: chiTiet,
     };
 
-    this.service.dangKyTapThe(request).subscribe({
-      next: (res) => {
-        alert(res);
-        this.router.navigate(['/dang-ki-ca-an']);
-      },
-      error: (err) => {
-        console.error('Lỗi đăng ký:', err);
-        alert('Không thể đăng ký');
-      },
-    });
+    // this.service.dangKyTapThe(request).subscribe({
+    //   next: (res) => {
+    //     alert(res);
+    //     this.router.navigate(['/dang-ki-ca-an']);
+    //   },
+    //   error: (err) => {
+    //     console.error('Lỗi đăng ký:', err);
+    //     alert('Không thể đăng ký');
+    //   },
+    // });
   }
 }

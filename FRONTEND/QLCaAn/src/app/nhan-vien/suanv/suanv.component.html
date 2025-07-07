@@ -1,7 +1,8 @@
 <!-- src/app/nhan-vien/create-nhanvien/create-nhanvien.component.html -->
-<h2 class="text-xl font-bold mb-4">Thêm nhân viên</h2>
+<h2 class="text-xl font-bold mb-4">Sửa nhân viên</h2>
 
-<form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+<div>
+  <!-- <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4"> -->
   <!-- Họ và tên -->
   <div>
     <label class="block">Họ và Tên: </label>
@@ -31,9 +32,9 @@
     <label class="block">Phòng ban: </label>
     <select formControlName="ID_Phong" class="input">
       <option [ngValue]="null">-- chọn phòng --</option>
-      <option *ngFor="let p of phongBans" [ngValue]="p.id_Phong">
+      <!-- <option *ngFor="let p of phongBans" [ngValue]="p.id_Phong">
         {{ p.tenPhong }}
-      </option>
+      </option> -->
     </select>
   </div>
 
@@ -41,7 +42,7 @@
   <div>
     <label class="block">Phân quyền: </label>
     <select formControlName="PhanQuyen" class="input">
-      <option *ngFor="let r of roles" [ngValue]="r">{{ r }}</option>
+      <!-- <option *ngFor="let r of roles" [ngValue]="r">{{ r }}</option> -->
     </select>
   </div>
 
@@ -49,11 +50,10 @@
   <div>
     <label class="block">Quyền đăng ký (QDK): </label>
     <select formControlName="QDK" class="input">
-      <option *ngFor="let q of qdks" [ngValue]="q">{{ q }}</option>
+      <!-- <option *ngFor="let q of qdks" [ngValue]="q">{{ q }}</option> -->
     </select>
   </div>
 
-  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-    Lưu
-  </button>
-</form>
+  <button type="submit" class="btn btn-primary">Lưu</button>
+  <!-- </form> -->
+</div>

@@ -140,27 +140,27 @@ export class UpdateDonFullComponent implements OnInit {
     });
   }
 
-  capNhatDonTapThe() {
-    const requestBody = {
-      TenDangNhap: this.tenDangNhap,
-      donDK: this.donDK,
-      listChiTiet: this.listChiTiet,
-    };
+  // capNhatDonTapThe() {
+  //   const requestBody = {
+  //     TenDangNhap: this.tenDangNhap,
+  //     donDK: this.donDK,
+  //     listChiTiet: this.listChiTiet,
+  //   };
 
-    console.log('🔁 Gửi cập nhật:', requestBody);
+  //   console.log('🔁 Gửi cập nhật:', requestBody);
 
-    this.service.capNhatDonTapThe(this.idDon, requestBody).subscribe({
-      next: (res) => {
-        if (typeof res === 'string' && res.startsWith('❌')) {
-          alert(res);
-        } else {
-          alert('✅ Cập nhật đơn tập thể thành công');
-          this.router.navigate(['/dsTapThe']);
-        }
-      },
-      error: (err) => {
-        alert('❌ Lỗi cập nhật đơn: ' + err.error);
-      },
-    });
-  }
+  //   this.service.capNhatDonTapThe(this.idDon, requestBody).subscribe({
+  //     next: (res) => {
+  //       if (typeof res === 'string' && res.startsWith('❌')) {
+  //         alert(res);
+  //       } else {
+  //         alert('✅ Cập nhật đơn tập thể thành công');
+  //         this.router.navigate(['/dsTapThe']);
+  //       }
+  //     },
+  //     error: (err) => {
+  //       alert('❌ Lỗi cập nhật đơn: ' + err.error);
+  //     },
+  //   });
+  // }
 }

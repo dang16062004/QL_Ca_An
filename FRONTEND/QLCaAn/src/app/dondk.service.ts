@@ -19,6 +19,9 @@ export class DondkService {
   xoaDK(id: any): Observable<any[]> {
     const token = localStorage.getItem('token'); // hoặc từ AuthService
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<any[]>(this.APIUrl + `/DonDK/Delete?iD_Don=${id}`);
+    return this.http.delete<any[]>(this.APIUrl + `/DonDK/Delete?iD_Don=${id}`, {
+      headers,
+      responseType: 'text' as 'json',
+    });
   }
 }

@@ -30,8 +30,9 @@ export class DSDKComponent {
     debugger;
     if (confirm('Bạn có chắc muốn xóa đơn đăng ký này không?')) {
       this.dk.xoaDK(ma).subscribe({
-        next: (res) => {
-          alert('Đã xóa thành công');
+        next: (msg) => {
+          alert(msg);
+          alert('Xóa thành công!');
           this.loadDSDK();
         },
         error: (err) => {

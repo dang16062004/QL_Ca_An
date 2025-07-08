@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
 import { DondkService } from '../../dondk.service';
+
 @Component({
   selector: 'app-dstapthe',
   standalone: false,
@@ -11,12 +12,12 @@ import { DondkService } from '../../dondk.service';
 export class DstaptheComponent {
   dsdkList: any[] = [];
 
-  constructor(private ds: DondkService) {
+  constructor(private dk: DondkService) {
     this.loadDSDK();
   }
 
   loadDSDK() {
-    this.ds.layDSDK().subscribe(
+    this.dk.layDSDK().subscribe(
       (data) => {
         this.dsdkList = data;
       },
@@ -28,9 +29,10 @@ export class DstaptheComponent {
   xoaDKCA(ma: any) {
     debugger;
     if (confirm('Bạn có chắc muốn xóa đơn đăng ký này không?')) {
-      this.ds.xoaDK(ma).subscribe({
-        next: (res) => {
-          alert('Đã xóa thành công');
+      this.dk.xoaDK(ma).subscribe({
+        next: (msg) => {
+          alert(msg);
+          alert('Xóa thành công!');
           this.loadDSDK();
         },
         error: (err) => {

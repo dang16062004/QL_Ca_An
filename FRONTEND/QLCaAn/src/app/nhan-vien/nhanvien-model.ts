@@ -8,3 +8,14 @@ export interface NhanVienDTO {
   phanQuyen: 'Admin' | 'User';
   qdk: 'CaNhan' | 'TapThe';
 }
+
+export interface UpNhanVienDTO {
+  idNhanVien: number;
+  hoVaTen: string;
+  namSinh: string; // yyyy-MM-dd
+  tenDangNhap: string;
+  matKhau: string;
+  id_Phong: number;
+  phanQuyen: 'Admin' | 'User';
+  qdk: 'CaNhan' | 'TapThe';
+}

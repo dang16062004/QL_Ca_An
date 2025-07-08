@@ -251,6 +251,7 @@ namespace WebApplication1.Controllers
 		[HttpPut]
 		[Authorize(Roles = "User,Admin")]//functtion thay cho 2 fucnttion upđate ttreen
 		public IActionResult UpdateNhanVien([FromBody] UpdateNhanVienRequest request)
+			
 		{
 			try
 			{

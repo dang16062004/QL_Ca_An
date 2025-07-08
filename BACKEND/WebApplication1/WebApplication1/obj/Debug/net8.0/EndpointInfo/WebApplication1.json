@@ -275,28 +275,6 @@
         }
       }
     },
-    "/api/DonDK/DeletebyUser": {
-      "delete": {
-        "tags": [
-          "DonDK"
-        ],
-        "parameters": [
-          {
-            "name": "iD_Don",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/DonDK/InsertOnly": {
       "post": {
         "tags": [
@@ -485,6 +463,28 @@
     },
     "/api/DonDK/CheckedDon": {
       "put": {
+        "tags": [
+          "DonDK"
+        ],
+        "parameters": [
+          {
+            "name": "iD_Don",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/DonDK/Delete": {
+      "delete": {
         "tags": [
           "DonDK"
         ],

@@ -44,7 +44,7 @@ const routes: Routes = [
     component: CreateNhanVienComponent,
     canActivate: [AdminGuard],
   },
-  { path: 'nhanvien/suaNhanVien', component: suanvComponent },
+  { path: 'nhanvien/suaNhanVien/:idNhanVien', component: suanvComponent },
 ];
 
 @NgModule({

@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
 			{
 				DataTable dataTable = new DataTable();
 				string dataSource = _configuration.GetConnectionString("QLCaAn");
-				string query = "select  dk.ID_DonDK, dk.NgayDK ,dk.LoaiDK,nv.HoVaTen,dk.CaAn from DonDK dk " +
+				string query = "select  dk.ID_DonDK, dk.NgayDK ,dk.LoaiDK,nv.HoVaTen,dk.CaAn, dk.TrangThai from DonDK dk " +
 					" join NhanVien nv on nv.ID_NhanVien = dk.ID_NhanVien";
 				SqlDataReader sqlDataReader;
 
@@ -110,106 +110,7 @@ namespace WebApplication1.Controllers
 		}
 
 
-		[Route("DeletebyUser")]
-		[Authorize(Roles ="User,Admin")]
-		[HttpDelete]
-		public IActionResult DeletebyUser(int iD_Don)
-		{
-			try
-			{
-
-				//Check trùng ID_NhanVien
-				//Lấy ID_NhanVien từ JWT
-				int? ID_NhanVien = (int)GetIDFromJWT();
-				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
-				{
-					connection.Open();
-					using (SqlTransaction transaction = connection.BeginTransaction())
-					{
-						//lấy ID_NhanVien từ database 
-						int ID_NhanVienCheck;
-						string queryNhanVien = @"select ID_NhanVien from DonDK where ID_DonDK = @ID_DonDK";
-						using (SqlCommand commandNhanVien = new SqlCommand(queryNhanVien, connection, transaction))
-						{
-							commandNhanVien.Parameters.AddWithValue("@ID_DonDK",iD_Don);
-							object result = commandNhanVien.ExecuteScalar();
-							if (result == null)
-							{
-								return BadRequest("Không lấy ID nhân viên");
-							}
-							ID_NhanVienCheck = (int)result;
-						}
-						if (ID_NhanVien != ID_NhanVienCheck)
-						{
-							return BadRequest("Không trùng ID_Nhan vien");
-						}
-
-						//xóa DonDK thì phải xóa ID nhân viên cũng như ID_Chi tiết nhân viên
-
-						//Lấy ID_ChiTiet 
-						int ID_ChiTiet;
-						string queryChiTiet = @"select ID_ChiTietDonDK from ChiTietDonDK where ID_DonDK = @ID_DonDK";
-						using (SqlCommand commandChiTiet = new SqlCommand(queryChiTiet, connection, transaction))
-						{
-							commandChiTiet.Parameters.AddWithValue("@ID_DonDK", iD_Don);
-							object result = commandChiTiet.ExecuteScalar();
-							if (result == null)
-							{
-								return BadRequest("Không lấy được ID_ChiTiet ");
-							}
-							ID_ChiTiet= (int)result;
-						}
-
-						//Check xem có xóa đc ko 
-						string TrangThaiCheck;
-						string queryCheck = @"select TrangThai from  DonDK where ID_DonDK = @ID_DonDK";
-						using (SqlCommand commandCheck = new SqlCommand(@queryCheck, connection, transaction))
-						{
-							commandCheck.Parameters.AddWithValue("@ID_DonDK", iD_Don);
-							object result = commandCheck.ExecuteScalar();
-							if (result == null)
-							{
-								return BadRequest("Không lấy được Trạng thái");
-							}
-							TrangThaiCheck = (string)result;
-
-						}
-						if (TrangThaiCheck != TrangThaiDon.ChoXacNhan.ToString())
-						{
-							return BadRequest("Chỉ xóa khi Trạng thái là Chờ đăng ký");
-						}
-
-						//Xóa ChiTiet
-						string queryDeleteCT = @"delete from ChiTietDonDK where ID_ChiTietDonDK=@ID_ChiTietDonDK";
-						using (SqlCommand commandDeleteCT = new SqlCommand(queryDeleteCT, connection, transaction))
-						{
-							commandDeleteCT.Parameters.AddWithValue("@ID_ChiTietDonDK", ID_ChiTiet);
-							commandDeleteCT.ExecuteNonQuery();
-						}
-						//Xóa DonDK
-						string queryDeleteDK = @"delete from DonDK where ID_DonDK=@ID_DonDK";
-						using (SqlCommand commandDeleteDK = new SqlCommand(queryDeleteDK, connection, transaction))
-						{
-							commandDeleteDK.Parameters.AddWithValue("@ID_DonDK", iD_Don);
-							commandDeleteDK.ExecuteNonQuery();
-						}
-						transaction.Commit();
-					}
-				}
-
-				return Ok("Delete Success");
-			}
-			catch (SqlException ex)
-			{
-				return BadRequest(ex.Message);
-			}
-			catch (Exception ex)
-			{
-				return BadRequest(ex.Message);
-			}
-
-
-		}
+		
 
 
 		//Tạo 1 function lấy ID_NhanVien từ JWT
@@ -1045,6 +946,106 @@ namespace WebApplication1.Controllers
 			}
 		}
 
+		[Route("Delete")]
+		[Authorize(Roles = "User,Admin")]
+		[HttpDelete]
+		public IActionResult Delete(int iD_Don)
+		{
+			try
+			{
+
+				//Check trùng ID_NhanVien
+				//Lấy ID_NhanVien từ JWT
+				int? ID_NhanVien = (int)GetIDFromJWT();
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					connection.Open();
+					using (SqlTransaction transaction = connection.BeginTransaction())
+					{
+						//lấy ID_NhanVien từ database 
+						int ID_NhanVienCheck;
+						string queryNhanVien = @"select ID_NhanVien from DonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandNhanVien = new SqlCommand(queryNhanVien, connection, transaction))
+						{
+							commandNhanVien.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							object result = commandNhanVien.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy ID nhân viên");
+							}
+							ID_NhanVienCheck = (int)result;
+						}
+						if (ID_NhanVien != ID_NhanVienCheck)
+						{
+							return BadRequest("Không trùng ID_Nhan vien");
+						}
+
+						//xóa DonDK thì phải xóa ID nhân viên cũng như ID_Chi tiết nhân viên
+
+						//Lấy ID_ChiTiet 
+						int ID_ChiTiet;
+						string queryChiTiet = @"select ID_ChiTietDonDK from ChiTietDonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandChiTiet = new SqlCommand(queryChiTiet, connection, transaction))
+						{
+							commandChiTiet.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							object result = commandChiTiet.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được ID_ChiTiet ");
+							}
+							ID_ChiTiet = (int)result;
+						}
+
+						//Check xem có xóa đc ko 
+						string TrangThaiCheck;
+						string queryCheck = @"select TrangThai from  DonDK where ID_DonDK = @ID_DonDK";
+						using (SqlCommand commandCheck = new SqlCommand(@queryCheck, connection, transaction))
+						{
+							commandCheck.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							object result = commandCheck.ExecuteScalar();
+							if (result == null)
+							{
+								return BadRequest("Không lấy được Trạng thái");
+							}
+							TrangThaiCheck = (string)result;
+
+						}
+						if (TrangThaiCheck != TrangThaiDon.ChoXacNhan.ToString())
+						{
+							return BadRequest("Chỉ xóa khi Trạng thái là Chờ đăng ký");
+						}
+
+						//Xóa ChiTiet
+						string queryDeleteCT = @"delete from ChiTietDonDK where ID_ChiTietDonDK=@ID_ChiTietDonDK";
+						using (SqlCommand commandDeleteCT = new SqlCommand(queryDeleteCT, connection, transaction))
+						{
+							commandDeleteCT.Parameters.AddWithValue("@ID_ChiTietDonDK", ID_ChiTiet);
+							commandDeleteCT.ExecuteNonQuery();
+						}
+						//Xóa DonDK
+						string queryDeleteDK = @"delete from DonDK where ID_DonDK=@ID_DonDK";
+						using (SqlCommand commandDeleteDK = new SqlCommand(queryDeleteDK, connection, transaction))
+						{
+							commandDeleteDK.Parameters.AddWithValue("@ID_DonDK", iD_Don);
+							commandDeleteDK.ExecuteNonQuery();
+						}
+						transaction.Commit();
+					}
+				}
+
+				return Ok("Delete Success");
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+
+
+		}
 
 	}
 }

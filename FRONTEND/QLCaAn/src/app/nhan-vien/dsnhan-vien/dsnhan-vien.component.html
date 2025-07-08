@@ -56,18 +56,26 @@
         {{ NhanVien.TenPhong }}
       </td>
       <td class="d-flex justify-content-center">
-        <button type="button" class="btn btn-primary" routerLink="suaNhanVien">
-          Sửa
-          <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
-        </button>
+        <div>
+          <button
+            type="button"
+            class="btn btn-primary"
+            [routerLink]="['/nhanvien/suaNhanVien', NhanVien.ID_NhanVien]"
+          >
+            Sửa
+            <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
+          </button>
+        </div>
 
-        <button
-          type="button"
-          class="btn btn-danger"
-          (click)="XoaNhanVien(NhanVien)"
-        >
-          Xóa
-        </button>
+        <div>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="XoaNhanVien(NhanVien)"
+          >
+            Xóa
+          </button>
+        </div>
       </td>
     </tr>
   </tbody>

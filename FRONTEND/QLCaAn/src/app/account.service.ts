@@ -41,4 +41,13 @@ export class AccountService {
       { headers, responseType: 'text' as const }
     );
   }
+  editNhanVien(nv: NhanVienDTO): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.put(`${this.APIUrl}/NhanVien/UpdateNhanVien`, nv, {
+      headers,
+    });
+  }
 }

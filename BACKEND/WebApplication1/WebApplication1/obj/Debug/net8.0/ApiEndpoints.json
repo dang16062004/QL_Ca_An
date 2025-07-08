@@ -165,8 +165,8 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.DonDKController",
-    "Method": "DeletebyUser",
-    "RelativePath": "api/DonDK/DeletebyUser",
+    "Method": "Delete",
+    "RelativePath": "api/DonDK/Delete",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

@@ -1,4 +1,4 @@
-<!-- Button to Open the Modal -->
+<h1>ĐĂNG KÍ CÁ NHÂN</h1>
 <br />
 <br />
 <button
@@ -41,7 +41,7 @@
       <th>Ca ăn</th>
       <th>Ngày tạo</th>
       <th>Loại Đăng kí</th>
-      <th>Trạng thía đơn</th>
+      <th>Trạng thái đơn</th>
       <th>Tùy chọn</th>
     </tr>
   </thead>
@@ -71,35 +71,33 @@
       </td>
 
       <td class="d-flex justify-content-center">
-        <button
-          type="button"
-          class="btn btn-primary mr-2"
-          data-toggle="modal"
-          data-target="#myModal"
-          [routerLink]="['/capnhat-don', ds.ID_DonDK.trim()]"
-        >
+        <button type="button" class="btn btn-primary mr-2">
           Sửa
           <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
         </button>
-        <button
-          class="btn btn-info mr-2"
-          [routerLink]="['/chitietdon', ds.ID_DonDK.trim()]"
-        >
+        <button class="btn btn-info mr-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+          </svg>
           Chi tiết
         </button>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-search"
-          viewBox="0 0 16 16"
+
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="xoaDKCA(ds.ID_DonDK)"
         >
-          <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-          />
-        </svg>
-        <button type="button" class="btn btn-danger">Xóa</button>
+          Xóa
+        </button>
       </td>
     </tr>
   </tbody>

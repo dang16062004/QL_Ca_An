@@ -31,9 +31,6 @@ export class SharedService {
     return this.http.post(this.APIUrl + '/PhongBan/Insert', val);
   }
 
-  xoaDonDK(id: any): Observable<any> {
-    return this.http.delete(this.APIUrl + '/DonDK/Delete/' + id);
-  }
   layBCcanhan(name: string, phongban: string) {
     return this.http.get<any[]>(
       this.APIUrl +

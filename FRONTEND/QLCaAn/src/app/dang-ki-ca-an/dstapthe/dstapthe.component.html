@@ -1,13 +1,8 @@
 <!-- Button to Open the Modal -->
+<h1>ĐĂNG KÍ TẬP THỂ</h1>
 <br />
 <br />
-<button
-  type="button"
-  class="btn btn-primary"
-  data-toggle="modal"
-  data-target="#myModal"
-  [routerLink]="['/dktapthe']"
->
+<button type="button" class="btn btn-primary" [routerLink]="['/dktapthe']">
   Thêm Ca Ăn
 </button>
 
@@ -40,6 +35,7 @@
       <th>Tên Nhân Viên</th>
       <th>Ca ăn</th>
       <th>Ngày tạo</th>
+      <th>Trạng Thái Đơn</th>
       <th>Loại Đăng kí</th>
 
       <th>Tùy chọn</th>
@@ -66,21 +62,11 @@
       <td>
         {{ ds.LoaiDK }}
       </td>
+      <td>{{ ds.TrangThai }}</td>
 
       <td class="d-flex justify-content-center">
-        <button
-          type="button"
-          class="btn btn-primary mr-2"
-          data-toggle="modal"
-          data-target="#myModal"
-          [routerLink]="['/capnhat-don-tapthe', ds.ID_DonDK.trim()]"
-        >
-          Sửa
-        </button>
-        <button
-          class="btn btn-info mr-2"
-          [routerLink]="['/chitietdon', ds.ID_DonDK.trim()]"
-        >
+        <button type="button" class="btn btn-primary mr-2">Sửa</button>
+        <button class="btn btn-info mr-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -95,7 +81,13 @@
           </svg>
           Chi tiết
         </button>
-        <button type="button" class="btn btn-danger">Xóa</button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="xoaDKCA(ds.ID_DonDK)"
+        >
+          Xóa
+        </button>
       </td>
     </tr>
   </tbody>

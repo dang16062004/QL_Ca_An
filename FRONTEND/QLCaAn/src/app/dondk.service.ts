@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 export interface JwtPayload {
@@ -15,5 +15,10 @@ export class DondkService {
   constructor(private http: HttpClient) {}
   layDSDK(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/DonDK/GetAll');
+  }
+  xoaDK(id: any): Observable<any[]> {
+    const token = localStorage.getItem('token'); // hoặc từ AuthService
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete<any[]>(this.APIUrl + `/DonDK/Delete?iD_Don=${id}`);
   }
 }

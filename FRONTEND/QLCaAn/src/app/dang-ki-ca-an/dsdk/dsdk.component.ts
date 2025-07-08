@@ -26,20 +26,20 @@ export class DSDKComponent {
       }
     );
   }
-  // xoaDKCA(ma: any) {
-  //   debugger;
-  //   if (confirm('Bạn có chắc muốn xóa đơn đăng ký này không?')) {
-  //     this.dk.xoaDonDK(ma).subscribe({
-  //       next: (res) => {
-  //         alert('Đã xóa thành công');
-  //         this.loadDSDK();
-  //       },
-  //       error: (err) => {
-  //         console.error(err.toString());
-  //         console.error('❌ Lỗi xóa đơn đăng ký:', err);
-  //         alert('Không tìm thấy đơn đăng ký với ID: ' + ma);
-  //       },
-  //     });
-  //   }
-  // }
+  xoaDKCA(ma: any) {
+    debugger;
+    if (confirm('Bạn có chắc muốn xóa đơn đăng ký này không?')) {
+      this.dk.xoaDK(ma).subscribe({
+        next: (res) => {
+          alert('Đã xóa thành công');
+          this.loadDSDK();
+        },
+        error: (err) => {
+          console.error(err.toString());
+          console.error('❌ Lỗi xóa đơn đăng ký:', err);
+          alert('Không tìm thấy đơn đăng ký với ID: ' + ma);
+        },
+      });
+    }
+  }
 }

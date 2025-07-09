@@ -4,7 +4,13 @@
 <div>
   <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
     <div>
-      <input type="hidden" formControlName="ID_NhanVien" />
+      <label class="block">ID Nhân Viên : </label>
+      <input
+        type="number"
+        formControlName="ID_NhanVien"
+        class="input"
+        readonly
+      />
     </div>
 
     <!-- Họ và tên -->

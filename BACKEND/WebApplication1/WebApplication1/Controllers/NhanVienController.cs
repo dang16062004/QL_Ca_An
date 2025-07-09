@@ -279,7 +279,7 @@ namespace WebApplication1.Controllers
 				}
 				if (GetRolesFromJWT().Contains("User") && idFromJWT != request.ID_NhanVien)
 				{
-					return BadRequest("Tài Khoản đăng nhập là User nên chỉ sửa được thông tin của nhân viên đó với ID là "+idFromJWT);
+					return BadRequest("Tài Khoản đăng nhập  chỉ sửa được thông tin của nhân viên đó với ID là "+idFromJWT);
 				}
 
 				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))

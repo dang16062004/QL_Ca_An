@@ -57,7 +57,7 @@
 //     });
 //   }
 // }
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { SharedService } from '../shared.service';
 import { Router } from '@angular/router';
 import { LoginRequest } from '../models/login-request.models';

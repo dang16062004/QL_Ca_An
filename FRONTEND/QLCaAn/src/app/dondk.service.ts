@@ -16,12 +16,13 @@ export class DondkService {
   layDSDK(): Observable<any[]> {
     return this.http.get<any[]>(this.APIUrl + '/DonDK/GetAll');
   }
-  xoaDK(id: any): Observable<any[]> {
-    const token = localStorage.getItem('token'); // hoặc từ AuthService
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete<any[]>(this.APIUrl + `/DonDK/Delete?iD_Don=${id}`, {
+  xoaDK(id: any): Observable<any> {
+    const token = localStorage.getItem('token'); //lấy ra JWT
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); //	Gắn JWT vào header
+    return this.http.delete<any>(this.APIUrl + `/DonDK/Delete?iD_Don=${id}`, {
+      //Gửi request xóa đến API
       headers,
-      responseType: 'text' as 'json',
+      responseType: 'text' as 'json', //	Ép Angular không lỗi khi backend trả chuỗi "Delete Success"
     });
   }
 }

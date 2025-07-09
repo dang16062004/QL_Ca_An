@@ -13,7 +13,7 @@ export class AppComponent {
   title = 'QLCaAn';
   name: any;
   ngOnInit() {
-    this.name = localStorage.getItem('HoVaTen');
+    // this.name = localStorage.getItem('HoVaTen');
   }
   logout(): void {
     localStorage.clear();

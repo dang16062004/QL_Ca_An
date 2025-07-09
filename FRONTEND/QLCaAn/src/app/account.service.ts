@@ -5,7 +5,7 @@ import { Observable, tap } from 'rxjs';
 import { LoginRespon } from './models/login-respon.models';
 import { LoginRequest } from './models/login-request.models';
 import { NonNullAssert } from '@angular/compiler';
-import { NhanVienDTO } from './nhan-vien/nhanvien-model';
+import { NhanVienDTO, UpNhanVienDTO } from './nhan-vien/nhanvien-model';
 import { jwtDecode } from 'jwt-decode';
 // Interface định nghĩa kiểu dữ liệu của payload sau khi decode token(decode token: giải mã token)
 export interface JwtPayload {
@@ -41,13 +41,13 @@ export class AccountService {
       { headers, responseType: 'text' as const }
     );
   }
-  editNhanVien(nv: NhanVienDTO): Observable<any> {
+
+  editNhanVien(nv: UpNhanVienDTO): Observable<any> {
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-    return this.http.put(`${this.APIUrl}/NhanVien/UpdateNhanVien`, nv, {
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.put(this.APIUrl + '/NhanVien/UpdateNhanVien', nv, {
       headers,
+      responseType: 'text' as 'json',
     });
   }
 }

@@ -32,7 +32,7 @@ export class suanvComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('idNhanVien') ?? '';
     //khai báo các tham số nhập vào
     this.form = this.fb.group({
-      ID_NhanVien: [id, Validators.required], // ← thêm control này
+      ID_NhanVien: [+id, Validators.required], // ← thêm control này
       HoVaTen: ['', Validators.required],
       NamSinh: ['', Validators.required],
       TenDangNhap: ['', Validators.required],
@@ -54,15 +54,16 @@ export class suanvComponent implements OnInit {
     if (this.form.invalid) return;
 
     const dto: UpNhanVienDTO = {
-      idNhanVien: this.form.value.ID_NhanVien,
-      hoVaTen: this.form.value.HoVaTen,
-      namSinh: this.form.value.NamSinh,
-      tenDangNhap: this.form.value.TenDangNhap,
-      matKhau: this.form.value.MatKhau,
-      id_Phong: this.form.value.ID_Phong,
-      phanQuyen: this.form.value.PhanQuyen,
-      qdk: this.form.value.QDK,
+      ID_NhanVien: +this.form.value.ID_NhanVien, // ép number
+      HoVaTen: this.form.value.HoVaTen,
+      NamSinh: this.form.value.NamSinh,
+      TenDangNhap: this.form.value.TenDangNhap,
+      MatKhau: this.form.value.MatKhau,
+      ID_Phong: String(this.form.value.ID_Phong), // ép string
+      PhanQuyen: this.form.value.PhanQuyen,
+      QDK: this.form.value.QDK,
     };
+
     this.as.editNhanVien(dto).subscribe({
       next: () => {
         alert('Sửa nhân viên thành công');

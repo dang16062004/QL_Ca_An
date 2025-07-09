@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DondkService } from '../../dondk.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../shared.service';
-import { Validator, Validators } from '@angular/forms';
-
+import { FormGroup, Validator, Validators } from '@angular/forms';
+import { DonCaNhanRequest } from '../dangki.model';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-themcanhan',
   standalone: false,
@@ -11,10 +12,11 @@ import { Validator, Validators } from '@angular/forms';
   styleUrl: './themcanhan.component.css',
 })
 export class ThemcanhanComponent implements OnInit {
-  form = {
-    CaAn: ['', Validators.required],
-    SoLuong: 1,
-  };
+  form = new FormGroup({
+    SoLuong: new FormControl('', Validators.required),
+    CaAn: new FormControl('', Validators.required),
+    LoaiDK: new FormControl('', Validators.required),
+  });
   hoVaTen: string = '';
 
   ngOnInit() {
@@ -35,18 +37,18 @@ export class ThemcanhanComponent implements OnInit {
   }
 
   dangKyDonCaNhan() {
-    const tenDangNhap = localStorage.getItem('HoVaTen');
-    if (!tenDangNhap) {
+    const HoVaTen = localStorage.getItem('HoVaTen');
+    if (!HoVaTen) {
       alert('Bạn chưa đăng nhập!');
       this.router.navigate(['']);
       return;
     }
 
-    const request = {
-      TenDangNhap: tenDangNhap,
-      LoaiDK: 'CANHAN',
-      CaAn: this.form.CaAn,
-      SoLuong: this.form.SoLuong,
+    const request: any = {
+      HoVaTen: HoVaTen,
+      LoaiDK: 'CaNhan',
+      CaAn: Number(this.form.value.CaAn),
+      SoLuong: Number(this.form.value.SoLuong),
     };
 
     this.dk.InsertOnly(request).subscribe(

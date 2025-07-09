@@ -66,6 +66,14 @@
       <td>{{ ds.TrangThai }}</td>
 
       <td class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          (click)="XacNhan(ds.ID_DonDK)"
+        >
+          Xác nhận
+          <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
+        </button>
         <button type="button" class="btn btn-primary mr-2">Sửa</button>
         <button class="btn btn-info mr-2">
           <svg

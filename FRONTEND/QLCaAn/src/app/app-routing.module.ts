@@ -31,13 +31,16 @@ const routes: Routes = [
   { path: 'baocao/theocanhan', component: TheocanhanComponent },
   { path: 'baocao/theoca', component: BaocaotheocaComponent },
   { path: 'baocao/theothang', component: BaocaotheothangComponent },
-  { path: 'dang-ki-ca-nhan', component: DSDKComponent },
+  { path: 'dang-ki-ca-nhan', component: DSDKComponent, children: [] },
   { path: 'themcanhan', component: ThemcanhanComponent },
   { path: 'dktapthe', component: ThemTapTheComponent },
   { path: 'dsTapThe', component: DstaptheComponent },
   { path: 'chitietdon/:id', component: ChiTietDonComponent },
 
-  { path: 'capnhat-don/:id', component: UpdateDonOnlyComponent },
+  {
+    path: 'capnhat-don/:iD_Don',
+    component: UpdateDonOnlyComponent,
+  },
   { path: 'capnhat-don-tapthe/:id', component: UpdateDonFullComponent },
   {
     path: 'nhanvien/createNhanVien',

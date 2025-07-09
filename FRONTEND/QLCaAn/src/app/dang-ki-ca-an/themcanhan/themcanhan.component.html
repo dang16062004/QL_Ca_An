@@ -3,10 +3,10 @@
   Nhân viên đang đăng nhập: <b>{{ name }}</b>
 </h5>
 
-<form (ngSubmit)="dangKyDonCaNhan()">
+<form (ngSubmit)="dangKyDonCaNhan()" [formGroup]="form">
   <div class="form-group">
     <label>Ca ăn</label>
-    <select class="form-control" [(ngModel)]="form.CaAn" name="caAn" required>
+    <select class="form-control" formControlName="CaAn" required>
       <option value="1">Ca 1</option>
       <option value="2">Ca 2</option>
       <option value="3">Ca 3</option>
@@ -18,7 +18,7 @@
     <input
       type="number"
       class="form-control"
-      [(ngModel)]="form.SoLuong"
+      formControlName="SoLuong"
       name="soLuong"
       min="1"
       required

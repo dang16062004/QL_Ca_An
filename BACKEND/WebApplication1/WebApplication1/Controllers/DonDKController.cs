@@ -447,7 +447,7 @@ namespace WebApplication1.Controllers
 
 		[Route("ChiTietDon")]
 		[HttpGet]
-		[Authorize]
+		
 		public JsonResult LayChiTietDonTheoID(int idDon)
 		{
 			try
@@ -471,7 +471,7 @@ namespace WebApplication1.Controllers
 				if (loaiDK.Trim().ToUpper() == "CANHAN")
 				{
 					string query = @"
-				SELECT d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, ct.TrangThai
+				SELECT d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, d.TrangThai
 				FROM DonDK d
 				JOIN ChiTietDonDK ct ON d.ID_DonDK = ct.ID_DonDK
 				JOIN NhanVien nv ON nv.ID_NhanVien = d.ID_NhanVien
@@ -498,7 +498,7 @@ namespace WebApplication1.Controllers
 				else if (loaiDK.Trim().ToUpper() == "TAPTHE")
 				{
 					string query = @"
-					SELECT ct.ID_NhanVien, d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, ct.TrangThai
+					SELECT ct.ID_NhanVien, d.ID_DonDK, d.NgayDK, d.CaAn, nv.HoVaTen, ct.SoLuong, d.TrangThai
 					FROM DonDK d
 					JOIN ChiTietDonDK ct ON d.ID_DonDK = ct.ID_DonDK
 					JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
@@ -921,6 +921,9 @@ namespace WebApplication1.Controllers
 						{
 							return BadRequest("Đây không là nhân viên đã tạo ra đơn này");
 						}
+						//Lấy thời gian đăng kí so với hạn xem có quá hạn sửa hay không???
+
+
 						//sửa trạng thái từ wait -> complete
 						string queryChange = @"update DonDK set TrangThai= @TrangThai where ID_DonDK = @ID_DonDK";
 						using (SqlCommand commandChange = new SqlCommand(queryChange, connection, transaction))

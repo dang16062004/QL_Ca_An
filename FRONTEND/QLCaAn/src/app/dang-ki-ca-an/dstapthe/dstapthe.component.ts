@@ -43,4 +43,17 @@ export class DstaptheComponent {
       });
     }
   }
+  XacNhan(ma: any) {
+    this.dk.KhoaDon(ma).subscribe({
+      next: (msg) => {
+        alert(msg);
+        alert('Đã khóa đơn');
+        this.loadDSDK();
+      },
+      error: (err) => {
+        console.log(err.toString());
+        alert('Lỗi');
+      },
+    });
+  }
 }

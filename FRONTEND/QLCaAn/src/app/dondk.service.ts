@@ -26,12 +26,43 @@ export class DondkService {
       responseType: 'text' as 'json', //	Ép Angular không lỗi khi backend trả chuỗi "Delete Success"
     });
   }
-  InsertOnly(don: any): Observable<any> {
+  InsertOnly(don: DonCaNhanRequest): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
     return this.http.post<any>(this.APIUrl + '/DonDK/InsertOnly', don, {
       headers,
       responseType: 'text' as 'json',
     });
+  }
+
+  KhoaDon(don: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.put<any>(
+      this.APIUrl + `/DonDK/CheckedDon?iD_Don=${don}`,
+      null,
+      {
+        headers,
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+  UpdateDonOnly(don: DonCaNhanRequest, iD_Don: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.post<any>(
+      this.APIUrl + `/DonDK/UpdateDonOnly?iD=${iD_Don}`,
+      don,
+      {
+        headers,
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+
+  LayChiTietDonTheoID(idDon: number): Observable<any> {
+    return this.http.get<any[]>(
+      this.APIUrl + `/DonDK/ChiTietDon?idDon=${idDon}`
+    );
   }
 }

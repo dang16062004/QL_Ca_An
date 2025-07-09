@@ -112,7 +112,7 @@ export class UpdateDonFullComponent implements OnInit {
   ngOnInit(): void {
     this.idDon = this.route.snapshot.paramMap.get('id') || '';
 
-    const username = localStorage.getItem('tenDangNhap');
+    const username = localStorage.getItem('HoVaTen');
 
     // ✅ Kiểm tra kỹ để tránh giá trị "undefined" chuỗi
     if (!username || username === 'undefined') {

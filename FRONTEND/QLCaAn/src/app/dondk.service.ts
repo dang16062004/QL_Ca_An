@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DonCaNhanRequest } from './dang-ki-ca-an/dangki.model';
 export interface JwtPayload {
   // Claim "role" có thể là chuỗi hoặc mảng chuỗi (ví dụ: "Admin" hoặc ["Admin", "User"])
   'http://schemas.microsoft.com/ws/2008/06/identity/claims/role':
@@ -23,6 +24,14 @@ export class DondkService {
       //Gửi request xóa đến API
       headers,
       responseType: 'text' as 'json', //	Ép Angular không lỗi khi backend trả chuỗi "Delete Success"
+    });
+  }
+  InsertOnly(don: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.post<any>(this.APIUrl + '/DonDK/InsertOnly', don, {
+      headers,
+      responseType: 'text' as 'json',
     });
   }
 }

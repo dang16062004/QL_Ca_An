@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../../shared.service';
+import { DondkService } from '../../dondk.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../../shared.service';
+import { Validator, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-themcanhan',
@@ -10,38 +12,33 @@ import { Router } from '@angular/router';
 })
 export class ThemcanhanComponent implements OnInit {
   form = {
-    CaAn: '',
+    CaAn: ['', Validators.required],
     SoLuong: 1,
   };
   hoVaTen: string = '';
 
   ngOnInit() {
-    const tenDangNhap = localStorage.getItem('tenDangNhap');
+    const tenDangNhap = localStorage.getItem('HoVaTen');
     if (!tenDangNhap) {
       alert('Bạn chưa đăng nhập!');
       this.router.navigate(['/login']);
       return;
     }
-
-    this.service.layNhanVienTheoTenDangNhap(tenDangNhap).subscribe(
-      (res) => {
-        this.hoVaTen = res['HoVaTen'];
-        console.log('Lấy thông tin với username:', tenDangNhap);
-        this.name = tenDangNhap;
-      },
-      (err) => {
-        console.error('Lỗi lấy tên nhân viên:', err);
-      }
-    );
   }
   name: any;
-  constructor(private service: SharedService, private router: Router) {}
+  constructor(
+    private service: SharedService,
+    private router: Router,
+    private dk: DondkService
+  ) {
+    this.name = localStorage.getItem('HoVaTen');
+  }
 
   dangKyDonCaNhan() {
-    const tenDangNhap = localStorage.getItem('tenDangNhap');
+    const tenDangNhap = localStorage.getItem('HoVaTen');
     if (!tenDangNhap) {
       alert('Bạn chưa đăng nhập!');
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
       return;
     }
 
@@ -52,15 +49,15 @@ export class ThemcanhanComponent implements OnInit {
       SoLuong: this.form.SoLuong,
     };
 
-    // this.service.dangKyDonCaNhan(request).subscribe(
-    //   (res: any) => {
-    //     alert(res);
-    //     this.router.navigate(['/dang-ki-ca-nhan']); // quay lại danh sách sau khi thêm
-    //   },
-    //   (err: any) => {
-    //     console.error('Lỗi đăng ký:', err);
-    //     alert('Không thể thêm đơn');
-    //   }
-    // );
+    this.dk.InsertOnly(request).subscribe(
+      (res: any) => {
+        alert(res);
+        this.router.navigate(['/dang-ki-ca-nhan']); // quay lại danh sách sau khi thêm
+      },
+      (err: any) => {
+        console.error('Lỗi đăng ký:', err);
+        alert('Không thể thêm đơn');
+      }
+    );
   }
 }

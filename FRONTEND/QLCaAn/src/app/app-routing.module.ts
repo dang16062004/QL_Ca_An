@@ -11,7 +11,7 @@ import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.compon
 import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 import { DSDKComponent } from './dang-ki-ca-an/dsdk/dsdk.component';
 import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.component';
-import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
+import { ThemTapTheComponent } from './dang-ki-ca-an/create_tapthe/tapthe.component';
 import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
 import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
 import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';
@@ -41,7 +41,7 @@ const routes: Routes = [
     path: 'capnhat-don/:iD_Don',
     component: UpdateDonOnlyComponent,
   },
-  { path: 'capnhat-don-tapthe/:id', component: UpdateDonFullComponent },
+  { path: 'capnhat-don-tapthe/:iD_Don', component: UpdateDonFullComponent },
   {
     path: 'nhanvien/createNhanVien',
     component: CreateNhanVienComponent,

@@ -74,7 +74,13 @@
           Xác nhận
           <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
         </button>
-        <button type="button" class="btn btn-primary mr-2">Sửa</button>
+        <button
+          type="button"
+          class="btn btn-primary mr-2"
+          [routerLink]="['/capnhat-don-tapthe', ds.ID_DonDK]"
+        >
+          Sửa
+        </button>
         <button
           class="btn btn-info mr-2"
           [routerLink]="['/chitietdon', ds.ID_DonDK]"

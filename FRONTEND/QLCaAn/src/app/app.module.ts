@@ -24,7 +24,7 @@ import { TheocanhanComponent } from './baocao/theocanhan/theocanhan.component';
 import { BaocaotheocaComponent } from './baocao/baocaotheoca/baocaotheoca.component';
 import { BaocaotheothangComponent } from './baocao/baocaotheothang/baocaotheothang.component';
 import { ThemcanhanComponent } from './dang-ki-ca-an/themcanhan/themcanhan.component';
-import { ThemTapTheComponent } from './dang-ki-ca-an/tapthe/tapthe.component';
+import { ThemTapTheComponent } from './dang-ki-ca-an/create_tapthe/tapthe.component';
 import { DstaptheComponent } from './dang-ki-ca-an/dstapthe/dstapthe.component';
 import { ChiTietDonComponent } from './dang-ki-ca-an/chi-tiet-don/chi-tiet-don.component';
 import { UpdateDonOnlyComponent } from './dang-ki-ca-an/update-don-only/update-don-only.component';

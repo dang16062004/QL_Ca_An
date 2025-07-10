@@ -53,7 +53,7 @@ export class DSDKComponent {
       },
       error: (err) => {
         console.log(err.toString());
-        alert('Lỗi');
+        alert('Lỗi: Bạn không phải là người đăng kí ca này');
       },
     });
   }

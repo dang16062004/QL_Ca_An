@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DonCaNhanRequest } from './dang-ki-ca-an/dangki.model';
+import { DonFullRequest } from './dang-ki-ca-an/dangki.model';
 export interface JwtPayload {
   // Claim "role" có thể là chuỗi hoặc mảng chuỗi (ví dụ: "Admin" hoặc ["Admin", "User"])
   'http://schemas.microsoft.com/ws/2008/06/identity/claims/role':
@@ -34,7 +35,14 @@ export class DondkService {
       responseType: 'text' as 'json',
     });
   }
-
+  InsertFull(don: DonFullRequest): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post<any[]>(this.APIUrl + '/DonDK/InsertFull', don, {
+      headers,
+      responseType: 'text' as 'json',
+    });
+  }
   KhoaDon(don: any): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
@@ -59,10 +67,30 @@ export class DondkService {
       }
     );
   }
+  UpdateFull(don: DonFullRequest, idDon: number): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.put<any>(
+      this.APIUrl + `/DonDK/UpdateFull?iD= ${idDon}`,
+      don,
+      {
+        headers,
+        responseType: 'text' as 'json',
+      }
+    );
+  }
 
   LayChiTietDonTheoID(idDon: number): Observable<any> {
     return this.http.get<any[]>(
-      this.APIUrl + `/DonDK/ChiTietDon?idDon=${idDon}`
+      this.APIUrl + `/DonDK/ChiTietDon?idDon= ${idDon}`
+    );
+  }
+  LayThongTinNhanVien(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.get<any[]>(
+      `${this.APIUrl}/NhanVien/LayThongTinTapThe`,
+      { headers } // ← PHẢI truyền vào đây
     );
   }
 }

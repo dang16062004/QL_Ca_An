@@ -6,15 +6,14 @@ import { SharedService } from '../../shared.service';
 import { DondkService } from '../../dondk.service';
 import { DonFullRequest } from '../dangki.model';
 import { NgModel } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-update-don-full',
+  selector: 'app-tapthe',
   standalone: false,
-  templateUrl: './update-don-full.component.html',
-  styleUrl: './update-don-full.component.css',
+  templateUrl: './tapthe.component.html',
+  styleUrls: ['./tapthe.component.css'],
 })
-export class UpdateDonFullComponent implements OnInit {
+export class ThemTapTheComponent implements OnInit {
   hoVaTen = '';
   danhSachNhanVienCungPhong: any[] = [];
 
@@ -29,12 +28,10 @@ export class UpdateDonFullComponent implements OnInit {
     private fb: FormBuilder,
     private service: SharedService,
     private dk: DondkService,
-    private router: Router,
-    private ra: ActivatedRoute
+    private router: Router
   ) {}
-  idDon: string = '';
+
   ngOnInit(): void {
-    this.idDon = this.ra.snapshot.paramMap.get('iD_Don') || '';
     this.hoVaTen = localStorage.getItem('HoVaTen') ?? '';
     const idNhanVienLogin = localStorage.getItem('ID_NhanVien');
     if (!idNhanVienLogin) {
@@ -74,9 +71,9 @@ export class UpdateDonFullComponent implements OnInit {
   }
 
   /** Gửi request đăng ký */
-  Sua(): void {
+  dangKy(): void {
     if (this.form.invalid) return;
-    console.log(this.idDon);
+
     /* Lọc những NV được tick Selected */
     const chiTiet = this.listChiTiet.value
       .filter((ct: any) => ct.Selected)
@@ -98,7 +95,7 @@ export class UpdateDonFullComponent implements OnInit {
       listChiTiet: chiTiet,
     };
 
-    this.dk.UpdateFull(request, Number(this.idDon)).subscribe(
+    this.dk.InsertFull(request).subscribe(
       (res) => {
         alert(res);
         this.router.navigate(['/dsTapThe']);

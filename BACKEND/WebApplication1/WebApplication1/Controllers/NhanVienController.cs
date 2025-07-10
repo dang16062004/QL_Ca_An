@@ -394,6 +394,77 @@ namespace WebApplication1.Controllers
 			}
 		}
 
+		[Route("LayThongTinTapThe")]
+		[HttpGet]
+		[Authorize(Roles = "User, Admin")]
+		public IActionResult LayThongTinTapThe()
+		{
+			try
+			{
+				//Table Database  để chứa danh sách nhân viên trong cùng 1 phòng ban
+
+				DataTable data	= new DataTable();
+				SqlDataReader reader;
+				int? IDNhanVien = GetIDFromJWT();
+				if (IDNhanVien == null) {
+					return BadRequest("không lấy được ID của nhân viên này");
+				};
+
+				
+				using (SqlConnection connection = new SqlConnection(_configuration.GetConnectionString("QLCaAn")))
+				{
+					connection.Open();
+					using (SqlTransaction transaction = connection.BeginTransaction())
+					{
+						//Lấy ID phòng của nhân viên này
+						string ID_Phong = "";
+						string queryIDPhong = @"select ID_Phong from NhanVien where ID_NhanVien = @ID";
+						using (SqlCommand commandIDPhong = new SqlCommand(queryIDPhong, connection, transaction))
+						{
+							commandIDPhong.Parameters.AddWithValue(@"ID", IDNhanVien);
+							Object result = commandIDPhong.ExecuteScalar();
+
+							if (result == null)
+							{
+								return BadRequest("Không lấy được thông tin phòng của nhân viên này");
+							}
+							ID_Phong = result.ToString();
+
+						}
+
+						//Lấy danh sách nhân viên trong phòng ban này
+						string dsNhanVientheoPhong = @"select * from NhanVien where ID_Phong = @ID";
+						using(SqlCommand commandNhanVien = new SqlCommand(dsNhanVientheoPhong, connection, transaction))
+						{
+							commandNhanVien.Parameters.AddWithValue("@ID",ID_Phong);
+							reader = commandNhanVien.ExecuteReader();
+							if (reader == null)
+							{
+								return BadRequest("không có ds nhân viên của phòng này");
+							}
+
+							data.Load(reader);
+
+						}
+
+
+
+							transaction.Commit();
+					}
+				};
+
+
+				return Ok(data);
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ex.Message);
+			}
+			catch (Exception ex)
+			{ return BadRequest(ex.Message); }
+
+		}
+
 
 	}
 }

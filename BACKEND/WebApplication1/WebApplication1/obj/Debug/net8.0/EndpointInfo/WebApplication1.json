@@ -611,6 +611,18 @@
         }
       }
     },
+    "/api/NhanVien/LayThongTinTapThe": {
+      "get": {
+        "tags": [
+          "NhanVien"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/PhongBan/GetAll": {
       "get": {
         "tags": [

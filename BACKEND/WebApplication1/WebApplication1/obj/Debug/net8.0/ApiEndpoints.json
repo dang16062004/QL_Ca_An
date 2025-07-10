@@ -323,6 +323,16 @@
   },
   {
     "ContainingType": "WebApplication1.Controllers.NhanVienController",
+    "Method": "LayThongTinTapThe",
+    "RelativePath": "api/NhanVien/LayThongTinTapThe",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApplication1.Controllers.NhanVienController",
     "Method": "UpdateNhanVien",
     "RelativePath": "api/NhanVien/UpdateNhanVien",
     "HttpMethod": "PUT",

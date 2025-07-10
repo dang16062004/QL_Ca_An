@@ -401,7 +401,7 @@ namespace WebApplication1.Controllers
 							{
 								commandPhong.Parameters.AddWithValue("@ID_NhanVien", ct.ID_NhanVien);
 
-								object result = commandPhong.ExecuteScalar();
+								Object result = commandPhong.ExecuteScalar();
 								if (result == null)
 								{
 									return BadRequest("không có phòng abn nào có nhân viên có id là " + ct.ID_NhanVien);
@@ -614,6 +614,7 @@ namespace WebApplication1.Controllers
 							WHERE ID_NhanVien = @ID_NhanVien 
 							  AND LoaiDK = @LoaiDK 
 							  AND CaAn = @CaAn 
+								AND ID_DONDK = @ID
 							  AND CONVERT(date, NgayDK) = CONVERT(date, GETDATE())";
 
 						using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection, transaction))
@@ -621,12 +622,13 @@ namespace WebApplication1.Controllers
 							checkCommand.Parameters.AddWithValue("@ID_NhanVien", id_NhanVien);
 							checkCommand.Parameters.AddWithValue("@LoaiDK", request.LoaiDK);
 							checkCommand.Parameters.AddWithValue("@CaAn", request.CaAn);
+							checkCommand.Parameters.AddWithValue("@ID",iD);
 
 							int count = (int)checkCommand.ExecuteScalar();
-							if (count > 1)
+							if (count < 0||count>1)
 							{
 								transaction.Rollback(); // rollback nếu dùng transaction
-								return BadRequest("Bạn đã đặt đơn cho ca này trong ngày hôm nay.");
+								return BadRequest("Đơn của ca này không tồn tại / sai trong ngày hôm nay.");
 							}
 						}
 
@@ -776,6 +778,7 @@ namespace WebApplication1.Controllers
 							WHERE ID_NhanVien = @ID_NhanVien 
 							  AND LoaiDK = @LoaiDK 
 							  AND CaAn = @CaAn 
+							  AND ID_DonDK = @ID 
 							  AND CONVERT(date, NgayDK) = CONVERT(date, GETDATE())";
 
 						using (SqlCommand checkCommand = new SqlCommand(checkQuery, connection, transaction))
@@ -783,12 +786,13 @@ namespace WebApplication1.Controllers
 							checkCommand.Parameters.AddWithValue("@ID_NhanVien", id_NVFromJWT);
 							checkCommand.Parameters.AddWithValue("@LoaiDK", request.donDK.LoaiDK);
 							checkCommand.Parameters.AddWithValue("@CaAn", request.donDK.CaAn);
+							checkCommand.Parameters.AddWithValue("@ID", iD);
 
 							int count = (int)checkCommand.ExecuteScalar();
-							if (count > 0)
+							if (count > 1||count<0)
 							{
 								transaction.Rollback(); // rollback nếu dùng transaction
-								return BadRequest("Bạn đã đặt đơn cho ca này trong ngày hôm nay.");
+								return BadRequest("Đơn này không tồn tại /sai cho ca này trong ngày hôm nay.");
 							}
 						}
 

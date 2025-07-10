@@ -251,7 +251,7 @@ namespace WebApplication1.Controllers
 				SUM(ct.SoLuong) * 15000 AS ThanhTien
 				FROM ChiTietDonDK ct
 				JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
-				JOIN NhanVien nv ON nv.ID_NhanVien = dk.ID_NhanVien
+				JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
 				join PhongBan pb on pb.ID_Phong=nv.ID_Phong
 				WHERE CONVERT(DATE, dk.NgayDK) = @NgayDK AND dk.CaAn = @CaAn
 				GROUP BY nv.HoVaTen, ct.ID_NhanVien,pb.TenPhong;";
@@ -303,7 +303,7 @@ namespace WebApplication1.Controllers
 				SUM(ct.SoLuong) * 15000 AS ThanhTien
 				FROM ChiTietDonDK ct
 				JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
-				JOIN NhanVien nv ON nv.ID_NhanVien = dk.ID_NhanVien
+				JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
 				join PhongBan pb on pb.ID_Phong=nv.ID_Phong
 				WHERE MONTH(dk.NgayDK) = MONTH(@NgayDK)
 				 AND YEAR(dk.NgayDK) = YEAR(@NgayDK)

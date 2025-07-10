@@ -47,10 +47,10 @@ export class DondkService {
       }
     );
   }
-  UpdateDonOnly(don: DonCaNhanRequest, iD_Don: any): Observable<any> {
+  UpdateDonOnly(don: DonCaNhanRequest, iD_Don: number): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
-    return this.http.post<any>(
+    return this.http.put<any>(
       this.APIUrl + `/DonDK/UpdateDonOnly?iD=${iD_Don}`,
       don,
       {

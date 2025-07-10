@@ -123,22 +123,22 @@ export class UpdateDonFullComponent implements OnInit {
 
     this.tenDangNhap = username.trim();
     this.name = username;
-    this.loadChiTietDon();
+    // this.loadChiTietDon();
   }
 
-  loadChiTietDon() {
-    this.service.layChiTietDon(this.idDon).subscribe({
-      next: (res) => {
-        console.log('✅ Chi tiết trả về:', res);
-        this.listChiTiet = res.DanhSachChiTiet || [];
-        this.donDK.CaAn = this.listChiTiet[0]?.CaAn ?? 1;
-      },
-      error: (err) => {
-        console.error('❌ Lỗi khi tải chi tiết đơn:', err);
-        alert('❌ Lỗi khi tải chi tiết đơn: ' + err.error);
-      },
-    });
-  }
+  // loadChiTietDon() {
+  //   this.service.layChiTietDon(this.idDon).subscribe({
+  //     next: (res) => {
+  //       console.log('✅ Chi tiết trả về:', res);
+  //       this.listChiTiet = res.DanhSachChiTiet || [];
+  //       this.donDK.CaAn = this.listChiTiet[0]?.CaAn ?? 1;
+  //     },
+  //     error: (err) => {
+  //       console.error('❌ Lỗi khi tải chi tiết đơn:', err);
+  //       alert('❌ Lỗi khi tải chi tiết đơn: ' + err.error);
+  //     },
+  //   });
+  // }
 
   // capNhatDonTapThe() {
   //   const requestBody = {

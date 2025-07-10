@@ -62,19 +62,6 @@ export class SharedService {
       this.APIUrl + '/NhanVien/LayThongTinTapThe/' + tenDangNhap
     );
   }
-  layChiTietDon(idDon: string): Observable<any> {
-    return this.http.get<any>(`${this.APIUrl}/DonDK/ChiTietDon?idDon=${idDon}`);
-  }
-  // capNhatDonCaNhan(idDon: string, donCaNhan: any) {
-  //   const url = `${this.APIUrl}/DonDK/UpdateDonOnly?iD=${idDon}`;
-  //   return this.http.put(url, donCaNhan);
-  // }
-  // capNhatDonTapThe(idDon: string, body: any) {
-  //   return this.http.put(
-  //     `${this.APIUrl}/DonDK/UpdateFull?Id_DonDK=${idDon}`,
-  //     body
-  //   );
-  // }
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);

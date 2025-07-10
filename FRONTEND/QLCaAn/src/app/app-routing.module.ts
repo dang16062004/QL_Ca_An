@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'baocao/theocanhan', component: TheocanhanComponent },
   { path: 'baocao/theoca', component: BaocaotheocaComponent },
   { path: 'baocao/theothang', component: BaocaotheothangComponent },
-  { path: 'dang-ki-ca-nhan', component: DSDKComponent, children: [] },
+  { path: 'dang-ki-ca-nhan', component: DSDKComponent },
   { path: 'themcanhan', component: ThemcanhanComponent },
   { path: 'dktapthe', component: ThemTapTheComponent },
   { path: 'dsTapThe', component: DstaptheComponent },

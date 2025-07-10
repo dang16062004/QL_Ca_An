@@ -1,17 +1,12 @@
 <h3>Cập nhật Đơn Cá Nhân</h3>
-<form #form="ngForm" (ngSubmit)="capNhatDon()">
+<form [formGroup]="donCaNhan" (ngSubmit)="capNhatDon()">
   <td>
     Họ tên của người đăng kí ca này :
-    <h2>{{ thongTinDon.HoVaTen }}</h2>
+    <!-- {{ thongTinDon.HoVaTen }} -->
   </td>
   <div class="form-group">
     <label>Ca ăn :</label>
-    <select
-      class="form-control"
-      [(ngModel)]="thongTinDon.CaAn"
-      name="CaAn"
-      required
-    >
+    <select class="form-control" formControlName="CaAn" name="CaAn" required>
       <option [value]="1">Ca 1 (trước 9h)</option>
       <option [value]="2">Ca 2 (trước 15h)</option>
       <option [value]="3">Ca 3 (trước 21h)</option>
@@ -23,7 +18,7 @@
     <input
       type="number"
       class="form-control"
-      [(ngModel)]="thongTinDon.SoLuong"
+      formControlName="SoLuong"
       name="SoLuong"
       required
     />
@@ -34,7 +29,6 @@
     <input
       type="text"
       class="form-control"
-      [(ngModel)]="thongTinDon.LoaiDK"
       name="LoaiDK"
       value="CANHAN"
       disabled

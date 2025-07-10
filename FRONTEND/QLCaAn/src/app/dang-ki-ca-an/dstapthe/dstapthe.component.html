@@ -75,7 +75,10 @@
           <!-- PBan<tr *ngFor="let PBan of DSPhongBan "></tr> -->
         </button>
         <button type="button" class="btn btn-primary mr-2">Sửa</button>
-        <button class="btn btn-info mr-2">
+        <button
+          class="btn btn-info mr-2"
+          [routerLink]="['/chitietdon', ds.ID_DonDK]"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

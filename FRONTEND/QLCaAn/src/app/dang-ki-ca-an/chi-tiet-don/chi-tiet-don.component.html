@@ -1,19 +1,20 @@
 <h3>Chi Tiết Đơn Đăng Ký</h3>
 
-<div *ngIf="thongTin">
-  <p><b>Loại đơn:</b> {{ thongTin.LoaiDK }}</p>
+<div *ngIf="thongTinDon">
+  <p><b>Loại đơn:</b> {{ thongTinDon.LoaiDK }}</p>
 
   <!-- Chi tiết đơn cá nhân -->
-  <div *ngIf="thongTin.LoaiDK === 'CANHAN'">
-    <p><b>Họ và tên:</b> {{ thongTin.HoVaTen }}</p>
-    <p><b>Ngày đăng ký:</b> {{ thongTin.NgayDK }}</p>
-    <p><b>Ca ăn:</b> Ca {{ thongTin.CaAn }}</p>
-    <p><b>Số lượng:</b> {{ thongTin.SoLuong }}</p>
-    <p><b>Trạng thái:</b> {{ thongTin.TrangThai }}</p>
+  <div *ngIf="thongTinDon.LoaiDK.toUpperCase() === 'CANHAN'">
+    <p><b>ID Đơn:</b> {{ thongTinDon.ID_DonDK }}</p>
+    <p><b>Họ và tên:</b> {{ thongTinDon.HoVaTen }}</p>
+    <p><b>Ngày đăng ký:</b> {{ thongTinDon.NgayDK }}</p>
+    <p><b>Ca ăn:</b> Ca {{ thongTinDon.CaAn }}</p>
+    <p><b>Số lượng:</b> {{ thongTinDon.SoLuong }}</p>
+    <p><b>Trạng thái:</b> {{ thongTinDon.TrangThai }}</p>
   </div>
 
   <!-- Chi tiết đơn tập thể -->
-  <div *ngIf="thongTin.LoaiDK === 'TAPTHE'">
+  <div *ngIf="thongTinDon.LoaiDK.toUpperCase() === 'TAPTHE'">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -25,7 +26,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of thongTin.DanhSachChiTiet">
+        <tr *ngFor="let item of thongTinDon.DanhSachChiTiet">
           <td>{{ item.HoVaTen }}</td>
           <td>{{ item.NgayDK | date : "dd/MM/yyyy" }}</td>
           <td>Ca {{ item.CaAn }}</td>
@@ -37,6 +38,7 @@
   </div>
 </div>
 
-<div *ngIf="!thongTin">
+<div *ngIf="!thongTinDon">
   <p class="text-danger">Không có dữ liệu để hiển thị.</p>
 </div>
+<button (click)="BackToDS()">Back to Danh sách</button>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
 import { DondkService } from '../../dondk.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dsdk',
@@ -12,10 +13,19 @@ import { DondkService } from '../../dondk.service';
 export class DSDKComponent {
   dsdkList: any[] = [];
 
-  constructor(private dk: DondkService) {
+  constructor(private dk: DondkService, private router: Router) {
     this.loadDSDK();
   }
-
+  id = localStorage.getItem('ID_NhanVien');
+  ngOnInit() {
+    if (!this.id) {
+      alert('Bạn chưa đăng nhập!');
+      this.router.navigate(['']);
+      return;
+    } else {
+      this.loadDSDK();
+    }
+  }
   loadDSDK() {
     this.dk.layDSDK().subscribe(
       (data) => {

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { AccountService } from '../../account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dsnhan-vien',
@@ -15,9 +16,15 @@ export class DSNhanVienComponent {
   tieuDe: string = '';
   isEdit: boolean = false;
 
-  constructor(private service: AccountService) {}
+  constructor(private service: AccountService, private router: Router) {}
 
+  id = localStorage.getItem('ID_NhanVien');
   ngOnInit(): void {
+    if (!this.id) {
+      alert('Bạn chưa đăng nhập!');
+      this.router.navigate(['']);
+      return;
+    }
     this.LoadDsNhanVien();
   }
 

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedService } from '../../shared.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-danhsachphongban',
@@ -15,8 +16,14 @@ export class DanhsachphongbanComponent {
   tieuDe: any;
   checked: boolean = false;
 
-  constructor(private service: SharedService) {}
+  id = localStorage.getItem('ID_NhanVien');
+  constructor(private service: SharedService, private router: Router) {}
   ngOnInit(): void {
+    if (!this.id) {
+      alert('Bạn chưa đăng nhập!');
+      this.router.navigate(['']);
+      return;
+    }
     this.LoadDsPhongBan();
   }
   LoadDsPhongBan() {
@@ -46,20 +53,4 @@ export class DanhsachphongbanComponent {
     this.tieuDe = 'Thêm Phòng Ban'; // Cập nhật tiêu đề
     this.LoadDsPhongBan();
   }
-  // xoaPhongBancu(ma: string) {
-  //   if (!confirm('Bạn có muốn xóa phòng ban này không?')) return;
-
-  //   this.service.xoaPhongBan(ma).subscribe({
-  //     next: (res) => {
-  //       alert(res.message);
-  //       if (res.success) {
-  //         this.LoadDsPhongBan();
-  //       }
-  //     },
-  //     error: (err) => {
-  //       console.error(err);
-  //       alert('Lỗi khi xóa: ' + (err.error?.message || err.statusText));
-  //     },
-  //   });
-  // }
 }

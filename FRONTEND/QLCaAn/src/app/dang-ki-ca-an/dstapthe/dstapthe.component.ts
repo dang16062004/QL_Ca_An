@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SharedService } from '../../shared.service';
 import { FormsModule } from '@angular/forms';
 import { DondkService } from '../../dondk.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dstapthe',
@@ -11,9 +12,17 @@ import { DondkService } from '../../dondk.service';
 })
 export class DstaptheComponent {
   dsdkList: any[] = [];
+  id = localStorage.getItem('ID_NhanVien');
+  constructor(private dk: DondkService, private router: Router) {}
 
-  constructor(private dk: DondkService) {
-    this.loadDSDK();
+  ngOnInit() {
+    if (!this.id) {
+      alert('Bạn chưa đăng nhập!');
+      this.router.navigate(['']);
+      return;
+    } else {
+      this.loadDSDK();
+    }
   }
 
   loadDSDK() {

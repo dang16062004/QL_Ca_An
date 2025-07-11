@@ -192,6 +192,11 @@ namespace WebApplication1.Controllers
 		{
 			try
 			{
+				// Kiểm tra nếu tên không hợp lệ (rỗng, null hoặc chỉ chứa khoảng trắng)
+				if (string.IsNullOrWhiteSpace(name) || name.Trim().Split(' ').Length < 2)
+				{
+					return new JsonResult("Vui lòng nhập đầy đủ họ và tên!");
+				}
 				DataTable dataTable = new DataTable();
 				string dataSource = _configuration.GetConnectionString("QLCaAn");
 
@@ -205,7 +210,7 @@ namespace WebApplication1.Controllers
 			JOIN NhanVien nv ON nv.ID_NhanVien = ct.ID_NhanVien
 			JOIN DonDK dk ON dk.ID_DonDK = ct.ID_DonDK
 			JOIN PhongBan pb ON pb.ID_Phong = nv.ID_Phong
-			WHERE nv.HoVaTen LIKE '%' + @name + '%'
+			WHERE nv.HoVaTen = @name
 			  and pb.ID_Phong = @maphongban
 			GROUP BY CONVERT(DATE, dk.NgayDK)
 			ORDER BY Ngay";
@@ -316,7 +321,7 @@ namespace WebApplication1.Controllers
 					using (SqlCommand sqlCommand = new SqlCommand(query, sqlConnection))
 					{
 						sqlCommand.Parameters.AddWithValue("@NgayDK", date);
-						
+
 
 						using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
 						{

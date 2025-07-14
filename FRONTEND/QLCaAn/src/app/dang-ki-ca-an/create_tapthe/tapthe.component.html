@@ -1,6 +1,13 @@
 <form [formGroup]="form" (ngSubmit)="dangKy()">
   <label>Ca ăn:</label>
-  <select formControlName="CaAn" required>
+  <select
+    formControlName="CaAn"
+    required
+    form-control
+    ng-untouched
+    ng-pristine
+    ng-invalid
+  >
     <option value="1">Ca 1</option>
     <option value="2">Ca 2</option>
     <option value="3">Ca 3</option>

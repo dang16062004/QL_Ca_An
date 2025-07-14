@@ -1023,10 +1023,10 @@ namespace WebApplication1.Controllers
 						}
 
 						//Xóa ChiTiet
-						string queryDeleteCT = @"delete from ChiTietDonDK where ID_ChiTietDonDK=@ID_ChiTietDonDK";
+						string queryDeleteCT = @"delete from ChiTietDonDK where ID_DonDK=@ID_DonDK";
 						using (SqlCommand commandDeleteCT = new SqlCommand(queryDeleteCT, connection, transaction))
 						{
-							commandDeleteCT.Parameters.AddWithValue("@ID_ChiTietDonDK", ID_ChiTiet);
+							commandDeleteCT.Parameters.AddWithValue("@ID_DonDK", iD_Don);
 							commandDeleteCT.ExecuteNonQuery();
 						}
 						//Xóa DonDK
